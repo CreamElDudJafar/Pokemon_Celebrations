@@ -141,6 +141,12 @@ GameCornerClerk1Text:
 	text_asm
 	; Show player's coins
 	call GameCornerDrawCoinBox
+	ld a, [wSpritePlayerStateData1FacingDirection]
+	cp SPRITE_FACING_LEFT
+	jr nz, .normal
+	CheckEvent EVENT_BEAT_ERIKA
+	jr nz, .secretbargain
+.normal
 	ld hl, .DoYouNeedSomeGameCoins
 	call PrintText
 	call YesNoChoice
@@ -201,13 +207,70 @@ GameCornerClerk1Text:
 .print_ret
 	call PrintText
 	jp TextScriptEnd
+.secretbargain
+	ld hl, .DoYouNeedSomeGameCoins2
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .declined
+	ld b, COIN_CASE
+	call IsItemInBag
+	jr z, .no_coin_case
+	call Has9990Coins
+	jr nc, .coin_case_full
+	xor a
+	ld a, $01
+	ldh [hMoney], a
+	ldh [hMoney + 2], a
+	ld a, $00
+	ldh [hMoney + 1], a
+	call HasEnoughMoney
+	jr nc, .buy_secret_coins
+	ld hl, .CantAffordTheCoins
+	jr .print_ret
+.buy_secret_coins
+	xor a
+	ldh [hMoney], a
+	ldh [hMoney + 2], a
+	ld a, $00
+	ldh [hMoney + 1], a
+	ld a, $01
+	ldh [hMoney + 0], a
+	ld hl, hMoney + 2
+	ld de, wPlayerMoney + 2
+	ld c, $3
+	predef SubBCDPredef
+	xor a
+	ldh [hUnusedCoinsByte], a
+	ldh [hCoins], a
+	ld a, $00            
+	ldh [hCoins + 2], a     
+	ld a, $05           
+	ldh [hCoins + 1], a  
+	ld de, wPlayerCoins + 1
+	ld hl, hCoins + 1
+	ld hl, hCoins + 2
+	ld c, $2
+	predef AddBCDPredef
+	call GameCornerDrawCoinBox
+	ld hl, .ThanksHereAre500Coins
+	jr .print_ret
 
 .DoYouNeedSomeGameCoins:
 	text_far _GameCornerClerk1DoYouNeedSomeGameCoinsText
 	text_end
 
+.DoYouNeedSomeGameCoins2:
+	text_far _GameCornerClerk1DoYouNeedSomeGameCoins2Text
+	text_end
+
 .ThanksHereAre50Coins:
 	text_far _GameCornerClerk1ThanksHereAre50CoinsText
+	text_end
+
+.ThanksHereAre500Coins:
+	text_far _GameCornerClerk1ThanksHereAre500CoinsText
 	text_end
 
 .PleaseComePlaySometime:
