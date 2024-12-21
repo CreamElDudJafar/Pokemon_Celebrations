@@ -166,12 +166,16 @@ StatusScreen:
 	ld b, SET_PAL_STATUS_SCREEN
 	call RunPaletteCommand
 	coord de, 18, 5
+	ld a, [wBattleMonLevel]
+	push af
 	ld a, [wLoadedMonLevel]
 	ld [wBattleMonLevel], a
 	push af
 	callfar PrintEXPBar
 	pop af
 	ld [wLoadedMonLevel], a
+	pop af
+	ld [wBattleMonLevel], a
 	coord hl, 16, 6
 	ld de, wLoadedMonStatus
 	call PrintStatusCondition
