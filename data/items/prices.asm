@@ -1,6 +1,6 @@
 ItemPrices::
 	table_width 3, ItemPrices
-	bcd3 0001  ; MASTER_BALL
+	bcd3 10000 ; MASTER_BALL
 	bcd3 1200  ; ULTRA_BALL
 	bcd3 600   ; GREAT_BALL
 	bcd3 200   ; POKE_BALL
@@ -9,7 +9,7 @@ ItemPrices::
 	bcd3 0     ; SURFBOARD
 	bcd3 1000  ; SAFARI_BALL
 	bcd3 0     ; POKEDEX
-	bcd3 2100    ; MOON_STONE
+	bcd3 2100  ; MOON_STONE
 	bcd3 100   ; ANTIDOTE
 	bcd3 250   ; BURN_HEAL
 	bcd3 250   ; ICE_HEAL
@@ -30,7 +30,7 @@ ItemPrices::
 	bcd3 0     ; EARTHBADGE
 	bcd3 550   ; ESCAPE_ROPE
 	bcd3 350   ; REPEL
-	bcd3 0     ; OLD_AMBER
+	bcd3 3000  ; OLD_AMBER
 	bcd3 2100  ; FIRE_STONE
 	bcd3 2100  ; THUNDER_STONE
 	bcd3 2100  ; WATER_STONE
@@ -39,9 +39,9 @@ ItemPrices::
 	bcd3 9800  ; IRON
 	bcd3 9800  ; CARBOS
 	bcd3 9800  ; CALCIUM
-	bcd3 4800  ; RARE_CANDY
-	bcd3 0     ; DOME_FOSSIL
-	bcd3 0     ; HELIX_FOSSIL
+	bcd3 500   ; RARE_CANDY
+	bcd3 3000  ; DOME_FOSSIL
+	bcd3 3000  ; HELIX_FOSSIL
 	bcd3 0     ; SECRET_KEY
 	bcd3 0     ; ITEM_2C
 	bcd3 0     ; BIKE_VOUCHER
