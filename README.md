@@ -30,7 +30,7 @@ Some FEATURES:
 - Learnsets updated to match Pokemon Yellow updated one (eg. nidoran learns double kick at lower level) 
 - Several POKÉMON had learnsets buffs (eg: Charizard Fly) - Pikachu and Raichu can learn SURF through HM, just like in Yellow version
  - PROF. OAK gives you 5 POKÉBALLS when you receive the POKÉDEX. - TM names in BAG and MART (TM24 it says TM24 THNDRBLT)
- - 50 item bag space/ 20 item bag space on CrysAudio
+ - 20 item bag space/ 50 item bag space on NonCrysAudio (Not Updated Branch)
  - Auto HM use (eg: surf, just touch the water and say YES)
  - Deletable HM's - Sort Items in BAG 
 - OAK Battle post game - Message when PC is full
@@ -46,6 +46,9 @@ Some FEATURES:
 - Gym Leader rematches after E4
 - Can Push Up and Down on Stat Screen to switch Pokemon
 - Can teleport inside buildings and caves
+- Move Decription when learning moves
+- Buy more coins at once from shady clerk
+- Trainers have unique movesets
 
 
 CREDITS: IF ANYONE IS MISSED PLEASE LET ME KNOW. IT’S HARD TO KEEP TRACK OF ALL CREDITS SINCE THIS HACK WAS STARTED BY ONE PERSON AND THEN FINISHED/TAKEN OVER BY ANOTHER…. BUT WE WILL GLADLY ADD YOU IN 😊.
@@ -66,6 +69,13 @@ CREDITS: IF ANYONE IS MISSED PLEASE LET ME KNOW. IT’S HARD TO KEEP TRACK OF AL
 - SCORP MILLER
 - TUXMAN
 - BEEFSTEW
+- HYD
+- BlueZangoose
+- Rangi42- PRET
+- Drenn- PRET- Color changes
+- Wdpx_Phoenix
+- MegaMan-Omega- overworld sprites
+- ZetaPhoenix
 - EVERYONE WHO PLAYED THIS GAME AND AGAIN DISCORD!!
 
 
