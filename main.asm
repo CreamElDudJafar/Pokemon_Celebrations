@@ -367,3 +367,8 @@ SECTION "Evo Moves", ROMX
 
 INCLUDE "data/pokemon/base_stats.asm"
 INCLUDE "engine/pokemon/evos_moves.asm"
+
+
+SECTION "Move Descriptions", ROMX
+
+INCLUDE "engine/pokemon/move_descriptions.asm"

@@ -27,7 +27,8 @@ _GameCornerClerk1DoYouNeedSomeGameCoins2Text::
 	para "Team Rocket stole"
 	line "all these coins"
 	cont "from trainers."
-	cont "They are evil!"
+
+	para "They are evil!"
 
 	para "I am secretly"
 	line "selling them off"

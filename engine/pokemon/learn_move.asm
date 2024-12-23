@@ -7,6 +7,7 @@ LearnMove:
 	ld de, wLearnMoveMonName
 	ld bc, NAME_LENGTH
 	call CopyData
+	call LoadScreenTilesFromBuffer1
 
 DontAbandonLearning:
 	ld hl, wPartyMon1Moves
@@ -86,6 +87,7 @@ AbandonLearning:
 	jp nz, DontAbandonLearning
 	ld hl, DidNotLearnText
 	call PrintText
+	call LoadScreenTilesFromBuffer1
 	ld b, 0
 	ret
 
@@ -99,6 +101,7 @@ TryingToLearn:
 	push hl
 	ld hl, TryingToLearnText
 	call PrintText
+	call ShowMoveInfo ; movetype info
 	hlcoord 14, 7
 	lb bc, 8, 15
 	ld a, TWO_OPTION_MENU
@@ -151,9 +154,9 @@ TryingToLearn:
 	call HandleMenuInput
 	ld hl, hUILayoutFlags
 	res 1, [hl]
-	push af
-	call LoadScreenTilesFromBuffer1
-	pop af
+;	push af
+;	call LoadScreenTilesFromBuffer1
+;	pop af
 	pop hl
 	bit BIT_B_BUTTON, a
 	jr nz, .cancel
@@ -169,7 +172,7 @@ TryingToLearn:
 	pop bc
 	pop de
 	ld a, d
-	; jr c, .hm
+;       jr c, .hm
 	pop hl
 	add hl, bc
 	and a
@@ -181,6 +184,119 @@ TryingToLearn:
 ;	jr .loop
 .cancel
 	scf
+	ret
+
+ShowMoveInfo:
+	; read the new move's info first
+	ld a, [wMoveNum]
+	ld [wd11e], a
+	call GetMoveName
+	ld a, [wMoveNum]
+	dec a
+	ld hl, Moves
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld de, wBuffer
+	ld a, BANK(Moves)
+	call FarCopyData
+	; add a pop-up with the new move's info
+	hlcoord 0, 0
+	lb bc, 5, 18
+	call TextBoxBorder
+	call HidePartySprites
+	; show the move's name on the top
+	hlcoord 4, 0
+	ld de, wStringBuffer
+	call PlaceString
+	; move info labels
+	hlcoord 1, 1
+	ld de, MoveInfoLabels
+	call PlaceString
+	; place the move's type
+	hlcoord 7, 1
+	predef PrintBufferedMoveType
+	; place the move's power
+	hlcoord 6, 2
+	ld de, wBuffer + 2
+	ld a, [de]
+	cp 1
+	jr z, .nullString
+	and a
+	jr z, .nullString
+	jr .notZero1
+.nullString
+	ld de, NullMoveInfoLabel
+	call PlaceString
+	jr .powerDone
+.notZero1
+	lb bc, 1, 3
+	call PrintNumber
+.powerDone
+	; place the move's accuracy
+	ld a, [wBuffer + 4]
+	call ConvertPercentages
+	ld [wBuffer + 6], a ; after the actual move data
+	ld de, wBuffer + 6
+	hlcoord 15, 2
+	lb bc, 1, 3
+	call PrintNumber
+	farcall PrintMoveDescription
+	ret
+; This converts values out of 256 into a value
+; out of 100. It achieves this by multiplying
+; the value by 100 and dividing it by 256.
+; taken from a pokecrystal tutorial, which was apparently
+; based on code by ax6, and adjusted for rounding
+ConvertPercentages:
+    ; Overwrite the "hl" register.
+    ld l, a
+    ld h, 0
+    push af
+    ; Multiplies the value of the "hl" register by 3.
+    add hl, hl
+    add a, l
+    ld l, a
+    adc h
+    sub l
+    ld h, a
+    ; Multiplies the value of the "hl" register
+    ; by 8. The value of the "hl" register
+    ; is now 24 times its original value.
+    add hl, hl
+    add hl, hl
+    add hl, hl
+    ; Add the original value of the "hl" value to itself,
+    ; making it 25 times its original value.
+    pop af
+    add a, l
+    ld l, a
+    adc h
+    sbc l
+    ld h, a
+    ; Multiply the value of the "hl" register by
+    ; 4, making it 100 times its original value.
+    add hl, hl
+    add hl, hl
+    ; Set the "l" register to 0.5, otherwise the rounded
+    ; value may be lower than expected. Round the
+    ; high byte to nearest and drop the low byte.
+    ld l, $80
+    sla l
+    sbc a
+    and 1
+    add a, h
+    ret
+
+HidePartySprites:
+	ld a, 160
+	ld hl, wShadowOAM
+	ld de, 4
+	ld b, 4 * 4
+.loop
+	ld [hl], a
+	add hl, de
+	dec b
+	jr nz, .loop
 	ret
 
 LearnedMove1Text:
@@ -221,6 +337,13 @@ ForgotAndText:
 	text_far _ForgotAndText
 	text_end
 
-HMCantDeleteText:
-	text_far _HMCantDeleteText
-	text_end
+;HMCantDeleteText:
+;	text_far _HMCantDeleteText
+;	text_end
+
+MoveInfoLabels:
+	db   "TYPE:"
+	feed "PWR:     ACC:    %"
+	db "@"
+NullMoveInfoLabel:
+	db "---@"
