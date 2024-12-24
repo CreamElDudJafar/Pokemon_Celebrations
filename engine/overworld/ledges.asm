@@ -39,6 +39,15 @@ HandleLedges::
 	ldh a, [hJoyHeld]
 	and e
 	ret z
+  push de
+  xor a
+  ld [hSpriteIndexOrTextID], a
+  ld d, $20 ; talking range in pixels (double normal range)
+  call IsSpriteInFrontOfPlayer2
+  ld a, [hSpriteIndexOrTextID]
+  and a ; was there a sprite collision?
+  pop de
+  ret nz
 	ld a, A_BUTTON | B_BUTTON | SELECT | START | D_RIGHT | D_LEFT | D_UP | D_DOWN
 	ld [wJoyIgnore], a
 	ld hl, wd736
