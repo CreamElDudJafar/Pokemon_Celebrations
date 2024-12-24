@@ -63,11 +63,11 @@ BikeShopClerkText:
 	call PlaceString
 	ld hl, BikeShopClerkDoYouLikeItText
 	call PrintText
+  ld hl, wd730
+	res 6, [hl]
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	jr nz, .cancel
-	ld hl, wd730
-	res 6, [hl]
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .cancel
