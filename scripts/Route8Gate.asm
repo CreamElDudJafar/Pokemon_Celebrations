@@ -28,7 +28,7 @@ Route8GateDefaultScript:
 	ld hl, .PlayerInCoordsArray
 	call ArePlayerCoordsInArray
 	ret nc
-	ld a, PLAYER_DIR_LEFT
+	ld a, PLAYER_DIR_UP
 	ld [wPlayerMovingDirection], a
 	xor a
 	ldh [hJoyHeld], a
