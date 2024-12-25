@@ -660,7 +660,7 @@ StartMenu_SaveReset::
 	jp nz, Init
 	predef SaveSAV ; save the game
 	call LoadScreenTilesFromBuffer2 ; restore saved screen
-	jp HoldTextDisplayOpen
+	jp CloseStartMenu
 
 StartMenu_Option::
 	xor a
