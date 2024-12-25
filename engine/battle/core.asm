@@ -4710,28 +4710,18 @@ CriticalHitTest:
 ;	jr nc, .SkipHighCritical
 ;	ld b, $ff
 ;.SkipHighCritical
+	ld a, b
+	inc a ; optimization of "cp $ff"
+	jr z, .guaranteedCriticalHit
 	call BattleRandom            ; generates a random value, in "a"
 	rlc a
 	rlc a
 	rlc a
 	cp b                         ; check a against calculated crit rate
 	ret nc                       ; no critical hit if no borrow
+.guaranteedCriticalHit
 	ld a, $1
 	ld [wCriticalHitOrOHKO], a   ; set critical hit flag
-						
- 
-											  
- 
-					  
- 
-				
-
-															  
-						  
-											  
- 
- 
-				  
 	ret
 
 INCLUDE "data/battle/critical_hit_moves.asm"
