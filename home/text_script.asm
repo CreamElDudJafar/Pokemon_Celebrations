@@ -93,6 +93,7 @@ AfterDisplayingTextID::
 	and a
 	jr nz, HoldTextDisplayOpen
 	call WaitForTextScrollButtonPress ; wait for a button press after displaying all the text
+  jr CloseTextDisplay
 
 ; loop to hold the dialogue box open as long as the player keeps holding down the A button
 HoldTextDisplayOpen::
