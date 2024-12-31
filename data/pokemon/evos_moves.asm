@@ -1636,6 +1636,7 @@ DewgongEvosMoves:
 	db 32, TAKE_DOWN
 	db 40, ICE_BEAM
 	db 50, BLIZZARD
+	db 0
 
 CaterpieEvosMoves:
 ; Evolutions
