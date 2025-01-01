@@ -7,7 +7,6 @@ LearnMove:
 	ld de, wLearnMoveMonName
 	ld bc, NAME_LENGTH
 	call CopyData
-	call LoadScreenTilesFromBuffer1
 
 DontAbandonLearning:
 	ld hl, wPartyMon1Moves
@@ -72,6 +71,7 @@ DontAbandonLearning:
 	ld de, wBattleMonPP
 	ld bc, NUM_MOVES
 	call CopyData
+  call LoadScreenTilesFromBuffer1
 	jp PrintLearnedMove
 
 AbandonLearning:
