@@ -1,10 +1,13 @@
+ReChoosePlayerName:
+	ld hl, IntroducePlayerText
+	call PrintText
 ChoosePlayerName:
 	call OakSpeechSlidePicRight
-	ld a, [wPlayerGender] ; load gender
-		and a
-   		jr nz, .AreGirl ; Skip to girl names if you are a girl instead
-   		ld de, DefaultNamesPlayer
-               call DisplayIntroNameTextBox
+	ld a, [wPlayerGender]
+	and a
+	jr nz, .AreGirl
+	ld de, DefaultNamesPlayer
+	call DisplayIntroNameTextBox
 	ld a, [wCurrentMenuItem]
 	and a
 	jr z, .customName
@@ -13,17 +16,17 @@ ChoosePlayerName:
 	ld de, wPlayerName
 	call OakSpeechSlidePicLeft
 	jr .done
-	.AreGirl ; Copy of the boy naming routine, just with girl's names
-   		ld de, DefaultNamesGirl
-   		call DisplayIntroNameTextBox
-    		ld a, [wCurrentMenuItem]
-   		and a
-   	        jr z, .customName
-   		ld hl, DefaultNamesGirlList
-   		call GetDefaultName
-  		ld de, wPlayerName
-   		call OakSpeechSlidePicLeft
- 		jr .done ; End of new Girl Names routine
+.AreGirl ; Copy of the boy naming routine, just with girl's names
+	ld de, DefaultNamesGirl
+	call DisplayIntroNameTextBox
+	ld a, [wCurrentMenuItem]
+	and a
+	jr z, .customName
+	ld hl, DefaultNamesGirlList
+	call GetDefaultName
+	ld de, wPlayerName
+	call OakSpeechSlidePicLeft
+	jr .done ; End of new Girl Names routine
 .customName
 	ld hl, wPlayerName
 	xor a ; NAME_PLAYER_SCREEN
@@ -37,20 +40,33 @@ ChoosePlayerName:
 	ld de, RedPicFront
 	ld b, BANK(RedPicFront)
 	ld a, [wPlayerGender] ; Added gender check
-		and a      ; Added gender check
- 	        jr z, .AreBoy3
-   		ld de, GreenPicFront
-    		ld b, BANK(GreenPicFront)
-	.AreBoy3
-    		call IntroDisplayPicCenteredOrUpperRight
-	.done
-    		ld hl, YourNameIsText
-   		jp PrintText
+	and a      ; Added gender check
+	jr z, .AreBoy3
+	ld de, GreenPicFront
+	ld b, BANK(GreenPicFront)
+.AreBoy3
+	call IntroDisplayPicCenteredOrUpperRight
+.done
+	ld hl, YourNameIsText2
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jp nz, ReChoosePlayerName
+	ld hl, YourNameIsText
+	jp PrintText
 
 YourNameIsText:
 	text_far _YourNameIsText
 	text_end
 
+YourNameIsText2:
+	text_far _YourNameIsText2
+	text_end
+
+ReChooseRivalName:
+	ld hl, IntroduceRivalText2
+	call PrintText
 ChooseRivalName:
 	call OakSpeechSlidePicRight
 	ld de, DefaultNamesRival
@@ -77,11 +93,25 @@ ChooseRivalName:
 	ld b, BANK(Rival1Pic)
 	call IntroDisplayPicCenteredOrUpperRight
 .done
+	ld hl, HisNameIsText2
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jp nz, ReChooseRivalName
 	ld hl, HisNameIsText
 	jp PrintText
 
+IntroduceRivalText2:
+	text_far _IntroduceRivalText2
+	text_end
+
 HisNameIsText:
 	text_far _HisNameIsText
+	text_end
+
+HisNameIsText2:
+	text_far _HisNameIsText2
 	text_end
 
 OakSpeechSlidePicLeft:

@@ -1678,7 +1678,8 @@ _OakSpeechText1::
 	prompt
 
 _NormalModeText::
-	text "Classic #MON."
+	text "Normal #MON"
+	line "gameplay."
 	done
 
 _HardModeText::
@@ -1723,6 +1724,11 @@ _IntroduceRivalText::
 	line "his name again?"
 	prompt
 
+_IntroduceRivalText2::
+	text "...Erm, what is"
+	line "his name again?"
+	prompt
+
 _OakSpeechText3::
 	text "<PLAYER>!"
 
@@ -1749,6 +1755,14 @@ _YourNameIsText::
 	line "name is <PLAYER>!"
 	prompt
 
+_YourNameIsText2::
+	text "Is it <PLAYER>?"
+	prompt
+
+_HisNameIsText2::
+	text "Was it <RIVAL>?"
+	prompt
+	
 _HisNameIsText::
 	text "That's right! I"
 	line "remember now! His"
