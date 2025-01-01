@@ -40,8 +40,8 @@ VermilionCity_ScriptPointers:
 
 VermilionCityDefaultScript:
 	ld a, [wObtainedBadges]
-    bit BIT_MARSHBADGE, a
-    ret nz
+  bit BIT_MARSHBADGE, a
+  ret nz
 	ld a, [wSpritePlayerStateData1FacingDirection]
 	and a ; cp SPRITE_FACING_DOWN
 	ret nz
@@ -161,7 +161,7 @@ VermilionCityGambler1Text:
 VermilionCitySailor1Text:
 	text_asm
 	ld a, [wObtainedBadges]
-	bit BIT_SOULBADGE, a ; Changed after soulbadge to have ship return	
+	bit BIT_MARSHBADGE, a ; Changed after marshbadge to have ship return	
 	jr nz, .default
 	CheckEvent EVENT_SS_ANNE_LEFT
 	jr nz, .ship_departed
@@ -244,7 +244,7 @@ VermilionCityMachopText:
 VermilionCitySailor2Text:
 	text_asm
 	ld a, [wObtainedBadges]
-	bit BIT_SOULBADGE, a ; after soulbadge ships returns
+	bit BIT_MARSHBADGE, a ; after marshbadge ships returns
 	jr z, .default
 	ld hl, .ShipBackText
 	ret
