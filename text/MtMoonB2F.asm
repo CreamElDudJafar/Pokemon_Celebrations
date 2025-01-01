@@ -29,13 +29,15 @@ _MtMoonB2FSuperNerdTheyreBothMineText::
 
 _MtMoonB2FSuperNerdOkIllShareText::
 	text "OK!"
-	line "Go ahead!"
+	line "Go ahead and take"
+	cont "both fossils."
 	prompt
 
 _MtMoonB2fSuperNerdEachTakeOneText::
-	text "You can take"
-	line "both!"
-	cont "Take care of them!"
+	text "The Dome Fossil"
+	line "is Kabuto, and"
+	cont "the Helix Fossil"
+	cont "is Omanyte."
 	done
 
 _MtMoonB2FSuperNerdTheresAPokemonLabText::
