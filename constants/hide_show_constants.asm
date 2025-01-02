@@ -60,7 +60,6 @@ DEF SHOW EQU $15
 	const HS_POKEDEX_1                     ; 2F
 	const HS_POKEDEX_2                     ; 30
 	const HS_OAKS_LAB_OAK_2                ; 31
-	const HS_INDIGO_PLATEU_LOBBY_CLERK_HS  ; E4
 	const HS_VIRIDIAN_GYM_GIOVANNI         ; 32
 	const HS_VIRIDIAN_GYM_ITEM             ; 33 X
 	const HS_OLD_AMBER                     ; 34
@@ -85,6 +84,7 @@ DEF SHOW EQU $15
 	const HS_WARDENS_HOUSE_ITEM            ; 47 X
 	const HS_POKEMON_MANSION_1F_ITEM_1     ; 48 X
 	const HS_POKEMON_MANSION_1F_ITEM_2     ; 49 X
+	const HS_INDIGO_PLATEU_LOBBY_CLERK_HS  ; E4
 	const HS_FIGHTING_DOJO_GIFT_1          ; 4A
 	const HS_FIGHTING_DOJO_GIFT_2          ; 4B
 	const HS_SILPH_CO_1F_RECEPTIONIST      ; 4C
