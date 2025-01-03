@@ -252,7 +252,7 @@ VermilionCitySailor2Text:
 	ld hl, .Text
 	ret
 
-.Text
+.Text:
 	text_far _VermilionCitySailor2Text
 	text_end
 
