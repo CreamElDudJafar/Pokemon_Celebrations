@@ -155,6 +155,7 @@
 	charmap "'t",        $be
 	charmap "'v",        $bf
 
+	charmap "<LVL>",     $dc
 	charmap "%",         $dd
 	charmap "&",         $de
 	charmap "'",         $e0
@@ -179,7 +180,7 @@
 	charmap "♂",         $ef
 	charmap "¥",         $f0
 	charmap "×",         $f1
-	charmap "<DOT>",     $f2 ; decimal point; same as "." in English
+	charmap "*",     $f2 ; decimal point; same as "." in English
 	charmap "/",         $f3
 	charmap ",",         $f4
 	charmap "♀",         $f5

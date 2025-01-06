@@ -471,6 +471,7 @@ wSlotMachineSevenAndBarModeChance:: db
 ; ROM back to return to when the player is done with the slot machine
 wSlotMachineSavedROMBank:: db
 ; Move Buffer stuff for Mateo's code
+wPokedexDataBuffer::
 wMoveBuffer::
 wRelearnableMoves::
 	ds 164

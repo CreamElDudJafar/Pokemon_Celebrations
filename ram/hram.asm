@@ -324,6 +324,7 @@ hItemToRemoveIndex:: db
 
 NEXTU
 hItemCounter::
+hEvoCounter::
 hSavedCoordIndex::
 hMissableObjectIndex::
 hGymTrashCanRandNumMask::
