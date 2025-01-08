@@ -49,6 +49,7 @@ Some FEATURES:
 - Move Decription when learning moves
 - Buy more coins at once from shady clerk
 - Trainers have unique movesets
+- Evolution Methods now on last page of Pokemon Stats in Pokedex
 
 
 CREDITS: IF ANYONE IS MISSED PLEASE LET ME KNOW. IT’S HARD TO KEEP TRACK OF ALL CREDITS SINCE THIS HACK WAS STARTED BY ONE PERSON AND THEN FINISHED/TAKEN OVER BY ANOTHER…. BUT WE WILL GLADLY ADD YOU IN 😊.
