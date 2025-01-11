@@ -178,7 +178,7 @@ SpecialTrainerMoves:
 	db 6, 3, HYPER_BEAM
 	db 0
 
-	db BLAINE, 2
+	db BLAINE, 1
 	db 1, 1, FIRE_SPIN
 	db 1, 2, TAKE_DOWN
 	db 1, 3, SWIFT
