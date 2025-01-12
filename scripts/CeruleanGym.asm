@@ -114,7 +114,6 @@ CeruleanGymMistyText:
 	and a
 	jr nz, .MistyRematch
 	ld hl, .TM11ExplanationText
-	ld hl, .TM11ExplanationText
 	call PrintText
 	jr .done
 .beforeBeat
