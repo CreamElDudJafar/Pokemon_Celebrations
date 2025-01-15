@@ -2395,6 +2395,7 @@ PartyMenuOrRockOrRun:
 	call LoadHudTilePatterns
 	call LoadScreenTilesFromBuffer2
 	call RunDefaultPaletteCommand
+	call PrintEmptyString     ; shinpokerednote: added to prevent 1 frame menu flicker
 	call GBPalNormal
 	jp DisplayBattleMenu
 .partyMonDeselected
