@@ -549,9 +549,13 @@ ItemUseBall:
 	call ClearSprites
 	ld a, [wEnemyMonSpecies]
 	ld [wd11e], a
-	ld a, 0
-	ld [wMoveListCounter], a
-	predef ShowPokedexData
+    	ld a, 0
+    	ld [wMoveListCounter], a
+    	ld a, [wWhichPokemon]
+        ld [wWhichItem], a
+        predef ShowPokedexData
+        ld a, [wWhichItem]
+        ld [wWhichPokemon], a
 
 .skipShowingPokedexData
 	ld a, [wPartyCount]
