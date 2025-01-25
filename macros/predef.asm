@@ -4,12 +4,13 @@ ENDM
 
 MACRO predef
 	predef_id \1
-	call Predef
+	rst _Predef
 ENDM
 
 MACRO predef_jump
 	predef_id \1
-	jp Predef
+	rst _Predef
+	ret
 ENDM
 
 
