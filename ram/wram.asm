@@ -484,7 +484,8 @@ NEXTU
 ; values between 0-6. Shake screen horizontally, shake screen vertically, blink Pokemon...
 wAnimationType:: db
 wMoveListCounter:: db
-	ds 28
+wPokedexModeSelect:: db
+	ds 27
 wAnimPalette:: db
 
 NEXTU
@@ -1949,8 +1950,6 @@ wChannel6:: channel_struct wChannel6
 wUniQuizAnswer:: db
 
 wUnusedC000:: db
-
-wWhichItem:: db
 
 wSum:: dw
 

@@ -26,7 +26,7 @@ CanLearnTM:
 	ld c, 0
 	ret
 
-; converts TM/HM number in wd11e into move number
+; converts TM/HM number in [wd11e] into move number
 ; HMs start at 51
 TMToMove:
 	ld a, [wd11e]
@@ -40,32 +40,37 @@ TMToMove:
 	ret
 
 GetTMMoves:
-	ld de, wRelearnableMoves ; reusing from move relearner for tmhm move list
-	ld a, 0
-	ld b, a ; current move ID / counter
-.findTMloop
+;	ld de, wRelearnableMoves ; reusing from move relearner for tmhm move list
+	ld de, wMoveBuffer	
+	ld hl, TechnicalMachines
+	xor a
+	ld b, a
 	inc b
-	ld a, b
-	cp NUM_ATTACKS ; done if looked at all moves
+.findTMloop
+	ld a, [hli]
+	cp -1
 	jr z, .done
-
-	ld a, b
 	ld [wMoveNum], a
-	ld [wd11e], a
+	; check if can learn
 	push de
 	push bc
+	push hl
 	predef CanLearnTM
 	ld a, c
-	and a ; can the pokemon learn the move?
+	and a
+	pop hl
 	pop bc
 	pop de
 	jr z, .cantLearn
 .canLearn
 	ld a, b
-	ld [de], a ; add move ID to list of learnable moves
+	ld [de], a
+	inc de
+	ld a, [wMoveNum]
+	ld [de], a
 	inc de
 .cantLearn
-	ld a, b
+	inc b
 	jr .findTMloop
 .done
 	ld a, 0 ; terminator

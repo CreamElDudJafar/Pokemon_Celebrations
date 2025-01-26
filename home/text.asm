@@ -96,7 +96,7 @@ PlaceNextChar::
 	dict "#",         PlacePOKe
 	dict "<PC>",      PCChar
 	dict "<ROCKET>",  RocketChar
-	dict "<TM>",      TMChar
+	dict "<TMCHAR>",  TMChar
 	dict "<TRAINER>", TrainerChar
 	dict "<CONT>",    ContText
 	dict "<……>",      SixDotsChar
