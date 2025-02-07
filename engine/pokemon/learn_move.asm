@@ -254,6 +254,14 @@ ShowMoveInfo:
 	call PrintNumber
 	farcall PrintMoveDescription
 	ret
+
+; [info] Luna fixed this for me, I do not know why it works	
+ConvertPercentagesBattle::
+	ld a, [wPlayerMoveAccuracy]
+	call ConvertPercentages
+	ld [wBuffer], a
+	ret
+
 ; This converts values out of 256 into a value
 ; out of 100. It achieves this by multiplying
 ; the value by 100 and dividing it by 256.
