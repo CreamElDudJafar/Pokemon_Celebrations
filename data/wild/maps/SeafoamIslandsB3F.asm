@@ -12,7 +12,7 @@ IF (DEF(_RED) || DEF(_GREEN))
 	db 39, SEADRA
 ENDC
 IF DEF(_BLUE)
-	db 31, PSYDUCK
+	db 31, HORSEA
 	db 31, SEEL
 	db 33, PSYDUCK
 	db 33, SEEL

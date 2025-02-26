@@ -16,7 +16,7 @@ IF DEF(_BLUE)
 	db 30, PSYDUCK
 	db 30, STARYU
 	db 30, KRABBY
-	db 28, KRABBY
+	db 28, HORSEA
 	db 21, ZUBAT
 	db 29, GOLBAT
 	db 28, SLOWPOKE
