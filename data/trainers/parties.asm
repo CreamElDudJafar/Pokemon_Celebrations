@@ -68,7 +68,7 @@ YoungsterData:
 	db 14, MANKEY, DODUO, KRABBY, 0
 ; Route 25
 	db 15, RATTATA, SPEAROW, 0
-	db 17, SLOWPOKE, 0
+	db 15, SLOWPOKE, 0
 	db 14, EKANS, SANDSHREW, 0
 ; SS Anne 1F Rooms
 	db 22, NIDORINO, 0
