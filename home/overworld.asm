@@ -872,15 +872,16 @@ IsBikeRidingAllowed::
 ; or maps with tilesets in BikeRidingTilesets.
 ; Return carry if biking is allowed.
 
-	ld a, [wCurMap]
-	cp ROUTE_23
-	jr z, .allowed
-	cp INDIGO_PLATEAU
-	jr z, .allowed
-
 	ld a, [wCurMapTileset]
 	ld b, a
 	ld hl, BikeRidingTilesets
+	call .bikeAllowedLoop
+	ret c
+	ld a, [wCurMap]
+	ld b, a
+	ld hl, BikeRidingMaps
+
+.bikeAllowedLoop
 .loop
 	ld a, [hli]
 	cp b
