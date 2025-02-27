@@ -361,6 +361,7 @@ SECTION "Engine Spillover", ROMX
 INCLUDE "engine/menus/item_descriptions.asm"
 INCLUDE "engine/overworld/use_another_repel.asm"
 INCLUDE "engine/battle/move_effects/drain_hp.asm" ; Moved from Bank1
+INCLUDE "engine/overworld/select_button_functionality.asm"
 
 
 SECTION "Evo Moves", ROMX

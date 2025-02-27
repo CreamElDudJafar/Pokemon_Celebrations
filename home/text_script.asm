@@ -27,6 +27,9 @@ DisplayTextID::
 	dict TEXT_BLACKED_OUT,      DisplayPlayerBlackedOutText
 	dict TEXT_REPEL_WORE_OFF,   DisplayRepelWoreOffText
 
+	cp $FF
+	jp z, CloseTextDisplay
+
 	ld a, [wNumSprites]
 	ld e, a
 	ldh a, [hSpriteIndexOrTextID] ; sprite ID
