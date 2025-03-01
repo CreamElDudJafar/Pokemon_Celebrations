@@ -19,8 +19,13 @@ ELSE
 NintendoCopyrightLogoGraphics: INCBIN "gfx/splash/copyright.2bpp"
 ENDC
 
+IF DEF(_GREEN)
+GameFreakLogoGraphics: INCBIN "gfx/title/gamefreak_inc_green.2bpp"
+GameFreakLogoGraphicsEnd:
+ELSE
 GameFreakLogoGraphics: INCBIN "gfx/title/gamefreak_inc.2bpp"
 GameFreakLogoGraphicsEnd:
+ENDC
 
 TextBoxGraphics:: INCBIN "gfx/font/font_extra.2bpp"
 TextBoxGraphicsEnd::

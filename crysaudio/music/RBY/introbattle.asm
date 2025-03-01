@@ -6,7 +6,11 @@ Music_IntroBattle::
 	channel 4, Music_IntroBattle_Ch4
 
 Music_IntroBattle_Ch1::
+IF DEF(_GREEN)
+	tempo 102
+ELSE
 	tempo 98
+ENDC
 	volume 7, 7
 	duty_cycle 3
 	vibrato 6, 3, 4
