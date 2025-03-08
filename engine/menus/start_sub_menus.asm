@@ -824,6 +824,15 @@ SwitchPartyMon_InitVarOrSwapData:
 	ret
 
 StartMenu_PortablePC:: ; new
+
+; if none of the above cp is met, let's open the pc and do the things
+; next piece is to preserve the map text pointers
+	ld hl, wCurMapTextPtr
+	ld a, [hli]
+	ld [wUniQuizAnswer], a
+	ld a, [hl]
+	ld [wUniQuizAnswer+1], a
+
 	ld a, [wCurMap] ; we don't want to cheese the Elite4, do we?
 	cp LORELEIS_ROOM
 	jr z, .cantUseItHere
@@ -843,11 +852,12 @@ StartMenu_PortablePC:: ; new
 ; normal stuff
 	callfar ActivatePC ; main part
 	jr .done
+
 .cantUseItHere ; no cheese!
 	ld hl, CantUsePCHere
 	rst _PrintText
 .done
-	; next piece is to preserve the map text pointers
+; next piece is to preserve the map text pointers
 	push hl
 	ld hl, wUniQuizAnswer
 	ld a, [hli]
