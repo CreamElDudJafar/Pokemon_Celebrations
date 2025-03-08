@@ -7,7 +7,7 @@ FarCopyData2::
 	ldh a, [hROMBankTemp]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-	call CopyData
+	rst _CopyData
 	pop af
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
@@ -27,7 +27,7 @@ FarCopyData3::
 	ld d, h
 	ld e, l
 	pop hl
-	call CopyData
+	rst _CopyData
 	pop de
 	pop hl
 	pop af

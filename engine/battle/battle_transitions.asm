@@ -426,7 +426,7 @@ BattleTransition_CopyTiles1:
 	push hl
 	push de
 	ld bc, SCREEN_WIDTH
-	call CopyData
+	rst _CopyData
 	pop hl
 	pop de
 	ld a, [wBattleTransitionCopyTilesOffset]

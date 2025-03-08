@@ -10,7 +10,7 @@ LearnMove:
 	ld hl, wcd6d
 	ld de, wLearnMoveMonName
 	ld bc, NAME_LENGTH
-	call CopyData
+	rst _CopyData
 
 DontAbandonLearning:
 	ld hl, wPartyMon1Moves
@@ -69,12 +69,12 @@ DontAbandonLearning:
 	ld l, e
 	ld de, wBattleMonMoves
 	ld bc, NUM_MOVES
-	call CopyData
+	rst _CopyData
 	ld bc, wPartyMon1PP - wPartyMon1OTID
 	add hl, bc
 	ld de, wBattleMonPP
 	ld bc, NUM_MOVES
-	call CopyData
+	rst _CopyData
 	jp PrintLearnedMove
 
 AbandonLearning:
@@ -128,7 +128,7 @@ TryingToLearn:
 	push hl
 	ld de, wMoves
 	ld bc, NUM_MOVES
-	call CopyData
+	rst _CopyData
 	callfar FormatMovesString
 	pop hl
 .loop

@@ -160,7 +160,7 @@ ItemUseBall:
 	ld hl, wGrassRate
 	ld de, wPlayerName
 	ld bc, NAME_LENGTH
-	call CopyData ; save the player's name in the Wild Monster data (part of the Cinnabar Island Missingno. glitch)
+	rst _CopyData ; save the player's name in the Wild Monster data (part of the Cinnabar Island Missingno. glitch)
 	jp .captured
 
 .notOldManBattle
@@ -948,7 +948,7 @@ ItemUseMedicine:
 	add hl, bc ; hl now points to party stats
 	ld de, wBattleMonStats
 	ld bc, NUM_STATS * 2
-	call CopyData ; copy party stats to in-battle stat data
+	rst _CopyData ; copy party stats to in-battle stat data
 	predef DoubleOrHalveSelectedStats
 	jp .doneHealing
 .healHP
@@ -1349,7 +1349,7 @@ ItemUseMedicine:
 .gotStatName
 	ld de, wStringBuffer
 	ld bc, 10
-	call CopyData ; copy the stat's name to wStringBuffer
+	rst _CopyData ; copy the stat's name to wStringBuffer
 	ld a, SFX_HEAL_AILMENT
 	call PlaySound
 	ld hl, VitaminStatRoseText
@@ -2082,7 +2082,7 @@ ItemUsePPRestore:
 	call AddNTimes
 	ld de, wBattleMonPP
 	ld bc, 4
-	call CopyData ; copy party data to in-battle data
+	rst _CopyData ; copy party data to in-battle data
 .skipUpdatingInBattleData
 	ld a, SFX_HEAL_AILMENT
 	call PlaySound
@@ -2248,7 +2248,7 @@ ItemUseTMHM:
 	ld hl, wStringBuffer
 	ld de, wTempMoveNameBuffer
 	ld bc, 14
-	call CopyData ; save the move name because DisplayPartyMenu will overwrite it
+	rst _CopyData ; save the move name because DisplayPartyMenu will overwrite it
 	ld a, $ff
 	ld [wUpdateSpritesEnabled], a
 	ld a, TMHM_PARTY_MENU
@@ -2258,7 +2258,7 @@ ItemUseTMHM:
 	ld hl, wTempMoveNameBuffer
 	ld de, wStringBuffer
 	ld bc, 14
-	call CopyData
+	rst _CopyData
 	pop af
 	jr nc, .checkIfAbleToLearnMove
 ; if the player canceled teaching the move
@@ -2672,7 +2672,7 @@ IsKeyItem_::
 	ld de, wBuffer
 	ld bc, 15 ; only 11 bytes are actually used
 	ASSERT 15 >= (NUM_ITEMS + 7) / 8
-	call CopyData
+	rst _CopyData
 	pop af
 	dec a
 	ld c, a
@@ -2730,7 +2730,7 @@ SendNewMonToBox:
 	push bc
 	push hl
 	ld bc, NAME_LENGTH
-	call CopyData
+	rst _CopyData
 	pop hl
 	ld d, h
 	ld e, l
@@ -2743,7 +2743,7 @@ SendNewMonToBox:
 	ld hl, wPlayerName
 	ld de, wBoxMonOT
 	ld bc, NAME_LENGTH
-	call CopyData
+	rst _CopyData
 	ld a, [wBoxCount]
 	dec a
 	jr z, .skip2
@@ -2764,7 +2764,7 @@ SendNewMonToBox:
 	push bc
 	push hl
 	ld bc, NAME_LENGTH
-	call CopyData
+	rst _CopyData
 	pop hl
 	ld d, h
 	ld e, l
@@ -2798,7 +2798,7 @@ SendNewMonToBox:
 	push bc
 	push hl
 	ld bc, wBoxMon2 - wBoxMon1
-	call CopyData
+	rst _CopyData
 	pop hl
 	ld d, h
 	ld e, l
@@ -2813,7 +2813,7 @@ SendNewMonToBox:
 	ld hl, wEnemyMon
 	ld de, wBoxMon1
 	ld bc, wEnemyMonDVs - wEnemyMon
-	call CopyData
+	rst _CopyData
 	ld hl, wPlayerID
 	ld a, [hli]
 	ld [de], a

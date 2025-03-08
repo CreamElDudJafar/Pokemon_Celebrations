@@ -37,7 +37,7 @@ RocketHideoutElevatorScript:
 	ld hl, RocketHideoutElevatorWarpMaps
 	ld de, wElevatorWarpMaps
 	ld bc, RocketHideoutElevatorWarpMaps.End - RocketHideoutElevatorWarpMaps
-	call CopyData
+	rst _CopyData
 	ret
 
 RocketHideoutElavatorFloors:

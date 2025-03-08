@@ -452,7 +452,7 @@ SlotMachine_CheckForMatches:
 	ld l, a
 	ld de, wStringBuffer
 	ld bc, 4
-	call CopyData
+	rst _CopyData
 	pop hl
 	ld de, .flashScreenLoop
 	push de
@@ -873,7 +873,7 @@ LoadSlotMachineTiles:
 	ld hl, SlotMachineMap
 	decoord 0, 0
 	ld bc, SlotMachineMapEnd - SlotMachineMap
-	call CopyData
+	rst _CopyData
 	call EnableLCD
 	ld hl, wSlotMachineWheel1Offset
 	ld a, $1c

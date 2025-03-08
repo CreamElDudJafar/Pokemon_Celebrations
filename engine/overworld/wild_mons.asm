@@ -17,7 +17,7 @@ LoadWildData::
 	push hl
 	ld de, wGrassMons ; otherwise, load grass data
 	ld bc, $14
-	call CopyData
+	rst _CopyData
 	pop hl
 	ld bc, $14
 	add hl, bc

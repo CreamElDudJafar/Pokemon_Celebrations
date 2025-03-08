@@ -45,7 +45,7 @@ GetAnimationSpeed:
 	ld hl, wMonPartySpritesSavedOAM
 	ld de, wShadowOAM
 	ld bc, $60
-	call CopyData
+	rst _CopyData
 	pop bc
 	xor a
 	jr .incTimer
@@ -389,13 +389,13 @@ PlacePartyMonSprite:
 	add hl, bc
 
 	ld bc, 4 * 4
-	call CopyData
+	rst _CopyData
 
 	; make backup
 	ld hl, wShadowOAM
 	ld de, wMonPartySpritesSavedOAM
 	ld bc, 4 * 4 * PARTY_LENGTH
-	call CopyData
+	rst _CopyData
 
 	pop bc
 	pop de

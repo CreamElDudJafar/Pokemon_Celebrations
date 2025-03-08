@@ -197,7 +197,7 @@ HoFLoadPlayerPics:
    		ld hl, sSpriteBuffer1
     		ld de, sSpriteBuffer0
     		ld bc, $310
-   		call CopyData
+   		rst _CopyData
     		ld de, vFrontPic
     		call InterlaceMergeSpriteBuffers
     		ld a, [wPlayerGender] ; new gender check

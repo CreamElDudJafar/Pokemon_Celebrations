@@ -191,7 +191,7 @@ LoadTradingGFXAndMonNames:
 	ld hl, wcd6d
 	ld de, wStringBuffer
 	ld bc, NAME_LENGTH
-	call CopyData
+	rst _CopyData
 	ld a, [wTradedEnemyMonSpecies]
 	ld [wd11e], a
 	jp GetMonName
@@ -205,11 +205,11 @@ Trade_SwapNames:
 	ld hl, wPlayerName
 	ld de, wBuffer
 	ld bc, NAME_LENGTH
-	call CopyData
+	rst _CopyData
 	ld hl, wLinkEnemyTrainerName
 	ld de, wPlayerName
 	ld bc, NAME_LENGTH
-	call CopyData
+	rst _CopyData
 	ld hl, wBuffer
 	ld de, wLinkEnemyTrainerName
 	ld bc, NAME_LENGTH

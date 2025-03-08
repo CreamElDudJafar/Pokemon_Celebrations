@@ -63,7 +63,7 @@ TransformEffect_:
 	inc de
 	inc bc
 	inc bc
-	call CopyData
+	rst _CopyData
 	ldh a, [hWhoseTurn]
 	and a
 	jr z, .next
@@ -90,7 +90,7 @@ TransformEffect_:
 	inc de
 	inc de
 	ld bc, $8
-	call CopyData
+	rst _CopyData
 	ld bc, wBattleMonMoves - wBattleMonPP
 	add hl, bc ; ld hl, wBattleMonMoves
 	ld b, NUM_MOVES

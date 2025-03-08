@@ -78,11 +78,11 @@ AnimCutGrass_SwapOAMEntries:
 	ld hl, wShadowOAMSprite36
 	ld de, wBuffer
 	ld bc, $8
-	call CopyData
+	rst _CopyData
 	ld hl, wShadowOAMSprite38
 	ld de, wShadowOAMSprite36
 	ld bc, $8
-	call CopyData
+	rst _CopyData
 	ld hl, wBuffer
 	ld de, wShadowOAMSprite38
 	ld bc, $8

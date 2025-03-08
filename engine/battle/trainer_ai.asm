@@ -68,7 +68,7 @@ AIEnemyTrainerChooseMoves:
 	ld hl, wBuffer  ; temp move selection array
 	ld de, wBuffer + NUM_MOVES  ;backup buffer
 	ld bc, NUM_MOVES
-	call CopyData
+	rst _CopyData
 .loopFindMinimumEntries ; all entries will be decremented sequentially until one of them is zero
 	ld hl, wBuffer  ; temp move selection array
 	ld de, wEnemyMonMoves  ; enemy moves
@@ -653,7 +653,7 @@ ReadMove:
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld de, wEnemyMoveNum
-	call CopyData
+	rst _CopyData
 	pop bc
 	pop de
 	pop hl
@@ -1010,7 +1010,7 @@ SwitchEnemyMon:
 	ld e, l
 	ld hl, wEnemyMonHP
 	ld bc, 4
-	call CopyData
+	rst _CopyData
 
 	ld hl, AIBattleWithdrawText
 	call PrintText

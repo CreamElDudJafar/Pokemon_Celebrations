@@ -37,7 +37,7 @@ SilphCoElevatorCopyWarpMapsScript:
 	ld hl, SilphCoElevatorWarpMaps
 	ld de, wElevatorWarpMaps
 	ld bc, SilphCoElevatorWarpMaps.End - SilphCoElevatorWarpMaps
-	call CopyData
+	rst _CopyData
 	ret
 
 SilphCoElevatorFloors:

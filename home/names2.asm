@@ -96,7 +96,7 @@ GetName::
 	ld l, e
 	ld de, wcd6d
 	ld bc, $0014
-	call CopyData
+	rst _CopyData
 .gotPtr
 ;	ld a, e
 ;	ld [wUnusedCF8D], a

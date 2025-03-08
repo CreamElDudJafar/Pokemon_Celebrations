@@ -62,7 +62,7 @@ LeaguePCShowTeam:
 	ld hl, wHallOfFame + HOF_MON
 	ld de, wHallOfFame
 	ld bc, HOF_TEAM - HOF_MON
-	call CopyData
+	rst _CopyData
 	pop bc
 	ld a, [wHallOfFame + 0]
 	cp $ff
@@ -91,7 +91,7 @@ LeaguePCShowMon:
 	ld [wHoFMonLevel], a
 	ld de, wcd6d
 	ld bc, NAME_LENGTH
-	call CopyData
+	rst _CopyData
 	ld b, SET_PAL_POKEMON_WHOLE_SCREEN
 	ld c, 0
 	call RunPaletteCommand

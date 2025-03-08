@@ -32,7 +32,7 @@ LoadGymLeaderAndCityName::
 	push de
 	ld de, wGymCityName
 	ld bc, $11
-	call CopyData   ; load city name
+	rst _CopyData   ; load city name
 	pop hl
 	ld de, wGymLeaderName
 	ld bc, NAME_LENGTH

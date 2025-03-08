@@ -7,12 +7,12 @@ IF DEF(_DEBUG)
 	ld hl, DebugBattlePlayerName
 	ld de, wPlayerName
 	ld bc, NAME_LENGTH
-	call CopyData
+	rst _CopyData
 
 	ld hl, DebugBattleRivalName
 	ld de, wRivalName
 	ld bc, NAME_LENGTH
-	call CopyData
+	rst _CopyData
 
 	call LoadFontTilePatterns
 	call LoadHpBarAndStatusTilePatterns
