@@ -40,7 +40,7 @@ CeladonMart3FClerkText:
 	ld hl, .TM18ExplanationText
 .done
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .TM18PreReceiveText:
 	text_far _CeladonMart3FClerkTM18PreReceiveText

@@ -42,7 +42,7 @@ CopycatsHouse2FCopycatText:
 	ld hl, .TM31Explanation2Text
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .DoYouLikePokemonText:
 	text_far _CopycatsHouse2FCopycatDoYouLikePokemonText
@@ -90,7 +90,7 @@ CopycatsHouse2FPCText:
 	ld hl, .MySecretsText
 .notUp
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .MySecretsText:
 	text_far _CopycatsHouse2FPCMySecretsText

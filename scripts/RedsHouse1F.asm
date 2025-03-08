@@ -17,7 +17,7 @@ RedsHouse1FMomText:
 .heal
 	call RedsHouse1FMomHealScript
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .WakeUpText:
 	text_far _RedsHouse1FMomWakeUpText
@@ -62,7 +62,7 @@ RedsHouse1FTVText:
 	ld hl, .StandByMeMovieText
 .got_text
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .StandByMeMovieText:
 	text_far _RedsHouse1FTVStandByMeMovieText

@@ -75,7 +75,7 @@ SafariGameOverText:
 .noMoreSafariBalls
 	ld hl, GameOverText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 TimesUpText:
 	text_far _TimesUpText

@@ -54,7 +54,7 @@ WardensHouseWardenText:
 	ld hl, .HM04NoRoomText
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Gibberish1Text:
 	text_far _WardensHouseWardenGibberish1Text
@@ -102,7 +102,7 @@ WardensHouseDisplayText:
 	ld hl, .PhotosAndFossilsText
 .print_text
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .PhotosAndFossilsText:
 	text_far _WardensHouseDisplayPhotosAndFossilsText

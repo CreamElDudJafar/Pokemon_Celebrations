@@ -10,7 +10,7 @@ BookOrSculptureText::
 	ld hl, DiglettSculptureText
 .ok
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 PokemonBooksText:
 	text_far _PokemonBooksText

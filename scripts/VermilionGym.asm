@@ -182,7 +182,7 @@ VermilionGymLTSurgeText:
 	ld [wVermilionGymCurScript], a
 	ld [wCurMapScript], a
 .text_script_end
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .PreBattleText:
 	text_far _VermilionGymLTSurgePreBattleText
@@ -230,7 +230,7 @@ VermilionGymGentlemanText:
 	text_asm
 	ld hl, VermilionGymTrainerHeader0
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 VermilionGymGentlemanBattleText:
 	text_far _VermilionGymGentlemanBattleText
@@ -248,7 +248,7 @@ VermilionGymSuperNerdText:
 	text_asm
 	ld hl, VermilionGymTrainerHeader1
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 VermilionGymSuperNerdBattleText:
 	text_far _VermilionGymSuperNerdBattleText
@@ -266,7 +266,7 @@ VermilionGymSailorText:
 	text_asm
 	ld hl, VermilionGymTrainerHeader2
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 VermilionGymSailorBattleText:
 	text_far _VermilionGymSailorBattleText
@@ -292,7 +292,7 @@ VermilionGymGymGuideText:
 	ld hl, .BeatLTSurgeText
 	rst _PrintText
 .text_script_end
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .ChampInMakingText:
 	text_far _VermilionGymGymGuideChampInMakingText

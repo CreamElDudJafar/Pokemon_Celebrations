@@ -28,7 +28,7 @@ Route12Gate2FBrunetteGirlText:
 	ld hl, .TM39ExplanationText
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .YouCanHaveThisText:
 	text_far _Route12Gate2FBrunetteGirlYouCanHaveThisText
@@ -76,4 +76,4 @@ GateUpstairsScript_PrintIfFacingUp:
 	xor a
 .done
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	jp TextScriptEnd
+	rst TextScriptEnd

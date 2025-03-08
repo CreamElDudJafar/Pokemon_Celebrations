@@ -26,7 +26,7 @@ SafariZoneSecretHouseFishingGuruText:
 	ld hl, .HM03ExplanationText
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .YouHaveWonText:
 	text_far _SafariZoneSecretHouseFishingGuruYouHaveWonText

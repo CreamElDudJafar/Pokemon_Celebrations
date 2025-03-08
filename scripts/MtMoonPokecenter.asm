@@ -69,7 +69,7 @@ MtMoonPokecenterMagikarpSalesmanText:
 .printText
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .IGotADealText
 	text_far _MtMoonPokecenterMagikarpSalesmanIGotADealText

@@ -83,7 +83,7 @@ SaffronCityPokecenterBenchGuyText::
 	ld hl, SaffronCityPokecenterBenchGuyText1
 .printText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 SaffronCityPokecenterBenchGuyText1:
 	text_far _SaffronCityPokecenterGuyText1

@@ -25,7 +25,7 @@ LavenderTownLittleGirlText:
 	ld hl, .SoThereAreBelieversText
 .got_text
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .DoYouBelieveInGhostsText:
 	text_far _LavenderTownLittleGirlDoYouBelieveInGhostsText

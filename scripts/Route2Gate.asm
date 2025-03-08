@@ -29,7 +29,7 @@ Route2GateOaksAideText:
 	ld hl, .FlashExplanationText
 	rst _PrintText
 .no_item
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .FlashExplanationText:
 	text_far _Route2GateOaksAideFlashExplanationText

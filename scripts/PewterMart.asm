@@ -14,7 +14,7 @@ PewterMartYoungsterText:
 	text_asm
 	ld hl, .Text
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _PewterMartYoungsterText
@@ -24,7 +24,7 @@ PewterMartSuperNerdText:
 	text_asm
 	ld hl, .Text
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _PewterMartSuperNerdText

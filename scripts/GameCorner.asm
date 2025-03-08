@@ -44,12 +44,9 @@ GameCornerReenterMapAfterPlayerLoss:
 
 GameCorner_ScriptPointers:
 	def_script_pointers
-	dw_const GameCornerDefaultScript,      SCRIPT_GAMECORNER_DEFAULT
+	dw_const DoRet,                        SCRIPT_GAMECORNER_DEFAULT
 	dw_const GameCornerRocketBattleScript, SCRIPT_GAMECORNER_ROCKET_BATTLE
 	dw_const GameCornerRocketExitScript,   SCRIPT_GAMECORNER_ROCKET_EXIT
-
-GameCornerDefaultScript:
-	ret
 
 GameCornerRocketBattleScript:
 	ld a, [wIsInBattle]
@@ -206,7 +203,7 @@ GameCornerClerk1Text:
 	ld hl, .DontHaveCoinCase
 .print_ret
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 .secretbargain
 	ld hl, .DoYouNeedSomeGameCoins2
 	rst _PrintText
@@ -332,7 +329,7 @@ GameCornerFishingGuruText:
 	ld hl, GameCornerOopsForgotCoinCaseText
 .print_ret
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .WantToPlayText:
 	text_far _GameCornerFishingGuruWantToPlayText
@@ -363,7 +360,7 @@ GameCornerGymGuideText:
 	ld hl, GameCornerGymGuideTheyOfferRarePokemonText
 .not_defeated
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 GameCornerGymGuideChampInMakingText:
 	text_far _GameCornerGymGuideChampInMakingText
@@ -410,7 +407,7 @@ GameCornerClerk2Text:
 	ld hl, GameCornerOopsForgotCoinCaseText
 .print_ret
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .WantSomeCoinsText:
 	text_far _GameCornerClerk2WantSomeCoinsText
@@ -462,7 +459,7 @@ GameCornerGentlemanText:
 	ld hl, GameCornerOopsForgotCoinCaseText
 .print_ret
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .ThrowingMeOffText:
 	text_far _GameCornerGentlemanThrowingMeOffText
@@ -501,7 +498,7 @@ GameCornerRocketText:
 	ldh [hJoyReleased], a
 	ld a, SCRIPT_GAMECORNER_ROCKET_BATTLE
 	ld [wGameCornerCurScript], a
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .ImGuardingThisPosterText:
 	text_far _GameCornerRocketImGuardingThisPosterText
@@ -530,7 +527,7 @@ GameCornerPosterText:
 	ld [wNewTileBlockID], a
 	lb bc, 2, 8
 	predef ReplaceTileBlock
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .SwitchBehindPosterText:
 	text_far _GameCornerPosterSwitchBehindPosterText
@@ -538,7 +535,7 @@ GameCornerPosterText:
 	ld a, SFX_SWITCH
 	rst _PlaySound
 	call WaitForSoundToFinish
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 GameCornerOopsForgotCoinCaseText:
 	text_far _GameCornerOopsForgotCoinCaseText

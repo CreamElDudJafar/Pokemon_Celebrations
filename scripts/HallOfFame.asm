@@ -4,21 +4,18 @@ HallOfFame_Script:
 	ld a, [wHallOfFameCurScript]
 	jp CallFunctionInTable
 
-HallofFameRoomClearScripts: ; unreferenced
-	xor a
-	ld [wJoyIgnore], a
-	ld [wHallOfFameCurScript], a
-	ret
+;HallofFameRoomClearScripts: ; unreferenced
+;	xor a
+;	ld [wJoyIgnore], a
+;	ld [wHallOfFameCurScript], a
+;	ret
 
 HallOfFame_ScriptPointers:
 	def_script_pointers
 	dw_const HallOfFameDefaultScript,            SCRIPT_HALLOFFAME_DEFAULT
 	dw_const HallOfFameOakCongratulationsScript, SCRIPT_HALLOFFAME_OAK_CONGRATULATIONS
 	dw_const HallOfFameResetEventsAndSaveScript, SCRIPT_HALLOFFAME_RESET_EVENTS_AND_SAVE
-	dw_const HallOfFameNoopScript,               SCRIPT_HALLOFFAME_NOOP
-
-HallOfFameNoopScript:
-	ret
+	dw_const DoRet,                              SCRIPT_HALLOFFAME_NOOP
 
 HallOfFameResetEventsAndSaveScript:
 	call Delay3

@@ -47,7 +47,7 @@ CeladonDinerGymGuideText:
 	ld hl, .WinItBackText
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .ImFlatOutBustedText:
 	text_far _CeladonDinerGymGuideImFlatOutBustedText

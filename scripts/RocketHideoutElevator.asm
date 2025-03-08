@@ -77,7 +77,7 @@ RocketHideoutElevatorText:
 	ld hl, .AppearsToNeedKeyText
 	rst _PrintText
 .text_script_end
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .AppearsToNeedKeyText:
 	text_far _RocketHideoutElevatorAppearsToNeedKeyText

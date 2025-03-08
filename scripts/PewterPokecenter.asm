@@ -75,7 +75,7 @@ PewterPokecenterJigglypuffText:
 	ld c, 48
 	rst _DelayFrames
 	call PlayDefaultMusic
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _PewterPokecenterJigglypuffText

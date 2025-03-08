@@ -54,7 +54,7 @@ SSAnneKitchenCook7Text:
 	ld hl, .PrimeBeefSteakText
 .done
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .MainCourseIsText:
 	text_far _SSAnneKitchenCook7MainCourseIsText

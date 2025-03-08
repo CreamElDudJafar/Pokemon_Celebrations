@@ -18,7 +18,7 @@ MoveRelearnerText1:
 	; not enough money
 	ld hl, MoveRelearnerNotEnoughMoneyText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 .enoughMoney
 	ld hl, MoveRelearnerSaidYesText
 	rst _PrintText
@@ -48,7 +48,7 @@ MoveRelearnerText1:
 	pop bc
 	ld hl, MoveRelearnerNoMovesText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 .chooseMove
 	ld hl, MoveRelearnerWhichMoveText
 	rst _PrintText
@@ -99,11 +99,11 @@ MoveRelearnerText1:
 	predef SubBCDPredef
 	ld hl, MoveRelearnerByeText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 .exit
 	ld hl, MoveRelearnerByeText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 
 MoveRelearnerGreetingText:

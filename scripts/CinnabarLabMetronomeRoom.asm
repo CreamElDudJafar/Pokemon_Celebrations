@@ -30,7 +30,7 @@ CinnabarLabMetronomeRoomScientist1Text:
 	ld hl, .TM35ExplanationText
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _CinnabarLabMetronomeRoomScientist1Text

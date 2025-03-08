@@ -244,7 +244,7 @@ ViridianGymGiovanniText:
 	ld a, SCRIPT_VIRIDIANGYM_GIOVANNI_POST_BATTLE
 	ld [wViridianGymCurScript], a
 .text_script_end
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .PreBattleText:
 	text_far _ViridianGymGiovanniPreBattleText
@@ -280,7 +280,7 @@ ViridianGymCooltrainerM1Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader0
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 ViridianGymCooltrainerM1BattleText:
 	text_far _ViridianGymCooltrainerM1BattleText
@@ -298,7 +298,7 @@ ViridianGymHiker1Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader1
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 ViridianGymHiker1BattleText:
 	text_far _ViridianGymHiker1BattleText
@@ -316,7 +316,7 @@ ViridianGymRocker1Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader2
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 ViridianGymRocker1BattleText:
 	text_far _ViridianGymRocker1BattleText
@@ -334,7 +334,7 @@ ViridianGymHiker2Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader3
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 ViridianGymHiker2BattleText:
 	text_far _ViridianGymHiker2BattleText
@@ -352,7 +352,7 @@ ViridianGymCooltrainerM2Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader4
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 ViridianGymCooltrainerM2BattleText:
 	text_far _ViridianGymCooltrainerM2BattleText
@@ -370,7 +370,7 @@ ViridianGymHiker3Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader5
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 ViridianGymHiker3BattleText:
 	text_far _ViridianGymHiker3BattleText
@@ -388,7 +388,7 @@ ViridianGymRocker2Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader6
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 ViridianGymRocker2BattleText:
 	text_far _ViridianGymRocker2BattleText
@@ -406,7 +406,7 @@ ViridianGymCooltrainerM3Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader7
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 ViridianGymCooltrainerM3BattleText:
 	text_far _ViridianGymCooltrainerM3BattleText
@@ -431,7 +431,7 @@ ViridianGymGymGuideText:
 	ld hl, ViridianGymGuidePostBattleText
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 ViridianGymGuidePreBattleText:
 	text_far _ViridianGymGuidePreBattleText

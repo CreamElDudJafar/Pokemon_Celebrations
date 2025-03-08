@@ -75,7 +75,7 @@ FuchsiaCityChanseySignText:
 	rst _PrintText
 	ld a, CHANSEY
 	call DisplayPokedex
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _FuchsiaCityChanseySignText
@@ -87,7 +87,7 @@ FuchsiaCityVoltorbSignText:
 	rst _PrintText
 	ld a, VOLTORB
 	call DisplayPokedex
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _FuchsiaCityVoltorbSignText
@@ -99,7 +99,7 @@ FuchsiaCityKangaskhanSignText:
 	rst _PrintText
 	ld a, KANGASKHAN
 	call DisplayPokedex
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _FuchsiaCityKangaskhanSignText
@@ -111,7 +111,7 @@ FuchsiaCitySlowpokeSignText:
 	rst _PrintText
 	ld a, SLOWPOKE
 	call DisplayPokedex
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _FuchsiaCitySlowpokeSignText
@@ -123,7 +123,7 @@ FuchsiaCityLaprasSignText:
 	rst _PrintText
 	ld a, LAPRAS
 	call DisplayPokedex
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _FuchsiaCityLaprasSignText
@@ -140,7 +140,7 @@ FuchsiaCityFossilSignText:
 	rst _PrintText
 	ld a, KABUTO
 	call DisplayPokedex
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .OmanyteText:
 	text_far _FuchsiaCityFossilSignOmanyteText

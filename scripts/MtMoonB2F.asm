@@ -211,31 +211,31 @@ MtMoonB2FSuperNerdText:
 	ld hl, MtMoonB2FSuperNerdTheresAPokemonLabText
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 MtMoonB2FRocket1Text:
 	text_asm
 	ld hl, MtMoon3TrainerHeader0
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 MtMoonB2FRocket2Text:
 	text_asm
 	ld hl, MtMoon3TrainerHeader1
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 MtMoonB2FRocket3Text:
 	text_asm
 	ld hl, MtMoon3TrainerHeader2
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 MtMoonB2FRocket4Text:
 	text_asm
 	ld hl, MtMoon3TrainerHeader3
 	call TalkToTrainer
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 MtMoonB2FDomeFossilText:
 	text_asm
@@ -256,7 +256,7 @@ MtMoonB2FDomeFossilText:
 	predef HideObject
 	SetEvent EVENT_GOT_DOME_FOSSIL
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .YouWantText:
 	text_far _MtMoonB2FDomeFossilYouWantText
@@ -281,7 +281,7 @@ MtMoonB2FHelixFossilText:
 	predef HideObject
 	SetEvent EVENT_GOT_HELIX_FOSSIL
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .YouWantText:
 	text_far _MtMoonB2FHelixFossilYouWantText
@@ -300,7 +300,7 @@ MtMoonB2FReceivedFossilText:
 MtMoonB2FYouHaveNoRoomText:
 	ld hl, .Text
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _MtMoonB2FYouHaveNoRoomText

@@ -77,7 +77,7 @@ BikeShopClerkText:
 	ld hl, BikeShopComeAgainText
 	rst _PrintText
 .Done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 BikeShopMenuText:
 	db   "BICYCLE"
@@ -123,7 +123,7 @@ BikeShopMiddleAgedWomanText:
 	text_asm
 	ld hl, .Text
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _BikeShopMiddleAgedWomanText
@@ -137,7 +137,7 @@ BikeShopYoungsterText:
 	ld hl, .TheseBikesAreExpensiveText
 .gotBike
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .TheseBikesAreExpensiveText:
 	text_far _BikeShopYoungsterTheseBikesAreExpensiveText

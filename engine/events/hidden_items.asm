@@ -48,14 +48,14 @@ FoundHiddenItemText::
 	call WaitForSoundToFinish
 	pop af
 	ld [wAudioFadeOutControl], a
-	jp TextScriptEnd
+	rst TextScriptEnd
 .bagFull
 	call WaitForTextScrollButtonPress ; wait for button press
 	xor a
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	ld hl, HiddenItemBagFullText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 HiddenItemBagFullText::
 	text_far _HiddenItemBagFullText

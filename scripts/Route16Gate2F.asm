@@ -12,7 +12,7 @@ Route16Gate2FLittleBoyText:
 	text_asm
 	ld hl, .Text
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _Route16Gate2FLittleBoyText
@@ -22,7 +22,7 @@ Route16Gate2FLittleGirlText:
 	text_asm
 	ld hl, .Text
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .Text:
 	text_far _Route16Gate2FLittleGirlText

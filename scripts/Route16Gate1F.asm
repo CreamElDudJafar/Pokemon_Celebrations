@@ -104,7 +104,7 @@ Route16Gate1FGuardText:
 	ld hl, .NoPedestriansAllowedText
 	rst _PrintText
 .text_script_end
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .NoPedestriansAllowedText:
 	text_far _Route16Gate1FGuardNoPedestriansAllowedText

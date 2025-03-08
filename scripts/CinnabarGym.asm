@@ -217,7 +217,7 @@ CinnabarGymStartBattleScript:
 .not_blaine
 	ld [wCinnabarGymCurScript], a
 	ld [wCurMapScript], a
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 CinnabarGymStartRematchScript:
 	ld hl, .PreBattleRematch1Text
@@ -239,11 +239,11 @@ CinnabarGymStartRematchScript:
 	ld a, SCRIPT_CINNABARGYM_BLAINE_POST_BATTLE
 	ld [wCinnabarGymCurScript], a
 	ld [wCurMapScript], a
-	jp TextScriptEnd
+	rst TextScriptEnd
 .refused
 	ld hl, .PreBattleRematchRefusedText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 	
 .PreBattleRematch1Text
 	text_far _CinnabarGymRematchPreBattle1Text
@@ -269,14 +269,14 @@ CinnabarGymBlaineText:
 	jr nz, .afterBeat
 	call z, CinnabarGymReceiveTM38
 	call DisableWaitingAfterTextDisplay
-	jp TextScriptEnd
+	rst TextScriptEnd
 .afterBeat
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
 	jr nz, .BlaineRematch
 	ld hl, .PostBattleAdviceText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 .beforeBeat
 	ld hl, .PreBattleText
 	rst _PrintText
@@ -331,7 +331,7 @@ CinnabarGymSuperNerd1:
 .defeated
 	ld hl, .AfterBattleText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .BattleText:
 	text_far _CinnabarGymSuperNerd1BattleText
@@ -359,7 +359,7 @@ CinnabarGymSuperNerd2:
 .defeated
 	ld hl, .AfterBattleText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .BattleText:
 	text_far _CinnabarGymSuperNerd2BattleText
@@ -387,7 +387,7 @@ CinnabarGymSuperNerd3:
 .defeated
 	ld hl, .AfterBattleText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .BattleText:
 	text_far _CinnabarGymSuperNerd3BattleText
@@ -415,7 +415,7 @@ CinnabarGymSuperNerd4:
 .defeated
 	ld hl, .AfterBattleText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .BattleText:
 	text_far _CinnabarGymSuperNerd4BattleText
@@ -443,7 +443,7 @@ CinnabarGymSuperNerd5:
 .defeated
 	ld hl, .AfterBattleText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .BattleText:
 	text_far _CinnabarGymSuperNerd5BattleText
@@ -471,7 +471,7 @@ CinnabarGymSuperNerd6:
 .defeated
 	ld hl, .AfterBattleText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .BattleText:
 	text_far _CinnabarGymSuperNerd6BattleText
@@ -499,7 +499,7 @@ CinnabarGymSuperNerd7:
 .defeated
 	ld hl, .AfterBattleText
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .BattleText:
 	text_far _CinnabarGymSuperNerd7BattleText
@@ -523,7 +523,7 @@ CinnabarGymGymGuideText:
 	ld hl, .BeatBlaineText
 .done
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .ChampInMakingText:
 	text_far _CinnabarGymGymGuideChampInMakingText

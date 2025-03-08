@@ -21,7 +21,7 @@ CeruleanTrashedHouseFishingGuruText:
 	ld hl, .TheyStoleATMText
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .TheyStoleATMText:
 	text_far _CeruleanTrashedHouseFishingGuruTheyStoleATMText

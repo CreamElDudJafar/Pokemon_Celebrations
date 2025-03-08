@@ -36,9 +36,9 @@ BoulderText::
 	ld [wcf91], a
 	predef PrintStrengthTxt
 .done 
-    jp TextScriptEnd 
+    rst TextScriptEnd 
 
 PickUpItemText::
 	text_asm
 	predef PickUpItem
-	jp TextScriptEnd
+	rst TextScriptEnd

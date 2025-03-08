@@ -256,12 +256,12 @@ VermilionTruck1:
 	call WaitForSoundToFinish
 	ld a, $3
 	ld [wSSAnne2FRoomsCurScript], a
-	jp TextScriptEnd
+	rst TextScriptEnd
 .alreadyBattled
 	ld hl, VermilionDockText2
 	rst _PrintText
 	call ResetToScript0
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 VermilionDocksScript3:
 	ld a, [wIsInBattle]

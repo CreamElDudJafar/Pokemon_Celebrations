@@ -12,7 +12,7 @@ LavenderCuboneHouseCuboneText:
 	text_asm
 	ld a, CUBONE
 	call PlayCry
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 LavenderCuboneHouseBrunetteGirlText:
 	text_asm
@@ -25,7 +25,7 @@ LavenderCuboneHouseBrunetteGirlText:
 	ld hl, .TheGhostIsGoneText
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .PoorCubonesMotherText:
 	text_far _LavenderCuboneHouseBrunetteGirlPoorCubonesMotherText

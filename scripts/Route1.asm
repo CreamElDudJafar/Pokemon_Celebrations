@@ -67,7 +67,7 @@ Route1Youngster1Text:
 	ld hl, .AlsoGotPokeballsText
 .done
 	rst _PrintText
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 .MartSampleText:
 	text_far _Route1Youngster1MartSampleText
@@ -133,7 +133,7 @@ Route1OakText:
 	ld hl, OakRefusedBattleText
 	rst _PrintText
 .done
-	jp TextScriptEnd
+	rst TextScriptEnd
 
 OakBeforeBattleText:
 	text_far _OakBeforeBattleText
