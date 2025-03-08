@@ -19,17 +19,41 @@ _SSAnneCaptainsRoomCaptainIFeelMuchBetterText::
 	para "You want to see"
 	line "my CUT technique?"
 
-	para "I could show you"
-	line "if I wasn't ill..."
+	para "I know! Can I have"
+	line "your ticket?"
 
-	para "I know! You can"
-	line "have this!"
+	para "You can have this!"
 
 	para "Teach it to your"
 	line "#MON and you"
 	cont "can see it CUT"
-	cont "any time!"
+	cont "anytime!"
 	prompt
+
+
+_SSAnneCaptainCutYourTicket::
+	text "The CAPTAIN used"
+	line "CUT on your"
+	cont "S.S.TICKET!"
+
+	para "He CUT it to"
+	line "shreds!"
+	prompt
+
+_SSAnneWontBeNeedingThatAnymore::
+	text "CAPTAIN: You won't"
+	line "be needing that"
+	cont "ticket anymore!"
+
+	para "You're always"
+	line "welcome on the"
+	cont "S.S.ANNE!"
+
+	para "I'll tell my crew"
+	line "to let you come"
+	cont "aboard once we"
+	cont "return to harbor."
+	done
 
 _SSAnneCaptainsRoomCaptainReceivedHM01Text::
 	text "<PLAYER> got"
@@ -42,7 +66,7 @@ _SSAnneCaptainsRoomCaptainNotSickAnymoreText::
 	text "CAPTAIN: Whew!"
 
 	para "Now that I'm not"
-	line "sick any more, I"
+	line "sick anymore, I"
 	cont "guess it's time."
 	done
 

@@ -18,29 +18,49 @@ SSAnneCaptainsRoom_TextPointers:
 SSAnneCaptainsRoomCaptainText:
 	text_asm
 	CheckEvent EVENT_GOT_HM01
-	jr nz, .got_item
+	ld hl, SSAnneCaptainsRoomCaptainNotSickAnymoreText
+	jp nz, .printDone
 	ld hl, SSAnneCaptainsRoomRubCaptainsBackText
 	rst _PrintText
 	ld hl, SSAnneCaptainsRoomCaptainIFeelMuchBetterText
 	rst _PrintText
 	lb bc, HM_CUT, 1
 	call GiveItem
-	jr nc, .bag_full
+	jp nc, .bag_full
 	ld hl, SSAnneCaptainsRoomCaptainReceivedHM01Text
 	rst _PrintText
 	SetEvent EVENT_GOT_HM01
-	jr .done
-.bag_full
-	ld hl, SSAnneCaptainsRoomCaptainHM01NoRoomText
+	jr .cutTicket
+.cutTicket
+	push hl
+	push de
+	ld hl, .SSAnneCaptainCutYourTicket
 	rst _PrintText
+	pop de
+	pop hl
+	ld a, SFX_CUT
+	rst _PlaySound
+	ld a, S_S_TICKET
+	ldh [hItemToRemoveID], a
+	farcall RemoveItemByID
+	ld hl, .SSAnneWontBeNeedingThatAnymore
+	jr .printDone
+.bag_full
 	ld hl, wd72d
-	set 5, [hl]
-	jr .done
-.got_item
-	ld hl, SSAnneCaptainsRoomCaptainNotSickAnymoreText
+	res 5, [hl]
+	ld hl, SSAnneCaptainsRoomCaptainHM01NoRoomText
+.printDone
 	rst _PrintText
 .done
 	rst TextScriptEnd
+
+.SSAnneCaptainCutYourTicket
+	text_far _SSAnneCaptainCutYourTicket
+	text_end
+
+.SSAnneWontBeNeedingThatAnymore
+	text_far _SSAnneWontBeNeedingThatAnymore
+	text_end
 
 SSAnneCaptainsRoomRubCaptainsBackText:
 	text_far _SSAnneCaptainsRoomRubCaptainsBackText
@@ -51,7 +71,7 @@ SSAnneCaptainsRoomRubCaptainsBackText:
 ;	jr nz, .not_audio_engine_3
 ;	ld a, SFX_STOP_ALL_MUSIC
 ;	ld [wNewSoundID], a
-;	rst _PlaySound
+;	call PlaySound
 ;	ld a, 0 ; BANK(Music_PkmnHealed)
 ;	ld [wAudioROMBank], a
 ;.not_audio_engine_3
