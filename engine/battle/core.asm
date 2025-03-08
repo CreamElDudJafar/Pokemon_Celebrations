@@ -176,7 +176,8 @@ StartBattle:
 	jr nz, .notOutOfSafariBalls
 	call LoadScreenTilesFromBuffer1
 	ld hl, .outOfSafariBallsText
-	jp PrintText
+	rst _PrintText
+	ret
 .notOutOfSafariBalls
 	callfar PrintSafariZoneBattleText
 	ld a, [wEnemyMonSpeed + 1]
@@ -1063,7 +1064,8 @@ RemoveFaintedPlayerMon:
 	ld a, [wBattleMonSpecies]
 	call PlayCry
 	ld hl, PlayerMonFaintedText
-	jp PrintText
+	rst _PrintText
+	ret
 
 PlayerMonFaintedText:
 	text_far _PlayerMonFaintedText
@@ -3807,7 +3809,8 @@ PrintMoveIsDisabledText:
 	ld [wd11e], a
 	call GetMoveName
 	ld hl, MoveIsDisabledText
-	jp PrintText
+	rst _PrintText
+	ret
 
 MoveIsDisabledText:
 	text_far _MoveIsDisabledText
@@ -3859,7 +3862,8 @@ HandleSelfConfusionDamage:
 
 PrintMonName1Text:
 	ld hl, MonName1Text
-	jp PrintText
+	rst _PrintText
+	ret
 
 MonName1Text:
 	text_far _MonName1Text
@@ -3975,7 +3979,8 @@ KeptGoingAndCrashedText:
 
 PrintDoesntAffectText:
 	ld hl, DoesntAffectMonText
-	jp PrintText
+	rst _PrintText
+	ret
 
 DoesntAffectMonText:
 	text_far _DoesntAffectMonText
@@ -6808,7 +6813,8 @@ LoadHudTilePatterns:
 
 PrintEmptyString:
 	ld hl, .emptyString
-	jp PrintText
+	rst _PrintText
+	ret
 
 .emptyString
 	db "@"
