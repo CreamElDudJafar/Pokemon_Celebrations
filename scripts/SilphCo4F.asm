@@ -81,10 +81,23 @@ SilphCo4FUnlockedDoorEventScript:
 	cp $1
 	jr nz, .unlock_door1
 	SetEventReuseHL EVENT_SILPH_CO_4_UNLOCKED_DOOR1
-	ret
+	callfar CheckAllCardKeyEvents
+	jp Load4FCheckCardKeyText
 .unlock_door1
 	SetEventAfterBranchReuseHL EVENT_SILPH_CO_4_UNLOCKED_DOOR2, EVENT_SILPH_CO_4_UNLOCKED_DOOR1
-	ret
+	callfar CheckAllCardKeyEvents
+	; fall through
+Load4FCheckCardKeyText:
+	CheckEvent EVENT_ALL_CARD_KEY_DOORS_OPENED
+	ret z
+	ld a, TEXT_SILPHCO4F_CARD_KEY_DONE
+	ldh [hSpriteIndexOrTextID], a
+	jp DisplayTextID
+
+SilphCo4Text8:
+	text_asm
+	callfar PrintCardKeyDoneText
+	rst TextScriptEnd
 
 SilphCo4F_ScriptPointers:
 	def_script_pointers
@@ -101,6 +114,7 @@ SilphCo4F_TextPointers:
 	dw_const PickUpItemText,            TEXT_SILPHCO4F_FULL_HEAL
 	dw_const PickUpItemText,            TEXT_SILPHCO4F_MAX_REVIVE
 	dw_const PickUpItemText,            TEXT_SILPHCO4F_ESCAPE_ROPE
+	dw_const SilphCo4Text8,             TEXT_SILPHCO4F_CARD_KEY_DONE
 
 SilphCo4TrainerHeaders:
 	def_trainers 2

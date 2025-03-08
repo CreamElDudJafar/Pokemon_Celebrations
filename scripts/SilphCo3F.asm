@@ -45,10 +45,23 @@ SilphCo3F_UnlockedDoorEventScript:
 	cp $1
 	jr nz, .unlock_door1
 	SetEventReuseHL EVENT_SILPH_CO_3_UNLOCKED_DOOR1
-	ret
+	callfar CheckAllCardKeyEvents
+	jp Load3FCheckCardKeyText
 .unlock_door1
 	SetEventAfterBranchReuseHL EVENT_SILPH_CO_3_UNLOCKED_DOOR2, EVENT_SILPH_CO_3_UNLOCKED_DOOR1
-	ret
+	callfar CheckAllCardKeyEvents
+	; fall through
+Load3FCheckCardKeyText:
+	CheckEvent EVENT_ALL_CARD_KEY_DOORS_OPENED
+	ret z
+	ld a, TEXT_SILPHCO3F_CARD_KEY_DONE
+	ldh [hSpriteIndexOrTextID], a
+	jp DisplayTextID
+
+SilphCo3Text5:
+	text_asm
+	callfar PrintCardKeyDoneText
+	rst TextScriptEnd
 
 SilphCo3F_ScriptPointers:
 	def_script_pointers
@@ -62,6 +75,7 @@ SilphCo3F_TextPointers:
 	dw_const SilphCo3FRocketText,       TEXT_SILPHCO3F_ROCKET
 	dw_const SilphCo3FScientistText,    TEXT_SILPHCO3F_SCIENTIST
 	dw_const PickUpItemText,            TEXT_SILPHCO3F_HYPER_POTION
+	dw_const SilphCo3Text5,             TEXT_SILPHCO3F_CARD_KEY_DONE
 
 SilphCo3TrainerHeaders:
 	def_trainers 2

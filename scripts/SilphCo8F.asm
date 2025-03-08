@@ -68,7 +68,19 @@ SilphCo8F_UnlockedDoorEventScript:
 	and a
 	ret z
 	SetEvent EVENT_SILPH_CO_8_UNLOCKED_DOOR
-	ret
+	callfar CheckAllCardKeyEvents
+	; fall through
+Load8FCheckCardKeyText:
+	CheckEvent EVENT_ALL_CARD_KEY_DOORS_OPENED
+	ret z
+	ld a, TEXT_SILPHCO8F_CARD_KEY_DONE
+	ldh [hSpriteIndexOrTextID], a
+	jp DisplayTextID
+
+SilphCo8Text5:
+	text_asm
+	callfar PrintCardKeyDoneText
+	rst TextScriptEnd
 
 SilphCo8F_ScriptPointers:
 	def_script_pointers
@@ -82,6 +94,7 @@ SilphCo8F_TextPointers:
 	dw_const SilphCo8FRocket1Text,      TEXT_SILPHCO8F_ROCKET1
 	dw_const SilphCo8FScientistText,    TEXT_SILPHCO8F_SCIENTIST
 	dw_const SilphCo8FRocket2Text,      TEXT_SILPHCO8F_ROCKET2
+	dw_const SilphCo8Text5,             TEXT_SILPHCO8F_CARD_KEY_DONE
 
 SilphCo8TrainerHeaders:
 	def_trainers 2
