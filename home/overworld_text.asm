@@ -1,13 +1,6 @@
-TextScriptEndingText::
-	text_end
-
-TextScriptEnd::
-	ld hl, TextScriptEndingText
-	ret
-
-;ExclamationText:: ; unused
-; text_far _ExclamationText
-; text_end
+ExclamationText:: ; unused
+	 text_far _ExclamationText
+	 text_end
 
 ;GroundRoseText:: ; unused
 ;	text_far _GroundRoseText
@@ -44,14 +37,6 @@ BoulderText::
 	predef PrintStrengthTxt
 .done 
     jp TextScriptEnd 
-
-MartSignText::
-	text_far _MartSignText
-	text_end
-
-PokeCenterSignText::
-	text_far _PokeCenterSignText
-	text_end
 
 PickUpItemText::
 	text_asm

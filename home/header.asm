@@ -1,52 +1,73 @@
 ; rst vectors (unused)
 
 SECTION "rst0", ROM0[$0000]
-	_Bankswitch::
-	jp Bankswitch
+_Bankswitch::
+    jp Bankswitch
 
-	ds $08 - @, 0 ; unused
+; PureRGBnote: MOVED: 5 extra bytes of space left here, may as well move something here that puts the space to some use
+MartSignText::
+	text_far _MartSignText
+	text_end
 
 SECTION "rst8", ROM0[$0008]
 _Predef::
 	jp Predef
 
-	ds $10 - @, 0 ; unused
+; PureRGBnote: MOVED: 5 extra bytes of space left here, may as well move something here that puts the space to some use
+PokemartGreetingText::
+	text_far _PokemartGreetingText
+	text_end
 
 SECTION "rst10", ROM0[$0010]
-	rst $38
+_DelayFrame::
+	jp DelayFrame
 
-	ds $18 - @, 0 ; unused
+PokeCenterSignText::
+	text_far _PokeCenterSignText
+	text_end
 
 SECTION "rst18", ROM0[$0018]
-	rst $38
+_DelayFrames::
+	jp DelayFrames
 
-	ds $20 - @, 0 ; unused
+TextIDErrorText:: ; "[hTextID] ERROR."
+	text_far _TextIDErrorText
+	text_end
 
 SECTION "rst20", ROM0[$0020]
-	rst $38
+_CopyData::
+	jp CopyData
 
-	ds $28 - @, 0 ; unused
+PokemonFaintedText::
+	text_far _PokemonFaintedText
+	text_end
 
 SECTION "rst28", ROM0[$0028]
-	rst $38
+_PrintText::
+	jp PrintText
 
-	ds $30 - @, 0 ; unused
+PlayerBlackedOutText::
+	text_far _PlayerBlackedOutText
+	text_end
 
 SECTION "rst30", ROM0[$0030]
-	rst $38
-	
+_PlaySound::
+	jp PlaySound
+
 RepelWoreOffText::
 	text_far _RepelWoreOffText
-	text_end																													
-
-
-	ds $38 - @, 0 ; unused
+	text_end
 
 SECTION "rst38", ROM0[$0038]
+TextScriptEnd::
+        pop hl ; turn the rst call into a jp by popping off the return address
+TextScriptEndNoPop::
+        ld hl, TextScriptEndingText
+DoRet::
+        ret
 
-
-	ds $40 - @, 0 ; unused
-
+TextScriptEndingText::
+	text_end
 
 ; Game Boy hardware interrupts
 

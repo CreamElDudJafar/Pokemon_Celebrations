@@ -153,10 +153,6 @@ DisplayPokemartDialogue::
 	homecall DisplayPokemartDialogue_
 	jp AfterDisplayingTextID
 
-PokemartGreetingText::
-	text_far _PokemartGreetingText
-	text_end
-
 LoadItemList::
 	ld a, 1
 	ld [wUpdateSpritesEnabled], a
@@ -193,10 +189,6 @@ DisplayPokemonFaintedText::
 	call PrintText
 	jp AfterDisplayingTextID
 
-PokemonFaintedText::
-	text_far _PokemonFaintedText
-	text_end
-
 DisplayPlayerBlackedOutText::
 	ld hl, PlayerBlackedOutText
 	call PrintText
@@ -205,13 +197,8 @@ DisplayPlayerBlackedOutText::
 	ld [wd732], a
 	jp HoldTextDisplayOpen
 
-PlayerBlackedOutText::
-	text_far _PlayerBlackedOutText
-	text_end
-
 DisplayRepelWoreOffText::
 	ld hl, RepelWoreOffText
 	call PrintText
 	callfar UseAnotherRepel ; PureRGBnote: ADDED: when repel wears off ask to use another if available
 	jp CloseTextDisplay
-

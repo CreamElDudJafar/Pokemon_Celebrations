@@ -126,10 +126,6 @@ NullChar:: ; unused
 	dec de
 	ret
 
-TextIDErrorText:: ; "[hSpriteIndexOrTextID] ERROR."
-	text_far _TextIDErrorText
-	text_end
-
 MACRO print_name
 	push de
 	ld de, \1
