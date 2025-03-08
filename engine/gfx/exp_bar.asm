@@ -242,7 +242,7 @@ AnimateEXPBar:
 .loop2
 	inc a
 	ld [hl], a
-	call DelayFrame
+	rst _DelayFrame
 	dec b
 	jr z, .done
 	jr .loop1

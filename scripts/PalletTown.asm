@@ -178,7 +178,7 @@ PalletTownOakText:
 	text_far _PalletTownOakHeyWaitDontGoOutText
 	text_asm
 	ld c, 10
-	call DelayFrames
+	rst _DelayFrames
 	xor a
 	ld [wEmotionBubbleSpriteIndex], a ; player's sprite
 	ld [wWhichEmotionBubble], a ; EXCLAMATION_BUBBLE

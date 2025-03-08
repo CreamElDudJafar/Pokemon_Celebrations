@@ -112,7 +112,7 @@ VermilionCityPlayerMovingUp1Script:
 	and a
 	ret nz
 	ld c, 10
-	call DelayFrames
+	rst _DelayFrames
 	ld a, SCRIPT_VERMILIONCITY_DEFAULT
 	ld [wVermilionCityCurScript], a
 	ret

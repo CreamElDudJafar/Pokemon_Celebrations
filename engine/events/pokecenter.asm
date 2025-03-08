@@ -36,7 +36,7 @@ DisplayPokemonCenterDialogue_::
 	ld a, $14
 	ld [wSprite01StateData1ImageIndex], a ; make the nurse bow
 	ld c, a
-	call DelayFrames
+	rst _DelayFrames
 	jr .done
 .declinedHealing
 	call LoadScreenTilesFromBuffer1 ; restore screen

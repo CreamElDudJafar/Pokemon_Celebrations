@@ -26,7 +26,7 @@ PewterPokecenterJigglypuffText:
 	ld a, SFX_STOP_ALL_MUSIC
 	call PlaySound
 	ld c, 32
-	call DelayFrames
+	rst _DelayFrames
 
 	ld hl, .FacingDirections
 	ld de, wJigglypuffFacingDirections
@@ -60,7 +60,7 @@ PewterPokecenterJigglypuffText:
 	ld [wJigglypuffFacingDirections + 3], a
 	pop hl
 	ld c, 24
-	call DelayFrames
+	rst _DelayFrames
 
 	push hl
 	call IsSongPlaying
@@ -73,7 +73,7 @@ PewterPokecenterJigglypuffText:
 ;	jr nz, .spinMovementLoop
 
 	ld c, 48
-	call DelayFrames
+	rst _DelayFrames
 	call PlayDefaultMusic
 	jp TextScriptEnd
 

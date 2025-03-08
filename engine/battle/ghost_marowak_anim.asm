@@ -22,7 +22,7 @@ MarowakAnim:
 	call FlashSprite8Times
 .fadeOutGhostLoop
 	ld c, 10
-	call DelayFrames
+	rst _DelayFrames
 	ldh a, [rOBP1]
 	sla a
 	sla a
@@ -33,7 +33,7 @@ MarowakAnim:
 	ld b, $e4
 .fadeInMarowakLoop
 	ld c, 10
-	call DelayFrames
+	rst _DelayFrames
 	ldh a, [rOBP1]
 	srl b
 	rra

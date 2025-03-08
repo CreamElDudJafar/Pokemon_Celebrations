@@ -5,7 +5,7 @@ PlayBattleMusic::
 	dec a ; SFX_STOP_ALL_MUSIC
 ;	ld [wNewSoundID], a
 	call PlaySound
-	call DelayFrame
+	rst _DelayFrame
 	ld c, 0 ; BANK(Music_GymLeaderBattle)
 	ld a, [wGymLeaderNo]
 	and a

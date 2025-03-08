@@ -6,7 +6,7 @@ BattleTransition:
 	ldh [hWY], a
 	dec a
 	ld [wUpdateSpritesEnabled], a
-	call DelayFrame
+	rst _DelayFrame
 
 ; Determine which OAM block is being used by the enemy trainer sprite (if there
 ; is one).
@@ -192,7 +192,7 @@ BattleTransition_Spiral:
 	pop bc
 	dec c
 	jr nz, .innerLoop
-	call DelayFrame
+	rst _DelayFrame
 	dec b
 	jr nz, .loop
 .done
@@ -327,7 +327,7 @@ BattleTransition_FlashScreen_:
 	jr z, .done
 	ldh [rBGP], a
 	ld c, 2
-	call DelayFrames
+	rst _DelayFrames
 	jr .loop
 .done
 	dec b
@@ -375,7 +375,7 @@ BattleTransition_Shrink:
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
 	ld c, 6
-	call DelayFrames
+	rst _DelayFrames
 	pop bc
 	dec c
 	jr nz, .loop

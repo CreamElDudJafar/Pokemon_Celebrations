@@ -119,7 +119,7 @@ OaksLabFollowedOakScript:
 	call UpdateSprites
 	ld hl, wFlags_D733
 	res 1, [hl]
-	call DelayFrame
+	rst _DelayFrame
 	call PlayDefaultMusic
 
 	ld a, SCRIPT_OAKSLAB_OAK_CHOOSE_MON_SPEECH
@@ -439,7 +439,7 @@ OaksLabRivalEndBattleScript:
 
 OaksLabRivalStartsExitScript:
 	ld c, 20
-	call DelayFrames
+	rst _DelayFrames
 	ld a, TEXT_OAKSLAB_RIVAL_SMELL_YOU_LATER
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -564,17 +564,17 @@ OaksLabOakGivesPokedexScript:
 	ld a, TEXT_OAKSLAB_RIVAL_WHAT_DID_YOU_CALL_ME_FOR
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	call DelayFrame
+	rst _DelayFrame
 	call OaksLabRivalFaceUpOakFaceDownScript
 	ld a, TEXT_OAKSLAB_OAK_I_HAVE_A_REQUEST
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	call DelayFrame
+	rst _DelayFrame
 	call OaksLabRivalFaceUpOakFaceDownScript
 	ld a, TEXT_OAKSLAB_OAK_MY_INVENTION_POKEDEX
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	call DelayFrame
+	rst _DelayFrame
 	ld a, TEXT_OAKSLAB_OAK_GOT_POKEDEX
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -861,7 +861,7 @@ OaksLabShowPokeBallPokemonScript:
 	res 6, [hl]
 	call ReloadMapData
 	ld c, 10
-	call DelayFrames
+	rst _DelayFrames
 	ld a, [wSpriteIndex]
 	cp OAKSLAB_CHARMANDER_POKE_BALL
 	jr z, OaksLabYouWantCharmanderText

@@ -110,7 +110,7 @@ CloseTextDisplay::
 	call SwitchToMapRomBank
 	ld a, $90
 	ldh [hWY], a ; move the window off the screen
-	call DelayFrame
+	rst _DelayFrame
 	call LoadGBPal
 	xor a
 	ldh [hAutoBGTransferEnabled], a ; disable continuous WRAM to VRAM transfer each V-blank

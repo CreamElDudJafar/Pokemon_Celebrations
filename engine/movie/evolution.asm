@@ -45,7 +45,7 @@ EvolveMon:
 	ld a, MUSIC_SAFARI_ZONE
 	call PlayMusic
 	ld c, 80
-	call DelayFrames
+	rst _DelayFrames
 	ld c, 1 ; set PAL_BLACK instead of mon palette
 	call EvolutionSetWholeScreenPalette
 	lb bc, $1, $10
@@ -140,7 +140,7 @@ Evolution_ChangeMonPic:
 	ret
 
 Evolution_CheckForCancel:
-	call DelayFrame
+	rst _DelayFrame
 	push bc
 	call JoypadLowSensitivity
 	ldh a, [hJoy5]

@@ -142,7 +142,7 @@ PokemonTower6FMarowakDepartedText:
 	call PlayCry
 	call WaitForSoundToFinish
 	ld c, 30
-	call DelayFrames
+	rst _DelayFrames
 	ld hl, PokemonTower6FSoulWasCalmedText
 	call PrintText
 	jp TextScriptEnd

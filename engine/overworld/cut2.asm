@@ -18,7 +18,7 @@ AnimCut:
 	ldh a, [rOBP1]
 	xor $64
 	ldh [rOBP1], a
-	call DelayFrame
+	rst _DelayFrame
 	pop bc
 	dec c
 	jr nz, .cutTreeLoop
@@ -68,7 +68,7 @@ AnimCutGrass_UpdateOAMEntries:
 	ldh a, [rOBP1]
 	xor $64
 	ldh [rOBP1], a
-	call DelayFrame
+	rst _DelayFrame
 	pop bc
 	dec c
 	jr nz, AnimCutGrass_UpdateOAMEntries

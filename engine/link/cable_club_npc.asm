@@ -5,7 +5,7 @@ CableClubNPC::
 	jp nz, .receivedPokedex
 ; if the player hasn't received the pokedex
 	ld c, 60
-	call DelayFrames
+	rst _DelayFrames
 	ld hl, CableClubNPCMakingPreparationsText
 	call PrintText
 	jp .didNotConnect
@@ -45,14 +45,14 @@ CableClubNPC::
 	ldh [rSB], a
 	ld a, START_TRANSFER_INTERNAL_CLOCK
 	ldh [rSC], a
-	call DelayFrame
+	rst _DelayFrame
 	jr .establishConnectionLoop
 .establishedConnection
 	call Serial_SendZeroByte
-	call DelayFrame
+	rst _DelayFrame
 	call Serial_SendZeroByte
 	ld c, 50
-	call DelayFrames
+	rst _DelayFrames
 	ld hl, CableClubNPCPleaseApplyHereHaveToSaveText
 	call PrintText
 	xor a
@@ -89,7 +89,7 @@ CableClubNPC::
 	jr nz, .connected
 	ld b, 10
 .syncLoop
-	call DelayFrame
+	rst _DelayFrame
 	call Serial_SendZeroByte
 	dec b
 	jr nz, .syncLoop

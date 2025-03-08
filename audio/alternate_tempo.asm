@@ -42,7 +42,7 @@ Music_Cities1AlternateTempo::
 	xor a
 	ld [wMusicFadeID], a
 	ld c, 100
-	call DelayFrames ; wait for the fade-out to finish
+	rst _DelayFrames ; wait for the fade-out to finish
 	ld c, 0 ; BANK(Music_Cities1)
 	ld a, MUSIC_CITIES1
 	call PlayMusic

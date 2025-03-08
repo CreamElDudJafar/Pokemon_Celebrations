@@ -20,7 +20,7 @@ PrintBeginningBattleText:
 .trainerBattle
 	call .playSFX
 	ld c, 20
-	call DelayFrames
+	rst _DelayFrames
 	ld hl, TrainerWantsToFightText
 .wildBattle
 	push hl

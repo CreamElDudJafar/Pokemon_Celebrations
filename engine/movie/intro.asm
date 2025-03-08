@@ -17,7 +17,7 @@ PlayIntro:
 	ldh [hSCX], a
 	ldh [hAutoBGTransferEnabled], a
 	call ClearSprites
-	call DelayFrame
+	rst _DelayFrame
 	ret
 
 PlayIntroScene:
@@ -152,7 +152,7 @@ AnimateIntroNidorino:
 	ld c, 6 * 6
 	call UpdateIntroNidorinoOAM
 	ld c, 5
-	call DelayFrames
+	rst _DelayFrames
 	pop de
 	inc de
 	jr AnimateIntroNidorino
@@ -310,7 +310,7 @@ PlayShootingStar:
 	ldpal a, SHADE_BLACK, SHADE_DARK, SHADE_LIGHT, SHADE_WHITE
 	ldh [rBGP], a
 	ld c, 180
-	call DelayFrames
+	rst _DelayFrames
 	call ClearScreen
 	call DisableLCD
 	xor a
@@ -322,7 +322,7 @@ PlayShootingStar:
 	res 5, [hl]
 	set 3, [hl]
 	ld c, 64
-	call DelayFrames
+	rst _DelayFrames
 	farcall AnimateShootingStar
 	push af
 	pop af
@@ -337,7 +337,7 @@ PlayShootingStar:
 	jr nz, .loop
 
 	ld c, 40
-	call DelayFrames
+	rst _DelayFrames
 .next
 ;	ld a, 0 ; BANK(Music_IntroBattle)
 ;	ld [wAudioROMBank], a

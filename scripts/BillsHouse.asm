@@ -79,7 +79,7 @@ BillsHouseBillExitsMachineScript:
 	ld [wMissableObjectIndex], a
 	predef ShowObject
 	ld c, 8
-	call DelayFrames
+	rst _DelayFrames
 	ld a, BILLSHOUSE_BILL1
 	ldh [hSpriteIndex], a
 	ld de, BillExitMachineMovement

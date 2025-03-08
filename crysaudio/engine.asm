@@ -3101,7 +3101,7 @@ ClearChannel:
 ;	push de
 ;	ld de, MUSIC_NONE
 ;	call PlayMusic
-;	call DelayFrame
+;	rst _DelayFrame
 ;	; play new song
 ;	call MaxVolume
 ;	pop de

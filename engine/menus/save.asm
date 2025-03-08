@@ -19,7 +19,7 @@ LoadSAV:
 	ld hl, FileDataDestroyedText
 	call PrintText
 	ld c, 100
-	call DelayFrames
+	rst _DelayFrames
 	pop hl
 	res 6, [hl]
 	ld a, $1 ; bad checksum
@@ -164,7 +164,7 @@ SaveSAV:
 	ld de, NowSavingString
 	call PlaceString
 	ld c, 120
-	call DelayFrames
+	rst _DelayFrames
 	ld hl, GameSavedText
 	call PrintText
 	ld a, SFX_SAVE

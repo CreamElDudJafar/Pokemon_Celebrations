@@ -220,7 +220,7 @@ StartMenu_Pokemon::
 	set 1, [hl]
 	res 4, [hl]
 	ld c, 60
-	call DelayFrames
+	rst _DelayFrames
 	call GBPalWhiteOutWithDelay3
 	jp .goBackToMap
 .warpToLastPokemonCenterText

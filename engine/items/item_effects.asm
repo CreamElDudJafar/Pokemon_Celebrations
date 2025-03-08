@@ -421,7 +421,7 @@ ItemUseBall:
 
 .skipShakeCalculations
 	ld c, 20
-	call DelayFrames
+	rst _DelayFrames
 
 ; Do the animation.
 	ld a, TOSS_ANIM
@@ -1273,7 +1273,7 @@ ItemUseMedicine:
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	ld c, 50
-	call DelayFrames
+	rst _DelayFrames
 	call WaitForTextScrollButtonPress
 	jr .done
 .canceledItemUse
@@ -1602,7 +1602,7 @@ ItemUseEscapeRope:
 	ret nz ; if so, return
 	call ItemUseReloadOverworldData
 	ld c, 30
-	call DelayFrames
+	rst _DelayFrames
 	jp RemoveUsedItem
 .notUsable
 	jp ItemUseNotTime
@@ -1960,7 +1960,7 @@ FishingInit:
 	ld a, SFX_HEAL_AILMENT
 	call PlaySound
 	ld c, 80
-	call DelayFrames
+	rst _DelayFrames
 	and a
 	ret
 .surfing

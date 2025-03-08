@@ -54,7 +54,7 @@ VermilionDockSSAnneLeavesScript:
 	xor a
 	ld [wSpritePlayerStateData1ImageIndex], a
 	ld c, 120
-	call DelayFrames
+	rst _DelayFrames
 	ld b, $9c
 	call CopyScreenTileBufferToVRAM
 	hlcoord 0, 10
@@ -210,7 +210,7 @@ VermilionDock_EraseSSAnne:
 	ld a, SFX_SS_ANNE_HORN
 	call PlaySound
 	ld c, 120
-	call DelayFrames
+	rst _DelayFrames
 	ret
 
 VermilionDock_TextPointers:

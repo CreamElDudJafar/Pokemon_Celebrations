@@ -214,7 +214,7 @@ PlayMusic::
 ;	push de
 ;	ld de, MUSIC_NONE
 ;	call _PlayMusic
-;	call DelayFrame
+;	rst _DelayFrame
 ;	pop de
 ;	call _PlayMusic
 ;
