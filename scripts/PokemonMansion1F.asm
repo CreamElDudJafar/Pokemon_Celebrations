@@ -95,7 +95,7 @@ PokemonMansion1FScientistAfterBattleText:
 PokemonMansion1FSwitchText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -105,7 +105,7 @@ PokemonMansion1FSwitchText:
 	ld hl, wCurrentMapScriptFlags
 	set 5, [hl]
 	ld hl, .PressedText
-	call PrintText
+	rst _PrintText
 	ld a, SFX_GO_INSIDE
 	rst _PlaySound
 	CheckAndSetEvent EVENT_MANSION_SWITCH_ON
@@ -114,7 +114,7 @@ PokemonMansion1FSwitchText:
 	jr .done
 .not_pressed
 	ld hl, .NotPressedText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

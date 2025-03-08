@@ -76,7 +76,7 @@ SilphCo10FSilphWorkerFText:
 	jr nz, .beat_giovanni
 	ld hl, .ImScaredText
 .beat_giovanni
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .ImScaredText:

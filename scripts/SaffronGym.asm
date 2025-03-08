@@ -128,11 +128,11 @@ SaffronGymSabrinaText:
 	and a
 	jr nz, .SabrinaRematch
 	ld hl, .PostBattleAdviceText
-	call PrintText
+	rst _PrintText
 	jr .todone
 .beforeBeat
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -150,13 +150,13 @@ SaffronGymSabrinaText:
 	jr .done
 .SabrinaRematch
 	ld hl, .PreBattleRematch1Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .refused
 	ld hl, .PreBattleRematch2Text
-	call PrintText
+	rst _PrintText
 	call Delay3
 	ld a, OPP_SABRINA
 	ld [wCurOpponent], a
@@ -168,7 +168,7 @@ SaffronGymSabrinaText:
 	jr .endBattle
 .refused
 	ld hl, .PreBattleRematchRefusedText
-	call PrintText
+	rst _PrintText
 	jr .done
 .afterBatttle
 	ld a, $6
@@ -270,11 +270,11 @@ SaffronGymGymGuideText:
 	CheckEvent EVENT_BEAT_SABRINA
 	jr nz, .afterBeat
 	ld hl, .ChampInMakingText
-	call PrintText
+	rst _PrintText
 	jr .done
 .afterBeat
 	ld hl, .BeatSabrinaText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

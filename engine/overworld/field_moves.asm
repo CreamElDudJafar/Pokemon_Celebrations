@@ -27,7 +27,7 @@ TrySurf:
 	jr z, .no2
 	call InitializeFieldMoveTextBox
 	ld hl, PromptToSurfText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -54,7 +54,7 @@ TryCut:
 	jr nc, TrySurf.no
 	call InitializeFieldMoveTextBox
 	ld hl, ExplainCutText
-	call PrintText
+	rst _PrintText
 	call ManualTextScroll
 	ld d, CUT
 	call HasPartyMove
@@ -63,7 +63,7 @@ TryCut:
 	bit 1, a ; CASCADE BADGE
 	jr z, TrySurf.no2
 	ld hl, PromptToCutText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a

@@ -137,14 +137,14 @@ PokemonTower6FChanneler3Text:
 PokemonTower6FMarowakDepartedText:
 	text_asm
 	ld hl, PokemonTower6FGhostWasCubonesMotherText
-	call PrintText
+	rst _PrintText
 	ld a, RESTLESS_SOUL
 	call PlayCry
 	call WaitForSoundToFinish
 	ld c, 30
 	rst _DelayFrames
 	ld hl, PokemonTower6FSoulWasCalmedText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 PokemonTower6FGhostWasCubonesMotherText:

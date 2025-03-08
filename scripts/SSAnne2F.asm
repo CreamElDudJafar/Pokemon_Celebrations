@@ -190,7 +190,7 @@ SSAnne2FWaiterText:
 SSAnne2FRivalText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]

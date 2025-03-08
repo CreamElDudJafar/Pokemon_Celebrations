@@ -12,13 +12,13 @@ CeruleanBadgeHouse_TextPointers:
 CeruleanBadgeHouseMiddleAgedManText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wListScrollOffset], a
 .loop
 	ld hl, .WhichBadgeText
-	call PrintText
+	rst _PrintText
 	ld hl, .BadgeItemList
 	call LoadItemList
 	ld hl, wItemList
@@ -43,13 +43,13 @@ CeruleanBadgeHouseMiddleAgedManText:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	call PrintText
+	rst _PrintText
 	jr .loop
 .done
 	xor a
 	ld [wListScrollOffset], a
 	ld hl, .VisitAnyTimeText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .BadgeItemList:

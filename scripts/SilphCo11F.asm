@@ -295,21 +295,21 @@ SilphCo11FSilphPresidentText:
 	CheckEvent EVENT_GOT_MASTER_BALL
 	jp nz, .got_item
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	lb bc, MASTER_BALL, 1
 	call GiveItem
 	jr nc, .bag_full
 	ld hl, .ReceivedMasterBallText
-	call PrintText
+	rst _PrintText
 	SetEvent EVENT_GOT_MASTER_BALL
 	jr .done
 .bag_full
 	ld hl, .NoRoomText
-	call PrintText
+	rst _PrintText
 	jr .done
 .got_item
 	ld hl, .MasterBallDescriptionText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 
@@ -385,7 +385,7 @@ SilphCo11FRocket2AfterBattleText:
 SilphCo10FPorygonText: ; unreferenced
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	ld a, PORYGON
 	call DisplayPokedex
 	jp TextScriptEnd

@@ -137,11 +137,11 @@ PokemonTower2FRivalText:
 	CheckEvent EVENT_BEAT_POKEMON_TOWER_RIVAL
 	jr z, .do_battle
 	ld hl, .HowsYourDexText
-	call PrintText
+	rst _PrintText
 	jr .text_script_end
 .do_battle
 	ld hl, .WhatBringsYouHereText
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]

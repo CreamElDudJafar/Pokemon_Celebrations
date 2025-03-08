@@ -257,7 +257,7 @@ ChampionsRoomRivalText:
 	jr z, .printText
 	ld hl, ChampionsRoomRivalAfterBattleText
 .printText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .IntroText:
@@ -286,7 +286,7 @@ ChampionsRoomOakCongratulatesPlayerText:
 	ld [wd11e], a
 	call GetMonName
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:

@@ -221,13 +221,13 @@ CinnabarGymStartBattleScript:
 
 CinnabarGymStartRematchScript:
 	ld hl, .PreBattleRematch1Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .refused
 	ld hl, .PreBattleRematch2Text
-	call PrintText
+	rst _PrintText
 	call Delay3
 	ld a, OPP_BLAINE
 	ld [wCurOpponent], a
@@ -242,7 +242,7 @@ CinnabarGymStartRematchScript:
 	jp TextScriptEnd
 .refused
 	ld hl, .PreBattleRematchRefusedText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 	
 .PreBattleRematch1Text
@@ -275,11 +275,11 @@ CinnabarGymBlaineText:
 	and a
 	jr nz, .BlaineRematch
 	ld hl, .PostBattleAdviceText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 .beforeBeat
 	ld hl, .PreBattleText
-	call PrintText
+	rst _PrintText
 	ld hl, .ReceivedVolcanoBadgeText
 	ld de, .ReceivedVolcanoBadgeText
 	call SaveEndBattleTextPointers
@@ -323,14 +323,14 @@ CinnabarGymSuperNerd1:
 	CheckEvent EVENT_BEAT_CINNABAR_GYM_TRAINER_0
 	jr nz, .defeated
 	ld hl, .BattleText
-	call PrintText
+	rst _PrintText
 	ld hl, .EndBattleText
 	ld de, .EndBattleText
 	call SaveEndBattleTextPointers
 	jp CinnabarGymStartBattleScript
 .defeated
 	ld hl, .AfterBattleText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .BattleText:
@@ -351,14 +351,14 @@ CinnabarGymSuperNerd2:
 	CheckEvent EVENT_BEAT_CINNABAR_GYM_TRAINER_1
 	jr nz, .defeated
 	ld hl, .BattleText
-	call PrintText
+	rst _PrintText
 	ld hl, .EndBattleText
 	ld de, .EndBattleText
 	call SaveEndBattleTextPointers
 	jp CinnabarGymStartBattleScript
 .defeated
 	ld hl, .AfterBattleText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .BattleText:
@@ -379,14 +379,14 @@ CinnabarGymSuperNerd3:
 	CheckEvent EVENT_BEAT_CINNABAR_GYM_TRAINER_2
 	jr nz, .defeated
 	ld hl, .BattleText
-	call PrintText
+	rst _PrintText
 	ld hl, .EndBattleText
 	ld de, .EndBattleText
 	call SaveEndBattleTextPointers
 	jp CinnabarGymStartBattleScript
 .defeated
 	ld hl, .AfterBattleText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .BattleText:
@@ -407,14 +407,14 @@ CinnabarGymSuperNerd4:
 	CheckEvent EVENT_BEAT_CINNABAR_GYM_TRAINER_3
 	jr nz, .defeated
 	ld hl, .BattleText
-	call PrintText
+	rst _PrintText
 	ld hl, .EndBattleText
 	ld de, .EndBattleText
 	call SaveEndBattleTextPointers
 	jp CinnabarGymStartBattleScript
 .defeated
 	ld hl, .AfterBattleText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .BattleText:
@@ -435,14 +435,14 @@ CinnabarGymSuperNerd5:
 	CheckEvent EVENT_BEAT_CINNABAR_GYM_TRAINER_4
 	jr nz, .defeated
 	ld hl, .BattleText
-	call PrintText
+	rst _PrintText
 	ld hl, .EndBattleText
 	ld de, .EndBattleText
 	call SaveEndBattleTextPointers
 	jp CinnabarGymStartBattleScript
 .defeated
 	ld hl, .AfterBattleText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .BattleText:
@@ -463,14 +463,14 @@ CinnabarGymSuperNerd6:
 	CheckEvent EVENT_BEAT_CINNABAR_GYM_TRAINER_5
 	jr nz, .defeated
 	ld hl, .BattleText
-	call PrintText
+	rst _PrintText
 	ld hl, .EndBattleText
 	ld de, .EndBattleText
 	call SaveEndBattleTextPointers
 	jp CinnabarGymStartBattleScript
 .defeated
 	ld hl, .AfterBattleText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .BattleText:
@@ -491,14 +491,14 @@ CinnabarGymSuperNerd7:
 	CheckEvent EVENT_BEAT_CINNABAR_GYM_TRAINER_6
 	jr nz, .defeated
 	ld hl, .BattleText
-	call PrintText
+	rst _PrintText
 	ld hl, .EndBattleText
 	ld de, .EndBattleText
 	call SaveEndBattleTextPointers
 	jp CinnabarGymStartBattleScript
 .defeated
 	ld hl, .AfterBattleText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .BattleText:
@@ -522,7 +522,7 @@ CinnabarGymGymGuideText:
 .afterBeat
 	ld hl, .BeatBlaineText
 .done
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .ChampInMakingText:

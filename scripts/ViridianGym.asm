@@ -217,7 +217,7 @@ ViridianGymGiovanniText:
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	ld hl, .PostBattleAdviceText
-	call PrintText
+	rst _PrintText
 	call GBFadeOutToBlack
 	ld a, HS_VIRIDIAN_GYM_GIOVANNI
 	ld [wMissableObjectIndex], a
@@ -228,7 +228,7 @@ ViridianGymGiovanniText:
 	jr .text_script_end
 .beforeBeat
 	ld hl, .PreBattleText
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -425,11 +425,11 @@ ViridianGymGymGuideText:
 	CheckEvent EVENT_BEAT_VIRIDIAN_GYM_GIOVANNI
 	jr nz, .afterBeat
 	ld hl, ViridianGymGuidePreBattleText
-	call PrintText
+	rst _PrintText
 	jr .done
 .afterBeat
 	ld hl, ViridianGymGuidePostBattleText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

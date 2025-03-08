@@ -98,11 +98,11 @@ Route16Gate1FGuardText:
 	call Route16Gate1FIsBicycleInBagScript
 	jr z, .no_bike
 	ld hl, .CyclingRoadExplanationText
-	call PrintText
+	rst _PrintText
 	jr .text_script_end
 .no_bike
 	ld hl, .NoPedestriansAllowedText
-	call PrintText
+	rst _PrintText
 .text_script_end
 	jp TextScriptEnd
 

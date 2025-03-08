@@ -38,7 +38,7 @@ EndOfBattle:
 	ld c, $3
 	predef AddBCDPredef
 	ld hl, PickUpPayDayMoneyText
-	call PrintText
+	rst _PrintText
 .evolution
 	xor a
 	ld [wForceEvolution], a

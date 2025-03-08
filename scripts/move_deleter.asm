@@ -1,14 +1,14 @@
 MoveDeleterText1:
 	text_asm
 	ld hl, MoveDeleterGreetingText
-	call PrintText
+	rst _PrintText
 .jumpback
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jp nz, .exit
 	ld hl, MoveDeleterSaidYesText
-	call PrintText
+	rst _PrintText
 	; Select pokemon from party.
 	call SaveScreenTilesToBuffer2
 	xor a
@@ -32,7 +32,7 @@ MoveDeleterText1:
 	cp 2
 	jr nc, .chooseMove
 	ld hl, MoveDeleterOneMoveText
-	call PrintText
+	rst _PrintText
 	jr .jumpback
 .chooseMove
 	push bc
@@ -40,7 +40,7 @@ MoveDeleterText1:
 	ld [wListScrollOffset], a
 	ld [wCurrentMenuItem], a
 	ld hl, MoveDeleterWhichMoveText
-	call PrintText
+	rst _PrintText
 	ld a, MOVESLISTMENU
 	ld [wListMenuID], a
 	ld de, wMoveBuffer
@@ -63,7 +63,7 @@ MoveDeleterText1:
 	call GetMoveName
 	call CopyToStringBuffer ; copy name to wcf4b
 	ld hl, MoveDeleterConfirmText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	pop bc
 	pop de
@@ -80,10 +80,10 @@ MoveDeleterText1:
 	pop de ; d = move id
 	call DeleteMove
 	ld hl, MoveDeleterForgotText
-	call PrintText
+	rst _PrintText
 .exit
 	ld hl, MoveDeleterByeText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 DeleteMove:

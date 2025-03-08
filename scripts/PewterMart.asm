@@ -13,7 +13,7 @@ PewterMart_TextPointers:
 PewterMartYoungsterText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -23,7 +23,7 @@ PewterMartYoungsterText:
 PewterMartSuperNerdText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:

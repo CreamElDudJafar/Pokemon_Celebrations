@@ -128,11 +128,11 @@ CeladonGymErikaText:
 	and a
 	jr nz, .ErikaRematch
 	ld hl, .PostBattleAdviceText
-	call PrintText
+	rst _PrintText
 	jr .todone
 .beforeBeat
 	ld hl, .PreBattleText
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -150,13 +150,13 @@ CeladonGymErikaText:
 	jr .done
 .ErikaRematch
 	ld hl, .PreBattleRematch1Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .refused
 	ld hl, .PreBattleRematch2Text
-	call PrintText
+	rst _PrintText
 	call Delay3
 	ld a, OPP_ERIKA
 	ld [wCurOpponent], a
@@ -168,7 +168,7 @@ CeladonGymErikaText:
 	jr .endBattle
 .refused
 	ld hl, .PreBattleRematchRefusedText
-	call PrintText
+	rst _PrintText
 	jr .done
 .afterBatttle
 	ld a, $4

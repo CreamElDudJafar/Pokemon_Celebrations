@@ -12,7 +12,7 @@ RedsHouse1FMomText:
 	bit 3, a ; received a Pokémon from Oak?
 	jr nz, .heal
 	ld hl, .WakeUpText
-	call PrintText
+	rst _PrintText
 	jr .done
 .heal
 	call RedsHouse1FMomHealScript
@@ -25,7 +25,7 @@ RedsHouse1FMomText:
 
 RedsHouse1FMomHealScript:
 	ld hl, RedsHouse1FMomYouShouldRestText
-	call PrintText
+	rst _PrintText
 	call GBFadeOutToWhite
 	call ReloadMapData
 	predef HealParty
@@ -61,7 +61,7 @@ RedsHouse1FTVText:
 	jr nz, .got_text
 	ld hl, .StandByMeMovieText
 .got_text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .StandByMeMovieText:

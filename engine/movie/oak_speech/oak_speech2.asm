@@ -1,6 +1,6 @@
 ReChoosePlayerName:
 	ld hl, IntroducePlayerText
-	call PrintText
+	rst _PrintText
 ChoosePlayerName:
 	call OakSpeechSlidePicRight
 	ld a, [wPlayerGender]
@@ -48,7 +48,7 @@ ChoosePlayerName:
 	call IntroDisplayPicCenteredOrUpperRight
 .done
 	ld hl, YourNameIsText2
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -66,7 +66,7 @@ YourNameIsText2:
 
 ReChooseRivalName:
 	ld hl, IntroduceRivalText2
-	call PrintText
+	rst _PrintText
 ChooseRivalName:
 	call OakSpeechSlidePicRight
 	ld de, DefaultNamesRival
@@ -94,7 +94,7 @@ ChooseRivalName:
 	call IntroDisplayPicCenteredOrUpperRight
 .done
 	ld hl, HisNameIsText2
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a

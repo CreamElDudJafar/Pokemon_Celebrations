@@ -146,17 +146,17 @@ SilphCo9FNurseText:
 	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
 	jr nz, .beat_giovanni
 	ld hl, .YouLookTiredText
-	call PrintText
+	rst _PrintText
 	predef HealParty
 	call GBFadeOutToWhite
 	call Delay3
 	call GBFadeInFromWhite
 	ld hl, .DontGiveUpText
-	call PrintText
+	rst _PrintText
 	jr .text_script_end
 .beat_giovanni
 	ld hl, .ThankYouText
-	call PrintText
+	rst _PrintText
 .text_script_end
 	jp TextScriptEnd
 

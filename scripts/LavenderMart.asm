@@ -16,11 +16,11 @@ LavenderMartCooltrainerMText:
 	CheckEvent EVENT_RESCUED_MR_FUJI
 	jr nz, .Nugget
 	ld hl, .ReviveText
-	call PrintText
+	rst _PrintText
 	jr .done
 .Nugget
 	ld hl, .NuggetText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

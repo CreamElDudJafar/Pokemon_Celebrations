@@ -388,11 +388,11 @@ Route22Rival1Text:
 	CheckEvent EVENT_BEAT_ROUTE22_RIVAL_1ST_BATTLE
 	jr z, .before_battle
 	ld hl, Route22RivalAfterBattleText1
-	call PrintText
+	rst _PrintText
 	jr .text_script_end
 .before_battle
 	ld hl, Route22RivalBeforeBattleText1
-	call PrintText
+	rst _PrintText
 .text_script_end
 	jp TextScriptEnd
 
@@ -401,11 +401,11 @@ Route22Rival2Text:
 	CheckEvent EVENT_BEAT_ROUTE22_RIVAL_2ND_BATTLE
 	jr z, .before_battle
 	ld hl, Route22RivalAfterBattleText2
-	call PrintText
+	rst _PrintText
 	jr .text_script_end
 .before_battle
 	ld hl, Route22RivalBeforeBattleText2
-	call PrintText
+	rst _PrintText
 .text_script_end
 	jp TextScriptEnd
 

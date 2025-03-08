@@ -66,7 +66,7 @@ OakSpeech:
 	jp nz, .skipSpeech
 .MenuCursorLoop ; difficulty menu
 	ld hl, DifficultyText
-  	call PrintText
+  	rst _PrintText
   	call DifficultyChoice
 	ld a, [wCurrentMenuItem]
 	ld [wDifficulty], a
@@ -77,11 +77,11 @@ OakSpeech:
 	; space for more game modes down the line
 .SelectedNormalMode
 	ld hl, NormalModeText
-	call PrintText
+	rst _PrintText
 	jp .YesNoNormalHard
 .SelectedHardMode
 	ld hl, HardModeText
-	call PrintText
+	rst _PrintText
 .YesNoNormalHard ; Give the player a brief description of each game mode and make sure that's what they want
   	call YesNoNormalHardChoice
 	ld a, [wCurrentMenuItem]
@@ -93,7 +93,7 @@ OakSpeech:
 
 	; Gender Menu
 	ld hl, BoyGirlText  ; added to the same file as the other oak text
-  	call PrintText     ; show this text
+  	rst _PrintText     ; show this text
   	call BoyGirlChoice ; added routine at the end of this file
    	ld a, [wCurrentMenuItem]
    	ld [wPlayerGender], a ; store player's gender. 00 for boy, 01 for girl
@@ -104,7 +104,7 @@ OakSpeech:
 	call IntroDisplayPicCenteredOrUpperRight
 	call FadeInIntroPic
 	ld hl, OakSpeechText1
-	call PrintText
+	rst _PrintText
 	call GBFadeOutToWhite
 	call ClearScreen
 	ld a, NIDORINO
@@ -115,7 +115,7 @@ OakSpeech:
 	call LoadFlippedFrontSpriteByMonIndex
 	call MovePicLeft
 	ld hl, OakSpeechText2
-	call PrintText
+	rst _PrintText
 	call GBFadeOutToWhite
 	call ClearScreen
 	ld de, RedPicFront
@@ -129,7 +129,7 @@ OakSpeech:
 		call IntroDisplayPicCenteredOrUpperRight
 	call MovePicLeft
 	ld hl, IntroducePlayerText
-	call PrintText
+	rst _PrintText
 	call ChoosePlayerName
 	call GBFadeOutToWhite
 	call ClearScreen
@@ -138,7 +138,7 @@ OakSpeech:
 	call IntroDisplayPicCenteredOrUpperRight
 	call FadeInIntroPic
 	ld hl, IntroduceRivalText
-	call PrintText
+	rst _PrintText
 	call ChooseRivalName
 .skipSpeech
 	call GBFadeOutToWhite
@@ -157,7 +157,7 @@ OakSpeech:
 	and a
 	jr nz, .next
 	ld hl, OakSpeechText3
-	call PrintText
+	rst _PrintText
 .next
 	ldh a, [hLoadedROMBank]
 	push af

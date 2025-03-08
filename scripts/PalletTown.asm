@@ -171,7 +171,7 @@ PalletTownOakText:
 .next
 	ld hl, .ItsUnsafeText
 .done
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .HeyWaitDontGoOutText:

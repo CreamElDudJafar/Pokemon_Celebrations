@@ -109,7 +109,7 @@ BillsPC_::
 	ld a, SFX_TURN_ON_PC
 	rst _PlaySound
 	ld hl, SwitchOnText
-	call PrintText
+	rst _PrintText
 
 BillsPCMenu:
 	ld a, [wParentMenuItem]
@@ -145,7 +145,7 @@ BillsPCMenu:
 	ld [hl], a ; wMenuWatchMovingOutOfBounds
 	ld [wPlayerMonNumber], a
 	ld hl, WhatText
-	call PrintText
+	rst _PrintText
 	hlcoord 9, 14
 	ld b, 2
 	ld c, 9
@@ -209,14 +209,14 @@ BillsPCDeposit:
 	dec a
 	jr nz, .partyLargeEnough
 	ld hl, CantDepositLastMonText
-	call PrintText
+	rst _PrintText
 	jp BillsPCMenu
 .partyLargeEnough
 	ld a, [wBoxCount]
 	cp MONS_PER_BOX
 	jr nz, .boxNotFull
 	ld hl, BoxFullText
-	call PrintText
+	rst _PrintText
 	jp BillsPCMenu
 .boxNotFull
 	ld hl, wPartyCount
@@ -253,7 +253,7 @@ BillsPCDeposit:
 	ld [hli], a
 	ld [hl], "@"
 	ld hl, MonWasStoredText
-	call PrintText
+	rst _PrintText
 	jp BillsPCMenu
 
 BillsPCWithdraw:
@@ -261,14 +261,14 @@ BillsPCWithdraw:
 	and a
 	jr nz, .boxNotEmpty
 	ld hl, NoMonText
-	call PrintText
+	rst _PrintText
 	jp BillsPCMenu
 .boxNotEmpty
 	ld a, [wPartyCount]
 	cp PARTY_LENGTH
 	jr nz, .partyNotFull
 	ld hl, CantTakeMonText
-	call PrintText
+	rst _PrintText
 	jp BillsPCMenu
 .partyNotFull
 	ld hl, wBoxCount
@@ -293,7 +293,7 @@ BillsPCWithdraw:
 	call RemovePokemon
 	call WaitForSoundToFinish
 	ld hl, MonIsTakenOutText
-	call PrintText
+	rst _PrintText
 	jp BillsPCMenu
 
 BillsPCRelease:
@@ -301,14 +301,14 @@ BillsPCRelease:
 	and a
 	jr nz, .loop
 	ld hl, NoMonText
-	call PrintText
+	rst _PrintText
 	jp BillsPCMenu
 .loop
 	ld hl, wBoxCount
 	call DisplayMonListMenu
 	jp c, BillsPCMenu
 	ld hl, OnceReleasedText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -320,7 +320,7 @@ BillsPCRelease:
 	ld a, [wcf91]
 	call PlayCry
 	ld hl, MonWasReleasedText
-	call PrintText
+	rst _PrintText
 	jp BillsPCMenu
 
 BillsPCChangeBox:

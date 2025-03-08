@@ -227,7 +227,7 @@ PokemonTower7FRocket3Text:
 PokemonTower7FMrFujiText:
 	text_asm
 	ld hl, .RescueText
-	call PrintText
+	rst _PrintText
 	SetEvent EVENT_RESCUED_MR_FUJI
 	SetEvent EVENT_RESCUED_MR_FUJI_2
 	ld a, HS_MR_FUJIS_HOUSE_MR_FUJI

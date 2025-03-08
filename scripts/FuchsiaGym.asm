@@ -127,11 +127,11 @@ FuchsiaGymKogaText:
 	and a
 	jr nz, .KogaRematch
 	ld hl, .PostBattleAdviceText
-	call PrintText
+	rst _PrintText
 	jr .todone
 .beforeBeat
 	ld hl, .BeforeBattleText
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -149,13 +149,13 @@ FuchsiaGymKogaText:
 	jr .done
 .KogaRematch
 	ld hl, .PreBattleRematch1Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .refused
 	ld hl, .PreBattleRematch2Text
-	call PrintText
+	rst _PrintText
 	call Delay3
 	ld a, OPP_KOGA
 	ld [wCurOpponent], a
@@ -167,7 +167,7 @@ FuchsiaGymKogaText:
 	jr .endBattle
 .refused
 	ld hl, .PreBattleRematchRefusedText
-	call PrintText
+	rst _PrintText
 	jr .done
 .afterBattle
 	ld a, $5
@@ -335,7 +335,7 @@ FuchsiaGymGymGuideText:
 	jr nz, .afterBeat
 	ld hl, .ChampInMakingText
 .afterBeat
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .ChampInMakingText:

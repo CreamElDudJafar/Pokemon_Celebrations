@@ -499,7 +499,7 @@ UpdateStatDone:
 	call z, ApplyBadgeStatBoosts ; whenever the player uses a stat-up move, badge boosts get reapplied again to every stat,
 	                             ; even to those not affected by the stat-up move (will be boosted further)
 	ld hl, MonsStatsRoseText
-	call PrintText
+	rst _PrintText
 
 ; these shouldn't be here
 	call QuarterSpeedDueToParalysis ; apply speed penalty to the player whose turn is not, if it's paralyzed
@@ -689,7 +689,7 @@ UpdateLoweredStatDone:
 	call nz, ApplyBadgeStatBoosts ; whenever the player uses a stat-down move, badge boosts get reapplied again to every stat,
 	                              ; even to those not affected by the stat-up move (will be boosted further)
 	ld hl, MonsStatsFellText
-	call PrintText
+	rst _PrintText
 
 ; These where probably added given that a stat-down move affecting speed or attack will override
 ; the stat penalties from paralysis and burn respectively.

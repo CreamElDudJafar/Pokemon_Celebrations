@@ -188,11 +188,11 @@ MtMoonB2FSuperNerdText:
 	and (1 << (EVENT_GOT_DOME_FOSSIL % 8)) | (1 << (EVENT_GOT_HELIX_FOSSIL % 8))
 	jr nz, .got_a_fossil
 	ld hl, MtMoonB2fSuperNerdEachTakeOneText
-	call PrintText
+	rst _PrintText
 	jr .done
 .beat_super_nerd
 	ld hl, MtMoonB2FSuperNerdTheyreBothMineText
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -209,7 +209,7 @@ MtMoonB2FSuperNerdText:
 	jr .done
 .got_a_fossil
 	ld hl, MtMoonB2FSuperNerdTheresAPokemonLabText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 
@@ -242,7 +242,7 @@ MtMoonB2FDomeFossilText:
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	ld hl, .YouWantText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -267,7 +267,7 @@ MtMoonB2FHelixFossilText:
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	ld hl, .YouWantText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -299,7 +299,7 @@ MtMoonB2FReceivedFossilText:
 
 MtMoonB2FYouHaveNoRoomText:
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:

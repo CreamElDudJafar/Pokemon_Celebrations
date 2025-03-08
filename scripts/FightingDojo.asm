@@ -110,7 +110,7 @@ FightingDojoKarateMasterText:
 	CheckEventReuseA EVENT_BEAT_KARATE_MASTER
 	jp nz, .defeated_master
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -127,11 +127,11 @@ FightingDojoKarateMasterText:
 	jr .end
 .defeated_dojo
 	ld hl, .StayAndTrainWithUsText
-	call PrintText
+	rst _PrintText
 	jr .end
 .defeated_master
 	ld hl, .IWillGiveYouAPokemonText
-	call PrintText
+	rst _PrintText
 .end
 	jp TextScriptEnd
 
@@ -226,11 +226,11 @@ FightingDojoBlackbelt4AfterBattleText:
 FightingDojoHitmonleePokeBallText:
 	text_asm
 	ld hl, FightingDojoBetterNotGetGreedyText2
-	call PrintText
+	rst _PrintText
 	ld a, HITMONLEE
 	call DisplayPokedex
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -256,11 +256,11 @@ FightingDojoHitmonleePokeBallText:
 FightingDojoHitmonchanPokeBallText:
 	text_asm
 	ld hl, FightingDojoBetterNotGetGreedyText
-	call PrintText
+	rst _PrintText
 	ld a, HITMONCHAN
 	call DisplayPokedex
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a

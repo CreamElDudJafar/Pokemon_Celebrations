@@ -2,7 +2,7 @@ NameRatersHouse_Script:
 	jp EnableAutoTextBoxDrawing
 
 NameRatersHouseYesNoScript:
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -49,7 +49,7 @@ NameRatersHouseNameRaterText:
 	call NameRatersHouseYesNoScript
 	jr nz, .did_not_rename
 	ld hl, .WhichPokemonText
-	call PrintText
+	rst _PrintText
 	xor a
 	ld [wPartyMenuTypeOrMessageID], a
 	ld [wUpdateSpritesEnabled], a
@@ -69,12 +69,12 @@ NameRatersHouseNameRaterText:
 	call NameRatersHouseYesNoScript
 	jr nz, .did_not_rename
 	ld hl, .WhatShouldWeNameItText
-	call PrintText
+	rst _PrintText
 	farcall DisplayNameRaterScreen
 	jr c, .did_not_rename
 	ld hl, .PokemonHasBeenRenamedText
 .done
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 .did_not_rename
 	ld hl, .ComeAnyTimeYouLikeText

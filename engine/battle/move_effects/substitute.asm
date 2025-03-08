@@ -54,7 +54,7 @@ SubstituteEffect_:
 .animationEnabled
 	rst _Bankswitch ; jump to routine depending on animation setting
 	ld hl, SubstituteText
-	call PrintText
+	rst _PrintText
 	jpfar DrawHUDsAndHPBars
 .alreadyHasSubstitute
 	ld hl, HasSubstituteText

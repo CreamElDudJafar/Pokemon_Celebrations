@@ -36,7 +36,7 @@ DontAbandonLearning:
 	ld [wd11e], a
 	call GetMoveName
 	ld hl, OneTwoAndText
-	call PrintText
+	rst _PrintText
 	pop de
 	pop hl
 .next
@@ -79,7 +79,7 @@ DontAbandonLearning:
 
 AbandonLearning:
 	ld hl, AbandonLearningText
-	call PrintText
+	rst _PrintText
 	hlcoord 14, 7
 	lb bc, 8, 15
 	ld a, TWO_OPTION_MENU
@@ -89,7 +89,7 @@ AbandonLearning:
 	and a
 	jp nz, DontAbandonLearning
 	ld hl, DidNotLearnText
-	call PrintText
+	rst _PrintText
 	ld a, [wIsInBattle]
 	and a
 	jr z, .skip
@@ -105,14 +105,14 @@ PrintLearnedMove:
 	call LoadScreenTilesFromBuffer1
 .skip
 	ld hl, LearnedMove1Text
-	call PrintText
+	rst _PrintText
 	ld b, 1
 	ret
 
 TryingToLearn:
 	push hl
 	ld hl, TryingToLearnText
-	call PrintText
+	rst _PrintText
 	call ShowMoveInfo ; movetype info
 	hlcoord 14, 7
 	lb bc, 8, 15
@@ -134,7 +134,7 @@ TryingToLearn:
 .loop
 	push hl
 	ld hl, WhichMoveToForgetText
-	call PrintText
+	rst _PrintText
 	hlcoord 4, 7
 	ld b, 4
 	ld c, 14
@@ -191,7 +191,7 @@ TryingToLearn:
 	ret
 ; .hm
 ;	ld hl, HMCantDeleteText
-;	call PrintText
+;	rst _PrintText
 ;	pop hl
 ;	jr .loop
 .cancel

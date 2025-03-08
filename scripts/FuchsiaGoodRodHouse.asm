@@ -11,7 +11,7 @@ FuchsiaGoodRodHouseFishingGuruText:
 	bit 4, a ; got good rod?
 	jr nz, .got_item
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -32,7 +32,7 @@ FuchsiaGoodRodHouseFishingGuruText:
 .got_item
 	ld hl, .HowAreTheFishText
 .done
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:

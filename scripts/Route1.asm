@@ -54,7 +54,7 @@ Route1Youngster1Text:
 	CheckAndSetEvent EVENT_GOT_POTION_SAMPLE
 	jr nz, .got_item
 	ld hl, .MartSampleText
-	call PrintText
+	rst _PrintText
 	lb bc, POTION, 1
 	call GiveItem
 	jr nc, .bag_full
@@ -66,7 +66,7 @@ Route1Youngster1Text:
 .got_item
 	ld hl, .AlsoGotPokeballsText
 .done
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .MartSampleText:
@@ -97,7 +97,7 @@ Route1SignText:
 Route1OakText:
 	text_asm
 	ld hl, OakBeforeBattleText
-	call PrintText
+	rst _PrintText
 
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
@@ -127,11 +127,11 @@ Route1OakText:
 	ld de, OakWonText
 	call SaveEndBattleTextPointers
 	ld hl, OakRealChallengeBattleText
-	call PrintText
+	rst _PrintText
 	jp .done
 .refused
 	ld hl, OakRefusedBattleText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

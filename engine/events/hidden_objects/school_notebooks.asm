@@ -13,27 +13,27 @@ TMNotebook::
 ViridianSchoolNotebook::
 	text_asm
 	ld hl, ViridianSchoolNotebookText1
-	call PrintText
+	rst _PrintText
 	call TurnPageSchoolNotebook
 	jr nz, .doneReading
 	ld hl, ViridianSchoolNotebookText2
-	call PrintText
+	rst _PrintText
 	call TurnPageSchoolNotebook
 	jr nz, .doneReading
 	ld hl, ViridianSchoolNotebookText3
-	call PrintText
+	rst _PrintText
 	call TurnPageSchoolNotebook
 	jr nz, .doneReading
 	ld hl, ViridianSchoolNotebookText4
-	call PrintText
+	rst _PrintText
 	ld hl, ViridianSchoolNotebookText5
-	call PrintText
+	rst _PrintText
 .doneReading
 	jp TextScriptEnd
 
 TurnPageSchoolNotebook:
 	ld hl, TurnPageText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a

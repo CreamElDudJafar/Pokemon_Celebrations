@@ -102,7 +102,7 @@ TalkToTrainer::
 .trainerNotYetFought
 	ld a, $4
 	call ReadTrainerHeaderInfo     ; print before battle text
-	call PrintText
+	rst _PrintText
 	ld a, $a
 	call ReadTrainerHeaderInfo     ; (?) does nothing apparently (maybe bug in ReadTrainerHeaderInfo)
 	push de
@@ -351,7 +351,7 @@ PrintEndBattleText::
 	push hl
 	call SaveTrainerName
 	ld hl, TrainerEndBattleText
-	call PrintText
+	rst _PrintText
 	pop hl
 	pop af
 	ldh [hLoadedROMBank], a

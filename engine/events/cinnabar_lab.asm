@@ -53,23 +53,23 @@ GiveFossilToCinnabarLab::
 	ld [wFossilMon], a
 	call LoadFossilItemAndMonName
 	ld hl, .ScientistSeesFossilText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .cancelledGivingFossil
 	ld hl, .ScientistTakesFossilText
-	call PrintText
+	rst _PrintText
 	ld a, [wFossilItem]
 	ldh [hItemToRemoveID], a
 	farcall RemoveItemByID
 	ld hl, .GoForAWalkText
-	call PrintText
+	rst _PrintText
 	SetEvents EVENT_GAVE_FOSSIL_TO_LAB, EVENT_LAB_STILL_REVIVING_FOSSIL
 	ret
 .cancelledGivingFossil
 	ld hl, .ComeAgainText
-	call PrintText
+	rst _PrintText
 	ret
 
 .ScientistSeesFossilText:

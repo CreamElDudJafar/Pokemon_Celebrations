@@ -205,14 +205,14 @@ Route23CheckForBadgeScript:
 	and a
 	jr nz, .have_badge
 	ld hl, Route23YouDontHaveTheBadgeYetText
-	call PrintText
+	rst _PrintText
 	call Route23MovePlayerDownScript
 	ld a, SCRIPT_ROUTE23_PLAYER_MOVING
 	ld [wRoute23CurScript], a
 	ret
 .have_badge
 	ld hl, Route23OhThatIsTheBadgeText
-	call PrintText
+	rst _PrintText
 	ld a, [wWhichBadge]
 	ld c, a
 	ld b, FLAG_SET

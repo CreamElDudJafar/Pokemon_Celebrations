@@ -41,7 +41,7 @@ PickUpItem:
 .BagFull
 	ld hl, NoMoreRoomForItemText
 .print
-	call PrintText
+	rst _PrintText
 	ret
 
 FoundItemText:

@@ -100,7 +100,7 @@ PokemonMansion2FDiary2Text:
 PokemonMansion2FSwitchText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -110,7 +110,7 @@ PokemonMansion2FSwitchText:
 	ld hl, wCurrentMapScriptFlags
 	set 5, [hl]
 	ld hl, .PressedText
-	call PrintText
+	rst _PrintText
 	ld a, SFX_GO_INSIDE
 	rst _PlaySound
 	CheckAndSetEvent EVENT_MANSION_SWITCH_ON
@@ -119,7 +119,7 @@ PokemonMansion2FSwitchText:
 	jr .done
 .not_pressed
 	ld hl, .NotPressed
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

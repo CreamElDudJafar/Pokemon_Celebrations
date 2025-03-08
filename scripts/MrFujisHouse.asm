@@ -16,11 +16,11 @@ MrFujisHouseSuperNerdText:
 	CheckEvent EVENT_RESCUED_MR_FUJI
 	jr nz, .rescued_mr_fuji
 	ld hl, .MrFujiIsntHereText
-	call PrintText
+	rst _PrintText
 	jr .done
 .rescued_mr_fuji
 	ld hl, .MrFujiHadBeenPrayingText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 
@@ -37,11 +37,11 @@ MrFujisHouseLittleGirlText:
 	CheckEvent EVENT_RESCUED_MR_FUJI
 	jr nz, .rescued_mr_fuji
 	ld hl, .ThisIsMrFujisHouseText
-	call PrintText
+	rst _PrintText
 	jr .done
 .rescued_mr_fuji
 	ld hl, .PokemonAreNiceToHugText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 
@@ -72,21 +72,21 @@ MrFujisHouseMrFujiText:
 	CheckEvent EVENT_GOT_POKE_FLUTE
 	jr nz, .got_item
 	ld hl, .IThinkThisMayHelpYourQuestText
-	call PrintText
+	rst _PrintText
 	lb bc, POKE_FLUTE, 1
 	call GiveItem
 	jr nc, .bag_full
 	ld hl, .ReceivedPokeFluteText
-	call PrintText
+	rst _PrintText
 	SetEvent EVENT_GOT_POKE_FLUTE
 	jr .done
 .bag_full
 	ld hl, .PokeFluteNoRoomText
-	call PrintText
+	rst _PrintText
 	jr .done
 .got_item
 	ld hl, .HasMyFluteHelpedYouText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

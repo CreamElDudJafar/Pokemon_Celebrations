@@ -2,7 +2,7 @@ MoveRelearnerText1:
 	text_asm
 ; Display the list of moves to the player.
 	ld hl, MoveRelearnerGreetingText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -17,11 +17,11 @@ MoveRelearnerText1:
 	jr nc, .enoughMoney
 	; not enough money
 	ld hl, MoveRelearnerNotEnoughMoneyText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 .enoughMoney
 	ld hl, MoveRelearnerSaidYesText
-	call PrintText
+	rst _PrintText
 	; Select pokemon from party.
 	call SaveScreenTilesToBuffer2
 	xor a
@@ -47,11 +47,11 @@ MoveRelearnerText1:
 	jr nz, .chooseMove
 	pop bc
 	ld hl, MoveRelearnerNoMovesText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 .chooseMove
 	ld hl, MoveRelearnerWhichMoveText
-	call PrintText
+	rst _PrintText
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
@@ -98,11 +98,11 @@ MoveRelearnerText1:
 	ld c, $3
 	predef SubBCDPredef
 	ld hl, MoveRelearnerByeText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 .exit
 	ld hl, MoveRelearnerByeText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 

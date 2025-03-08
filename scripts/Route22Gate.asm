@@ -64,13 +64,13 @@ Route22GateGuardText:
 	bit BIT_BOULDERBADGE, a
 	jr nz, .has_boulderbadge
 	ld hl, Route22GateGuardNoBoulderbadgeText
-	call PrintText
+	rst _PrintText
 	call Route22GateMovePlayerDownScript
 	ld a, SCRIPT_ROUTE22GATE_PLAYER_MOVING
 	jr .set_current_script
 .has_boulderbadge
 	ld hl, Route22GateGuardGoRightAheadText
-	call PrintText
+	rst _PrintText
 	ld a, SCRIPT_ROUTE22GATE_NOOP
 .set_current_script
 	ld [wRoute22GateCurScript], a

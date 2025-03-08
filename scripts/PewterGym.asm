@@ -119,11 +119,11 @@ PewterGymBrockText:
 	and a
 	jr nz, .BrockRematch
 	ld hl, .PostBattleAdviceText
-	call PrintText
+	rst _PrintText
 	jr .done
 .beforeBeat
 	ld hl, .PreBattleText
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -141,13 +141,13 @@ PewterGymBrockText:
 	jr .endBattle
 .BrockRematch
 	ld hl, .PreBattleRematch1Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .refused
 	ld hl, .PreBattleRematch2Text
-	call PrintText
+	rst _PrintText
 	call Delay3
 	ld a, OPP_BROCK
 	ld [wCurOpponent], a
@@ -159,7 +159,7 @@ PewterGymBrockText:
 	jr .endBattle
 .refused
 	ld hl, .PreBattleRematchRefusedText
-	call PrintText
+	rst _PrintText
 	jr .done
 .endBattle
 	ld a, SCRIPT_PEWTERGYM_BROCK_POST_BATTLE
@@ -236,24 +236,24 @@ PewterGymGuideText:
 	bit BIT_BOULDERBADGE, a
 	jr nz, .afterBeat
 	ld hl, PewterGymGuidePreAdviceText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .PewterGymGuideBeginAdviceText
 	ld hl, PewterGymGuideBeginAdviceText
-	call PrintText
+	rst _PrintText
 	jr .PewterGymGuideAdviceText
 .PewterGymGuideBeginAdviceText
 	ld hl, PewterGymGuideFreeServiceText
-	call PrintText
+	rst _PrintText
 .PewterGymGuideAdviceText
 	ld hl, PewterGymGuideAdviceText
-	call PrintText
+	rst _PrintText
 	jr .done
 .afterBeat
 	ld hl, PewterGymGuidePostBattleText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

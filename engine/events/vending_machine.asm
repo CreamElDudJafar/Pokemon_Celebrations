@@ -1,6 +1,6 @@
 VendingMachineMenu::
 	ld hl, VendingMachineText1
-	call PrintText
+	rst _PrintText
 	ld a, MONEY_BOX
 	ld [wTextBoxID], a
 	call DisplayTextBoxID
@@ -65,7 +65,7 @@ VendingMachineMenu::
 	jr nz, .playDeliverySound
 
 	ld hl, VendingMachineText5
-	call PrintText
+	rst _PrintText
 	ld hl, hVendingMachinePrice + 2
 	ld de, wPlayerMoney + 2
 	ld c, $3

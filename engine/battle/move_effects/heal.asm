@@ -39,7 +39,7 @@ HealEffect_:
 	jr z, .printRestText
 	ld hl, FellAsleepBecameHealthyText ; if mon had an status
 .printRestText
-	call PrintText
+	rst _PrintText
 	pop af
 	pop de
 	pop hl

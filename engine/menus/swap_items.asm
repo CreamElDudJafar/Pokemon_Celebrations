@@ -152,7 +152,7 @@ SortItems::
 	push hl
 	push bc
 	ld hl, SortItemsText ; Display the text to ask to sort
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -167,7 +167,7 @@ SortItems::
 .nothingSorted
 	ld hl, NothingToSort
 .printResultText
-	call PrintText
+	rst _PrintText
 .done
 	xor a ; Zeroes a
 	pop bc

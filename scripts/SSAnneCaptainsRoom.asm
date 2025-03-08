@@ -20,25 +20,25 @@ SSAnneCaptainsRoomCaptainText:
 	CheckEvent EVENT_GOT_HM01
 	jr nz, .got_item
 	ld hl, SSAnneCaptainsRoomRubCaptainsBackText
-	call PrintText
+	rst _PrintText
 	ld hl, SSAnneCaptainsRoomCaptainIFeelMuchBetterText
-	call PrintText
+	rst _PrintText
 	lb bc, HM_CUT, 1
 	call GiveItem
 	jr nc, .bag_full
 	ld hl, SSAnneCaptainsRoomCaptainReceivedHM01Text
-	call PrintText
+	rst _PrintText
 	SetEvent EVENT_GOT_HM01
 	jr .done
 .bag_full
 	ld hl, SSAnneCaptainsRoomCaptainHM01NoRoomText
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 5, [hl]
 	jr .done
 .got_item
 	ld hl, SSAnneCaptainsRoomCaptainNotSickAnymoreText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

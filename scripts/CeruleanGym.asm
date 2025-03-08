@@ -114,11 +114,11 @@ CeruleanGymMistyText:
 	and a
 	jr nz, .MistyRematch
 	ld hl, .TM11ExplanationText
-	call PrintText
+	rst _PrintText
 	jr .done
 .beforeBeat
 	ld hl, .PreBattleText
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -136,13 +136,13 @@ CeruleanGymMistyText:
 	jr .endBattle
 .MistyRematch
 	ld hl, .PreBattleRematch1Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .refused
 	ld hl, .PreBattleRematch2Text
-	call PrintText
+	rst _PrintText
 	call Delay3
 	ld a, OPP_MISTY
 	ld [wCurOpponent], a
@@ -154,7 +154,7 @@ CeruleanGymMistyText:
 	jr .endBattle
 .refused
 	ld hl, .PreBattleRematchRefusedText
-	call PrintText
+	rst _PrintText
 	jr .done
 .endBattle
 	ld a, SCRIPT_CERULEANGYM_MISTY_POST_BATTLE
@@ -246,11 +246,11 @@ CeruleanGymGymGuideText:
 	CheckEvent EVENT_BEAT_MISTY
 	jr nz, .afterBeat
 	ld hl, .ChampInMakingText
-	call PrintText
+	rst _PrintText
 	jr .done
 .afterBeat
 	ld hl, .BeatMistyText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

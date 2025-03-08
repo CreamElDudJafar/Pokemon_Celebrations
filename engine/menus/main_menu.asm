@@ -137,10 +137,10 @@ LinkMenu:
 	ld hl, wd72e
 	set 6, [hl]
 	ld hl, LinkMenuEmptyText
-	call PrintText
+	rst _PrintText
 	call SaveScreenTilesToBuffer1
 	ld hl, WhereWouldYouLikeText
-	call PrintText
+	rst _PrintText
 	hlcoord 5, 5
 	ld b, $6
 	ld c, $d
@@ -264,7 +264,7 @@ LinkMenu:
 .next
 	ld [wd72d], a
 	ld hl, PleaseWaitText
-	call PrintText
+	rst _PrintText
 	ld c, 50
 	rst _DelayFrames
 	ld hl, wd732
@@ -289,7 +289,7 @@ LinkMenu:
 	call CloseLinkConnection
 	ld hl, LinkCanceledText
 	vc_hook Wireless_net_end
-	call PrintText
+	rst _PrintText
 	ld hl, wd72e
 	res 6, [hl]
 	ret

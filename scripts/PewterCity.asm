@@ -209,17 +209,17 @@ PewterCityCooltrainerMText:
 PewterCitySuperNerd1Text:
 	text_asm
 	ld hl, .DidYouCheckOutMuseumText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .playerDidNotGoIntoMuseum
 	ld hl, .WerentThoseFossilsAmazingText
-	call PrintText
+	rst _PrintText
 	jr .done
 .playerDidNotGoIntoMuseum
 	ld hl, .YouHaveToGoText
-	call PrintText
+	rst _PrintText
 	xor a
 	ldh [hJoyPressed], a
 	ldh [hJoyHeld], a
@@ -255,17 +255,17 @@ PewterCitySuperNerd1ItsRightHereText:
 PewterCitySuperNerd2Text:
 	text_asm
 	ld hl, .DoYouKnowWhatImDoingText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	cp $0
 	jr nz, .playerDoesNotKnow
 	ld hl, .ThatsRightText
-	call PrintText
+	rst _PrintText
 	jr .done
 .playerDoesNotKnow
 	ld hl, .ImSprayingRepelText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 
@@ -284,7 +284,7 @@ PewterCitySuperNerd2Text:
 PewterCityYoungsterText:
 	text_asm
 	ld hl, .YoureATrainerFollowMeText
-	call PrintText
+	rst _PrintText
 	xor a
 	ldh [hJoyHeld], a
 	ld [wNPCMovementScriptFunctionNum], a

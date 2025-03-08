@@ -164,7 +164,7 @@ SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText:
 	call HasEnoughMoney
 	jr nc, .success
 	ld hl, .NotEnoughMoneyText
-	call PrintText
+	rst _PrintText
 	jr .CantPayWalkDown
 
 .success
@@ -182,7 +182,7 @@ SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText:
 	ld [wTextBoxID], a
 	call DisplayTextBoxID
 	ld hl, .MakePaymentText
-	call PrintText
+	rst _PrintText
 	ld a, 30
 	ld [wNumSafariBalls], a
 	ld a, HIGH(502)
@@ -200,7 +200,7 @@ SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText:
 
 .PleaseComeAgain
 	ld hl, .PleaseComeAgainText
-	call PrintText
+	rst _PrintText
 .CantPayWalkDown
 	ld a, D_DOWN
 	ld c, 1
@@ -232,7 +232,7 @@ SafariZoneGateSafariZoneWorker1LeavingEarlyText:
 	and a
 	jr nz, .not_ready_to_leave
 	ld hl, .ReturnSafariBallsText
-	call PrintText
+	rst _PrintText
 	xor a
 	ld [wSpritePlayerStateData1FacingDirection], a
 	ld a, D_DOWN
@@ -244,7 +244,7 @@ SafariZoneGateSafariZoneWorker1LeavingEarlyText:
 	jr .set_current_script
 .not_ready_to_leave
 	ld hl, .GoodLuckText
-	call PrintText
+	rst _PrintText
 	ld a, SPRITE_FACING_UP
 	ld [wSpritePlayerStateData1FacingDirection], a
 	ld a, D_UP
@@ -272,7 +272,7 @@ SafariZoneGateSafariZoneWorker1GoodHaulComeAgainText:
 SafariZoneGateSafariZoneWorker2Text:
 	text_asm
 	ld hl, .FirstTimeHereText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -280,7 +280,7 @@ SafariZoneGateSafariZoneWorker2Text:
 	jr nz, .print_text
 	ld hl, .SafariZoneExplanationText
 .print_text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .FirstTimeHereText

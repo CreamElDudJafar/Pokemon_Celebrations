@@ -110,15 +110,15 @@ Route24CooltrainerM1Text:
 	CheckEvent EVENT_GOT_NUGGET
 	jr nz, .got_item
 	ld hl, .YouBeatOurContestText
-	call PrintText
+	rst _PrintText
 	lb bc, NUGGET, 1
 	call GiveItem
 	jr nc, .bag_full
 	SetEvent EVENT_GOT_NUGGET
 	ld hl, .ReceivedNuggetText
-	call PrintText
+	rst _PrintText
 	ld hl, .JoinTeamRocketText
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -137,11 +137,11 @@ Route24CooltrainerM1Text:
 	jp TextScriptEnd
 .got_item
 	ld hl, .YouCouldBecomeATopLeaderText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 .bag_full
 	ld hl, .NoRoomText
-	call PrintText
+	rst _PrintText
 	SetEvent EVENT_NUGGET_REWARD_AVAILABLE
 	jp TextScriptEnd
 

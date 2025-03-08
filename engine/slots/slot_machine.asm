@@ -6,7 +6,7 @@ PromptUserToPlaySlots:
 	ld hl, DisplayTextIDInit
 	rst _Bankswitch
 	ld hl, PlaySlotMachineText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -64,7 +64,7 @@ MainSlotMachineLoop:
 	ld [hl], a
 	call SlotMachine_PrintPayoutCoins
 	ld hl, BetHowManySlotMachineText
-	call PrintText
+	rst _PrintText
 	call SaveScreenTilesToBuffer1
 .loop
 	ld a, A_BUTTON | B_BUTTON
@@ -103,7 +103,7 @@ MainSlotMachineLoop:
 	cp c
 	jr nc, .skip1
 	ld hl, NotEnoughCoinsSlotMachineText
-	call PrintText
+	rst _PrintText
 	jr .loop
 .skip1
 	call LoadScreenTilesFromBuffer1
@@ -119,7 +119,7 @@ MainSlotMachineLoop:
 	ld a, SFX_SLOTS_NEW_SPIN
 	rst _PlaySound
 	ld hl, StartSlotMachineText
-	call PrintText
+	rst _PrintText
 	call SlotMachine_SpinWheels
 	call SlotMachine_CheckForMatches
 	ld hl, wPlayerCoins
@@ -127,12 +127,12 @@ MainSlotMachineLoop:
 	or [hl]
 	jr nz, .skip2
 	ld hl, OutOfCoinsSlotMachineText
-	call PrintText
+	rst _PrintText
 	ld c, 60
 	jp DelayFrames
 .skip2
 	ld hl, OneMoreGoSlotMachineText
-	call PrintText
+	rst _PrintText
 	hlcoord 14, 12
 	lb bc, 13, 15
 	xor a ; YES_NO_MENU
@@ -412,7 +412,7 @@ SlotMachine_CheckForMatches:
 	jr nz, .rollWheel3DownByOneSymbol
 .noMatch
 	ld hl, NotThisTimeText
-	call PrintText
+	rst _PrintText
 .done
 	xor a
 	ld [wSFXPriority], a
@@ -472,7 +472,7 @@ SlotMachine_CheckForMatches:
 	ld [hl], e
 	call SlotMachine_PrintPayoutCoins
 	ld hl, SymbolLinedUpSlotMachineText
-	call PrintText
+	rst _PrintText
 	call WaitForTextScrollButtonPress
 	call SlotMachine_PayCoinsToPlayer
 	call SlotMachine_PrintPayoutCoins
@@ -599,7 +599,7 @@ SlotReward100Func:
 
 SlotReward300Func:
 	ld hl, YeahText
-	call PrintText
+	rst _PrintText
 	ld a, SFX_GET_ITEM_2
 	rst _PlaySound
 	call Random

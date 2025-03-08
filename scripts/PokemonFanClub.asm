@@ -27,12 +27,12 @@ PokemonFanClubPikachuFanText:
 	CheckEvent EVENT_PIKACHU_FAN_BOAST
 	jr nz, .mineisbetter
 	ld hl, .NormalText
-	call PrintText
+	rst _PrintText
 	SetEvent EVENT_SEEL_FAN_BOAST
 	jr .done
 .mineisbetter
 	ld hl, .BetterText
-	call PrintText
+	rst _PrintText
 	ResetEvent EVENT_PIKACHU_FAN_BOAST
 .done
 	jp TextScriptEnd
@@ -50,12 +50,12 @@ PokemonFanClubSeelFanText:
 	CheckEvent EVENT_SEEL_FAN_BOAST
 	jr nz, .mineisbetter
 	ld hl, .NormalText
-	call PrintText
+	rst _PrintText
 	SetEvent EVENT_PIKACHU_FAN_BOAST
 	jr .done
 .mineisbetter
 	ld hl, .BetterText
-	call PrintText
+	rst _PrintText
 	ResetEvent EVENT_SEEL_FAN_BOAST
 .done
 	jp TextScriptEnd
@@ -71,7 +71,7 @@ PokemonFanClubSeelFanText:
 PokemonFanClubPikachuText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	ld a, PIKACHU
 	call PlayCry
 	call WaitForSoundToFinish
@@ -84,7 +84,7 @@ PokemonFanClubPikachuText:
 PokemonFanClubSeelText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	ld a, SEEL
 	call PlayCry
 	call WaitForSoundToFinish
@@ -100,7 +100,7 @@ PokemonFanClubChairmanText:
 	jr nz, .nothingleft
 
 	ld hl, .IntroText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -108,25 +108,25 @@ PokemonFanClubChairmanText:
 
 	; tell the story
 	ld hl, .StoryText
-	call PrintText
+	rst _PrintText
 	lb bc, BIKE_VOUCHER, 1
 	call GiveItem
 	jr nc, .bag_full
 	ld hl, .BikeVoucherText
-	call PrintText
+	rst _PrintText
 	SetEvent EVENT_GOT_BIKE_VOUCHER
 	jr .done
 .bag_full
 	ld hl, .BagFullText
-	call PrintText
+	rst _PrintText
 	jr .done
 .nothanks
 	ld hl, .NoStoryText
-	call PrintText
+	rst _PrintText
 	jr .done
 .nothingleft
 	ld hl, .FinalText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

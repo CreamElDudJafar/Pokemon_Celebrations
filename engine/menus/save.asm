@@ -17,7 +17,7 @@ LoadSAV:
 	push hl
 	set 6, [hl]
 	ld hl, FileDataDestroyedText
-	call PrintText
+	rst _PrintText
 	ld c, 100
 	rst _DelayFrames
 	pop hl
@@ -166,7 +166,7 @@ SaveSAV:
 	ld c, 120
 	rst _DelayFrames
 	ld hl, GameSavedText
-	call PrintText
+	rst _PrintText
 	ld a, SFX_SAVE
 	call PlaySoundWaitForCurrent
 	call WaitForSoundToFinish
@@ -177,7 +177,7 @@ NowSavingString:
 	db "Now saving...@"
 
 SaveSAVConfirm:
-	call PrintText
+	rst _PrintText
 	hlcoord 0, 7
 	lb bc, 8, 1
 	ld a, TWO_OPTION_MENU
@@ -344,7 +344,7 @@ BoxSRAMPointerTable:
 
 ChangeBox::
 	ld hl, WhenYouChangeBoxText
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -443,7 +443,7 @@ DisplayChangeBoxMenu:
 	ld c, 9
 	call TextBoxBorder
 	ld hl, ChooseABoxText
-	call PrintText
+	rst _PrintText
 	hlcoord 11, 0
 	ld b, 12
 	ld c, 7

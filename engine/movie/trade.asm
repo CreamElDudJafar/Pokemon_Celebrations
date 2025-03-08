@@ -789,7 +789,7 @@ Trade_SlideTextBoxOffScreen:
 
 PrintTradeWentToText:
 	ld hl, TradeWentToText
-	call PrintText
+	rst _PrintText
 	ld c, 200
 	rst _DelayFrames
 	jp Trade_SlideTextBoxOffScreen
@@ -800,10 +800,10 @@ TradeWentToText:
 
 PrintTradeForSendsText:
 	ld hl, TradeForText
-	call PrintText
+	rst _PrintText
 	call Trade_Delay80
 	ld hl, TradeSendsText
-	call PrintText
+	rst _PrintText
 	jp Trade_Delay80
 
 TradeForText:
@@ -816,10 +816,10 @@ TradeSendsText:
 
 PrintTradeFarewellText:
 	ld hl, TradeWavesFarewellText
-	call PrintText
+	rst _PrintText
 	call Trade_Delay80
 	ld hl, TradeTransferredText
-	call PrintText
+	rst _PrintText
 	call Trade_Delay80
 	jp Trade_SlideTextBoxOffScreen
 
@@ -833,7 +833,7 @@ TradeTransferredText:
 
 PrintTradeTakeCareText:
 	ld hl, TradeTakeCareText
-	call PrintText
+	rst _PrintText
 	jp Trade_Delay80
 
 TradeTakeCareText:
@@ -842,10 +842,10 @@ TradeTakeCareText:
 
 PrintTradeWillTradeText:
 	ld hl, TradeWillTradeText
-	call PrintText
+	rst _PrintText
 	call Trade_Delay80
 	ld hl, TradeforText
-	call PrintText
+	rst _PrintText
 	jp Trade_Delay80
 
 TradeWillTradeText:

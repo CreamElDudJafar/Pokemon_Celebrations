@@ -769,17 +769,17 @@ OaksLabRivalText:
 	CheckEvent EVENT_FOLLOWED_OAK_INTO_LAB_2
 	jr nz, .beforeChooseMon
 	ld hl, .GrampsIsntAroundText
-	call PrintText
+	rst _PrintText
 	jr .done
 .beforeChooseMon
 	CheckEventReuseA EVENT_GOT_STARTER
 	jr nz, .afterChooseMon
 	ld hl, .GoAheadAndChooseText
-	call PrintText
+	rst _PrintText
 	jr .done
 .afterChooseMon
 	ld hl, .MyPokemonLooksStrongerText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 
@@ -834,7 +834,7 @@ OaksLabSelectedPokeBallScript:
 	CheckEventReuseA EVENT_OAK_ASKED_TO_CHOOSE_MON
 	jr nz, OaksLabShowPokeBallPokemonScript
 	ld hl, OaksLabThoseArePokeBallsText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 OaksLabThoseArePokeBallsText:
@@ -891,7 +891,7 @@ OaksLabYouWantBulbasaurText:
 	text_end
 
 OaksLabMonChoiceMenu:
-	call PrintText
+	rst _PrintText
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	call YesNoChoice ; yes/no menu
@@ -920,9 +920,9 @@ OaksLabMonChoiceMenu:
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	ld hl, OaksLabMonEnergeticText
-	call PrintText
+	rst _PrintText
 	ld hl, OaksLabReceivedMonText
-	call PrintText
+	rst _PrintText
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
 	ld a, 5
@@ -956,7 +956,7 @@ OaksLabLastMonScript:
 	call GetPointerWithinSpriteStateData1
 	ld [hl], SPRITE_FACING_DOWN
 	ld hl, OaksLabLastMonText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 OaksLabLastMonText:
@@ -977,7 +977,7 @@ OaksLabOak1Text:
 	jr z, .check_for_poke_balls
 .already_got_poke_balls
 	ld hl, .HowIsYourPokedexComingText
-	call PrintText
+	rst _PrintText
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	predef DisplayDexRating
@@ -996,29 +996,29 @@ OaksLabOak1Text:
 	bit 3, a
 	jr nz, .already_got_pokemon
 	ld hl, .WhichPokemonDoYouWantText
-	call PrintText
+	rst _PrintText
 	jr .done
 .already_got_pokemon
 	ld hl, .YourPokemonCanFightText
-	call PrintText
+	rst _PrintText
 	jr .done
 .check_got_parcel
 	ld b, OAKS_PARCEL
 	call IsItemInBag
 	jr nz, .got_parcel
 	ld hl, .RaiseYourYoungPokemonText
-	call PrintText
+	rst _PrintText
 	jr .done
 .got_parcel
 	ld hl, .DeliverParcelText
-	call PrintText
+	rst _PrintText
 	call OaksLabScript_RemoveParcel
 	ld a, SCRIPT_OAKSLAB_RIVAL_ARRIVES_AT_OAKS_REQUEST
 	ld [wOaksLabCurScript], a
 	jr .done
 .mon_around_the_world
 	ld hl, .PokemonAroundTheWorldText
-	call PrintText
+	rst _PrintText
 	jr .done
 .give_poke_balls
 	CheckAndSetEvent EVENT_GOT_POKEBALLS_FROM_OAK
@@ -1026,11 +1026,11 @@ OaksLabOak1Text:
 	lb bc, POKE_BALL, 5
 	call GiveItem
 	ld hl, .GivePokeballsText
-	call PrintText
+	rst _PrintText
 	jr .done
 .come_see_me_sometimes
 	ld hl, .ComeSeeMeSometimesText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 
@@ -1073,7 +1073,7 @@ OaksLabOak1Text:
 OaksLabPokedexText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -1087,7 +1087,7 @@ OaksLabOak2Text:
 OaksLabGirlText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -1097,7 +1097,7 @@ OaksLabGirlText:
 OaksLabRivalFedUpWithWaitingText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -1107,7 +1107,7 @@ OaksLabRivalFedUpWithWaitingText:
 OaksLabOakChooseMonText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -1117,7 +1117,7 @@ OaksLabOakChooseMonText:
 OaksLabRivalWhatAboutMeText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -1127,7 +1127,7 @@ OaksLabRivalWhatAboutMeText:
 OaksLabOakBePatientText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -1137,7 +1137,7 @@ OaksLabOakBePatientText:
 OaksLabOakDontGoAwayYetText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -1147,7 +1147,7 @@ OaksLabOakDontGoAwayYetText:
 OaksLabRivalIllTakeThisOneText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -1157,7 +1157,7 @@ OaksLabRivalIllTakeThisOneText:
 OaksLabRivalReceivedMonText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -1168,7 +1168,7 @@ OaksLabRivalReceivedMonText:
 OaksLabRivalIllTakeYouOnText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -1186,7 +1186,7 @@ OaksLabRivalAmIGreatOrWhatText:
 OaksLabRivalSmellYouLaterText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -1229,7 +1229,7 @@ OaksLabRivalLeaveItAllToMeText:
 OaksLabScientistText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:

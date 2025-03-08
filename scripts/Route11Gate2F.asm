@@ -38,7 +38,7 @@ Route11Gate2FOaksAideText:
 	SetEvent EVENT_GOT_ITEMFINDER
 .got_item
 	ld hl, .ItemfinderDescriptionText
-	call PrintText
+	rst _PrintText
 .no_item
 	jr Route11Gate2FScriptEnd
 
@@ -56,7 +56,7 @@ Route11Gate2FLeftBinocularsText:
 	jr z, .print
 	ld hl, .NoSnorlaxText
 .print
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .SnorlaxText:

@@ -37,7 +37,7 @@ CeladonMansion3FGameDesignerText:
 .completed_dex
 	ld hl, .CompletedDexText
 .done
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:

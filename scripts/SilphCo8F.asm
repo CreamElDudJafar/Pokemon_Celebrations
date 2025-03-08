@@ -100,7 +100,7 @@ SilphCo8FSilphWorkerMText:
 	jr nz, .beat_giovanni
 	ld hl, .SilphIsFinishedText
 .beat_giovanni
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .SilphIsFinishedText:

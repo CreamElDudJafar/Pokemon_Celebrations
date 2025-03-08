@@ -34,12 +34,12 @@ _GivePokemon::
 	ld [hli], a
 	ld [hl], "@"
 	ld hl, SentToBoxText
-	call PrintText
+	rst _PrintText
 	scf
 	ret
 .boxFull
 	ld hl, BoxIsFullText
-	call PrintText
+	rst _PrintText
 	and a
 	ret
 .addToParty

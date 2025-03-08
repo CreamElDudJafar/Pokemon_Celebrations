@@ -1013,7 +1013,7 @@ SwitchEnemyMon:
 	rst _CopyData
 
 	ld hl, AIBattleWithdrawText
-	call PrintText
+	rst _PrintText
 
 	; This wFirstMonsNotOutYet variable is abused to prevent the player from
 	; switching in a new mon in response to this switch.

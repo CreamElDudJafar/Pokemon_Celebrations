@@ -135,11 +135,11 @@ VermilionGymLTSurgeText:
 	and a
 	jr nz, .SurgeRematch
 	ld hl, .PostBattleAdviceText
-	call PrintText
+	rst _PrintText
 	jr .text_script_end
 .before_beat
 	ld hl, .PreBattleText
-	call PrintText
+	rst _PrintText
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -157,13 +157,13 @@ VermilionGymLTSurgeText:
 	jr .endBattle
 .SurgeRematch
 	ld hl, .PreBattleRematch1Text
-	call PrintText
+	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .refused
 	ld hl, .PreBattleRematch2Text
-	call PrintText
+	rst _PrintText
 	call Delay3
 	ld a, OPP_LT_SURGE
 	ld [wCurOpponent], a
@@ -175,7 +175,7 @@ VermilionGymLTSurgeText:
 	jr .endBattle
 .refused
 	ld hl, .PreBattleRematchRefusedText
-	call PrintText
+	rst _PrintText
 	jr .text_script_end
 .endBattle
 	ld a, SCRIPT_VERMILIONGYM_LT_SURGE_AFTER_BATTLE
@@ -286,11 +286,11 @@ VermilionGymGymGuideText:
 	bit BIT_THUNDERBADGE, a
 	jr nz, .got_thunderbadge
 	ld hl, .ChampInMakingText
-	call PrintText
+	rst _PrintText
 	jr .text_script_end
 .got_thunderbadge
 	ld hl, .BeatLTSurgeText
-	call PrintText
+	rst _PrintText
 .text_script_end
 	jp TextScriptEnd
 

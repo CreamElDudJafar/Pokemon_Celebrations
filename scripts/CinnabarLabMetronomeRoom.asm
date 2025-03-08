@@ -14,21 +14,21 @@ CinnabarLabMetronomeRoomScientist1Text:
 	CheckEvent EVENT_GOT_TM35
 	jr nz, .got_item
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	lb bc, TM_METRONOME, 1
 	call GiveItem
 	jr nc, .bag_full
 	ld hl, .ReceivedTM35Text
-	call PrintText
+	rst _PrintText
 	SetEvent EVENT_GOT_TM35
 	jr .done
 .bag_full
 	ld hl, .TM35NoRoomText
-	call PrintText
+	rst _PrintText
 	jr .done
 .got_item
 	ld hl, .TM35ExplanationText
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 

@@ -54,7 +54,7 @@ FoundHiddenItemText::
 	xor a
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	ld hl, HiddenItemBagFullText
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 HiddenItemBagFullText::

@@ -72,7 +72,7 @@ SSAnne2FRoomsGentleman3Text:
 	text_asm
 	call SaveScreenTilesToBuffer1
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	call LoadScreenTilesFromBuffer1
 	ld a, SNORLAX
 	call DisplayPokedex
@@ -85,7 +85,7 @@ SSAnne2FRoomsGentleman3Text:
 SSAnne2FRoomsGentleman4Text:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -95,7 +95,7 @@ SSAnne2FRoomsGentleman4Text:
 SSAnne2FRoomsGrampsText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -105,7 +105,7 @@ SSAnne2FRoomsGrampsText:
 SSAnne2FRoomsGentleman5Text:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -115,7 +115,7 @@ SSAnne2FRoomsGentleman5Text:
 SSAnne2FRoomsLittleBoyText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -125,7 +125,7 @@ SSAnne2FRoomsLittleBoyText:
 SSAnne2FRoomsBrunetteGirlText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:
@@ -135,7 +135,7 @@ SSAnne2FRoomsBrunetteGirlText:
 SSAnne2FRoomsBeautyText:
 	text_asm
 	ld hl, .Text
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .Text:

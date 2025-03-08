@@ -18,17 +18,17 @@ CopycatsHouse2FCopycatText:
 	ld a, TRUE
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	ld hl, .DoYouLikePokemonText
-	call PrintText
+	rst _PrintText
 	ld b, POKE_DOLL
 	call IsItemInBag
 	jr z, .done
 	ld hl, .TM31PreReceiveText
-	call PrintText
+	rst _PrintText
 	lb bc, TM_MIMIC, 1
 	call GiveItem
 	jr nc, .bag_full
 	ld hl, .ReceivedTM31Text
-	call PrintText
+	rst _PrintText
 	ld a, POKE_DOLL
 	ldh [hItemToRemoveID], a
 	farcall RemoveItemByID
@@ -36,11 +36,11 @@ CopycatsHouse2FCopycatText:
 	jr .done
 .bag_full
 	ld hl, .TM31NoRoomText
-	call PrintText
+	rst _PrintText
 	jr .done
 .got_item
 	ld hl, .TM31Explanation2Text
-	call PrintText
+	rst _PrintText
 .done
 	jp TextScriptEnd
 
@@ -89,7 +89,7 @@ CopycatsHouse2FPCText:
 	jr nz, .notUp
 	ld hl, .MySecretsText
 .notUp
-	call PrintText
+	rst _PrintText
 	jp TextScriptEnd
 
 .MySecretsText:
