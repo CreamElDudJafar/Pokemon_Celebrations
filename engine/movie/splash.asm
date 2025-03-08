@@ -27,7 +27,7 @@ LoadShootingStarGraphics:
 AnimateShootingStar:
 	call LoadShootingStarGraphics
 	ld a, SFX_SHOOTING_STAR
-	call PlaySound
+	rst _PlaySound
 
 ; Move the big star down and left across the screen.
 	ld hl, wShadowOAM

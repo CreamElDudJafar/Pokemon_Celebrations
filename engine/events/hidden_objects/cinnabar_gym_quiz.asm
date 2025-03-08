@@ -97,7 +97,7 @@ CinnabarGymQuiz_AskQuestion:
 .wrongAnswer
 	call WaitForSoundToFinish
 	ld a, SFX_DENIED
-	call PlaySound
+	rst _PlaySound
 	call WaitForSoundToFinish
 	ld hl, CinnabarGymQuizIncorrectText
 	call PrintText
@@ -132,7 +132,7 @@ CinnabarGymQuizCorrectText:
 	jp nz, TextScriptEnd
 	call WaitForSoundToFinish
 	ld a, SFX_GO_INSIDE
-	call PlaySound
+	rst _PlaySound
 	call WaitForSoundToFinish
 	jp TextScriptEnd
 

@@ -107,7 +107,7 @@ BillsPC_::
 	jr nz, BillsPCMenu
 ; accessing it directly
 	ld a, SFX_TURN_ON_PC
-	call PlaySound
+	rst _PlaySound
 	ld hl, SwitchOnText
 	call PrintText
 
@@ -192,7 +192,7 @@ ExitBillsPC:
 ; accessing it directly
 	call LoadTextBoxTilePatterns
 	ld a, SFX_TURN_OFF_PC
-	call PlaySound
+	rst _PlaySound
 	call WaitForSoundToFinish
 .next
 	ld hl, wFlags_0xcd60

@@ -736,7 +736,7 @@ PlayMapChangeSound::
 .didNotGoThroughDoor
 	ld a, SFX_GO_OUTSIDE
 .playSound
-	call PlaySound
+	rst _PlaySound
 	ld a, [wMapPalOffset]
 	and a
 	ret nz
@@ -1295,7 +1295,7 @@ CollisionCheckOnLand::
 	jr nz, .setCarry
 
 	ld a, SFX_COLLISION
-	call PlaySound ; play collision sound (if it's not already playing)
+	rst _PlaySound ; play collision sound (if it's not already playing)
 .setCarry
 	scf
 	ret
@@ -1983,7 +1983,7 @@ CollisionCheckOnWater::
 	jr nz, .setCarry
 
 	ld a, SFX_COLLISION
-	call PlaySound ; play collision sound (if it's not already playing)
+	rst _PlaySound ; play collision sound (if it's not already playing)
 .setCarry
 	scf
 	jr .done

@@ -24,7 +24,7 @@ PewterPokecenterJigglypuffText:
 	call PrintText
 
 	ld a, SFX_STOP_ALL_MUSIC
-	call PlaySound
+	rst _PlaySound
 	ld c, 32
 	rst _DelayFrames
 

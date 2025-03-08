@@ -131,7 +131,7 @@ LoadFrontSpriteByMonIndex::
 ;PlayCry::
 ; Play monster a's cry.
 ;	call GetCryData
-;	call PlaySound
+;	rst _PlaySound
 ;	jp WaitForSoundToFinish
 
 ;GetCryData::

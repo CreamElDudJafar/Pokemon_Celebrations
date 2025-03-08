@@ -41,7 +41,7 @@ PrepareOakSpeech:
 
 OakSpeech:
 	ld a, SFX_STOP_ALL_MUSIC
-	call PlaySound
+	rst _PlaySound
 	ld a, 0 ; BANK(Music_Routes2)
 	ld c, a
 	ld a, MUSIC_ROUTES2
@@ -162,7 +162,7 @@ OakSpeech:
 	ldh a, [hLoadedROMBank]
 	push af
 	ld a, SFX_SHRINK
-	call PlaySound
+	rst _PlaySound
 	pop af
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a

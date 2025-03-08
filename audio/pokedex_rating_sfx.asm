@@ -20,7 +20,7 @@ PlayPokedexRatingSfx::
 	add hl, bc
 	ld a, [hli]
 	ld c, [hl]
-	call PlaySound
+	rst _PlaySound
 	jp PlayDefaultMusic
 
 PokedexRatingSfxPointers:

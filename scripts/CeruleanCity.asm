@@ -71,7 +71,7 @@ ENDC
 	jr z, .walking
 	ld a, SFX_STOP_ALL_MUSIC
 ;	ld [wNewSoundID], a
-	call PlaySound
+	rst _PlaySound
 .walking
 	ld c, 0 ; BANK(Music_MeetRival)
 	ld a, MUSIC_MEET_RIVAL
@@ -178,7 +178,7 @@ CeruleanCityRivalDefeatedScript:
 	call DisplayTextID
 	ld a, SFX_STOP_ALL_MUSIC
 ;	ld [wNewSoundID], a
-	call PlaySound
+	rst _PlaySound
 	farcall Music_RivalAlternateStart
 	ld a, CERULEANCITY_RIVAL
 	ldh [hSpriteIndex], a

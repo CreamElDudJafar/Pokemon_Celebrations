@@ -10,7 +10,7 @@ EnterMapAnim::
 	res 7, [hl]
 	jr nz, .flyAnimation
 	ld a, SFX_TELEPORT_ENTER_1
-	call PlaySound
+	rst _PlaySound
 	ld hl, wd732
 	bit 4, [hl] ; used dungeon warp?
 	res 4, [hl]
@@ -18,7 +18,7 @@ EnterMapAnim::
 	jr nz, .dungeonWarpAnimation
 	call PlayerSpinWhileMovingDown
 	ld a, SFX_TELEPORT_ENTER_2
-	call PlaySound
+	rst _PlaySound
 	call IsPlayerStandingOnWarpPadOrHole
 	ld a, b
 	and a
@@ -51,7 +51,7 @@ EnterMapAnim::
 	call CopyVideoData
 	call LoadBirdSpriteGraphics
 	ld a, SFX_FLY
-	call PlaySound
+	rst _PlaySound
 	ld hl, wFlyAnimUsingCoordList
 	xor a ; is using coord list
 	ld [hli], a ; wFlyAnimUsingCoordList
@@ -100,7 +100,7 @@ _LeaveMapAnim::
 	jp nz, LeaveMapThroughHoleAnim
 .spinWhileMovingUp
 	ld a, SFX_TELEPORT_EXIT_1
-	call PlaySound
+	rst _PlaySound
 	ld hl, wPlayerSpinWhileMovingUpOrDownAnimDeltaY
 	ld a, -$10
 	ld [hli], a ; wPlayerSpinWhileMovingUpOrDownAnimDeltaY
@@ -147,7 +147,7 @@ _LeaveMapAnim::
 	ld [hl], $c ; wFlyAnimBirdSpriteImageIndex
 	call DoFlyAnimation
 	ld a, SFX_FLY
-	call PlaySound
+	rst _PlaySound
 	ld hl, wFlyAnimUsingCoordList
 	xor a ; is using coord list
 	ld [hli], a ; wFlyAnimUsingCoordList

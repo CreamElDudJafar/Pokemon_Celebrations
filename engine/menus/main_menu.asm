@@ -496,7 +496,7 @@ DisplayOptionMenu:
 	jr nz, .loop
 .exitMenu
 	ld a, SFX_PRESS_AB
-	call PlaySound
+	rst _PlaySound
 	ret
 .eraseOldMenuCursor
 	ld [wTopMenuItemX], a

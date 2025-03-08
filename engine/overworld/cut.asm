@@ -65,7 +65,7 @@ Cut2::
 	ld a, $1
 	ld [wUpdateSpritesEnabled], a
 	ld a, SFX_CUT
-	call PlaySound
+	rst _PlaySound
 	ld a, $90
 	ldh [hWY], a
 	call UpdateSprites

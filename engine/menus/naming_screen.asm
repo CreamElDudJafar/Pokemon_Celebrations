@@ -249,7 +249,7 @@ DisplayNamingScreen:
 	ld [hli], a
 	ld [hl], "@"
 	ld a, SFX_PRESS_AB
-	call PlaySound
+	rst _PlaySound
 	ret
 .pressedB
 	ld a, [wNamingScreenNameLength]

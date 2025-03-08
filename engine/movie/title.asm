@@ -172,7 +172,7 @@ ENDC
 	cp -3
 	jr nz, .skipPlayingSound
 	ld a, SFX_INTRO_CRASH
-	call PlaySound
+	rst _PlaySound
 .skipPlayingSound
 	ld a, [hli]
 	ld e, a
@@ -206,7 +206,7 @@ ENDC
 	ld c, 36
 	rst _DelayFrames
 	ld a, SFX_INTRO_WHOOSH
-	call PlaySound
+	rst _PlaySound
 
 ; scroll game version in from the right
 	call PrintGameVersionOnTitleScreen

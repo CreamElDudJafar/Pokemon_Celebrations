@@ -46,7 +46,7 @@ VermilionDockSSAnneLeavesScript:
 	ld a, SFX_STOP_ALL_MUSIC
 	ld [wJoyIgnore], a
 ;	ld [wNewSoundID], a
-	call PlaySound
+	rst _PlaySound
 	ld c, 0 ; BANK(Music_Surfing)
 	ld a, MUSIC_SURFING
 	call PlayMusic
@@ -208,7 +208,7 @@ VermilionDock_EraseSSAnne:
 	ld [hl], a
 
 	ld a, SFX_SS_ANNE_HORN
-	call PlaySound
+	rst _PlaySound
 	ld c, 120
 	rst _DelayFrames
 	ret

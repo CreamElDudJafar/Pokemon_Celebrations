@@ -112,7 +112,7 @@ PokemonMansion2FSwitchText:
 	ld hl, .PressedText
 	call PrintText
 	ld a, SFX_GO_INSIDE
-	call PlaySound
+	rst _PlaySound
 	CheckAndSetEvent EVENT_MANSION_SWITCH_ON
 	jr z, .done
 	ResetEventReuseHL EVENT_MANSION_SWITCH_ON

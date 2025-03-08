@@ -302,7 +302,7 @@ DisplayTwoOptionMenu:
 	pop hl
 	ld [wFlags_0xcd60], a
 	ld a, SFX_PRESS_AB
-	call PlaySound
+	rst _PlaySound
 	jr .pressedAButton
 .notNoYesMenu
 	xor a

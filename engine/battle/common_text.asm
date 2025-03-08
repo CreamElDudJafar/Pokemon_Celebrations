@@ -65,7 +65,7 @@ PrintBeginningBattleText:
 ;	ld a, $80
 ;	ld [wTempoModifier], a
 	ld a, SFX_SILPH_SCOPE
-	call PlaySound
+	rst _PlaySound
 	jp WaitForSoundToFinish
 .done
 	ret

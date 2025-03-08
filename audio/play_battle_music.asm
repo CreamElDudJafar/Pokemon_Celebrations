@@ -4,7 +4,7 @@ PlayBattleMusic::
 	ld [wLowHealthAlarm], a
 	dec a ; SFX_STOP_ALL_MUSIC
 ;	ld [wNewSoundID], a
-	call PlaySound
+	rst _PlaySound
 	rst _DelayFrame
 	ld c, 0 ; BANK(Music_GymLeaderBattle)
 	ld a, [wGymLeaderNo]

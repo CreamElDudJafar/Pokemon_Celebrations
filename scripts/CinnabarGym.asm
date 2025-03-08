@@ -110,7 +110,7 @@ CinnabarGymOpenGateScript:
 	jr nz, .no_sound
 	call WaitForSoundToFinish
 	ld a, SFX_GO_INSIDE
-	call PlaySound
+	rst _PlaySound
 	call WaitForSoundToFinish
 .no_sound
 	ld a, [wTrainerHeaderFlagBit]

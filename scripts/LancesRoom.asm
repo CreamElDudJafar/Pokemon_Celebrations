@@ -73,7 +73,7 @@ LancesRoomDefaultScript:
 	ld hl, wCurrentMapScriptFlags
 	set 5, [hl]
 	ld a, SFX_GO_INSIDE
-	call PlaySound
+	rst _PlaySound
 	jp LanceShowOrHideEntranceBlocks
 
 LanceTriggerMovementCoords:

@@ -21,7 +21,7 @@ RocketHideoutB1FDoorCallbackScript:
 	jr .set_door_block
 .play_sound_door_open
 	ld a, SFX_GO_INSIDE
-	call PlaySound
+	rst _PlaySound
 	CheckEventHL EVENT_677
 .door_open
 	ld a, $e ; Floor Block

@@ -100,7 +100,7 @@ HandleMenuInput_::
 	pop hl
 	jr nz, .skipPlayingSound
 	ld a, SFX_PRESS_AB
-	call PlaySound
+	rst _PlaySound
 .skipPlayingSound
 	pop af
 	ldh [hDownArrowBlinkCount2], a

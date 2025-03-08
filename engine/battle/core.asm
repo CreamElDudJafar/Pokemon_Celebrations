@@ -799,7 +799,7 @@ FaintEnemyPokemon:
 ;	jr z, .sfxwait
 
 	ld a, SFX_FAINT_THUD
-	call PlaySound
+	rst _PlaySound
 	call WaitForSoundToFinish
 	jr .sfxplayed
 .wild_win

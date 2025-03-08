@@ -514,7 +514,7 @@ OaksLabRivalArrivesAtOaksRequestScript:
 	call EnableAutoTextBoxDrawing
 	ld a, SFX_STOP_ALL_MUSIC
 ;	ld [wNewSoundID], a
-	call PlaySound
+	rst _PlaySound
 	farcall Music_RivalAlternateStart
 	ld a, TEXT_OAKSLAB_RIVAL_GRAMPS
 	ldh [hSpriteIndexOrTextID], a
@@ -615,7 +615,7 @@ OaksLabOakGivesPokedexScript:
 	ld [hl], $ff
 	ld a, SFX_STOP_ALL_MUSIC
 ;	ld [wNewSoundID], a
-	call PlaySound
+	rst _PlaySound
 	farcall Music_RivalAlternateStart
 	ld a, OAKSLAB_RIVAL
 	ldh [hSpriteIndex], a

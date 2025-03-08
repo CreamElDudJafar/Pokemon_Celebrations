@@ -5,7 +5,7 @@ ShakeElevator::
 	call ShakeElevatorRedrawRow
 	call Delay3
 	ld a, SFX_STOP_ALL_MUSIC
-	call PlaySound
+	rst _PlaySound
 	ldh a, [hSCY]
 	ld d, a
 	ld e, $1
@@ -19,7 +19,7 @@ ShakeElevator::
 	push bc
 	ld c, 0 ; BANK(SFX_Collision_1)
 	ld a, SFX_COLLISION
-	call PlaySound
+	rst _PlaySound
 	pop bc
 	ld c, 2
 	rst _DelayFrames
@@ -28,10 +28,10 @@ ShakeElevator::
 	ld a, d
 	ldh [hSCY], a
 	ld a, SFX_STOP_ALL_MUSIC
-	call PlaySound
+	rst _PlaySound
 	ld c, 0 ; BANK(SFX_Safari_Zone_PA)
 	ld a, SFX_SAFARI_ZONE_PA
-	call PlaySound
+	rst _PlaySound
 ;.musicLoop
 ;	ld a, [wChannelSoundIDs + CHAN5]
 ;	cp SFX_SAFARI_ZONE_PA

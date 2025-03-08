@@ -179,7 +179,7 @@ HandlePokedexSideMenu:
 	pop af
 	ld [wd11e], a
 ;	call GetCryData
-;	call PlaySound
+;	rst _PlaySound
 	jp .handleMenuInput
 
 ; handles the list of pokemon on the left of the pokedex screen

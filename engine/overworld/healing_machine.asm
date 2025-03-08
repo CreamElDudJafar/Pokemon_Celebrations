@@ -30,7 +30,7 @@ AnimateHealingMachine:
 .partyLoop
 	call CopyHealingMachineOAM
 	ld a, SFX_HEALING_MACHINE
-	call PlaySound
+	rst _PlaySound
 	ld c, 30
 	rst _DelayFrames
 	dec b
@@ -41,7 +41,7 @@ AnimateHealingMachine:
 ;	jr nz, .next
 ;	ld a, SFX_STOP_ALL_MUSIC
 ;	ld [wNewSoundID], a
-;	call PlaySound
+;	rst _PlaySound
 ;	ld a, 0 ; BANK(Music_PkmnHealed)
 ;	ld [wAudioROMBank], a
 ;.next
