@@ -1052,7 +1052,7 @@ DoduoEvosMoves:
 
 PoliwagEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 18, POLIWHIRL
+	db EVOLVE_LEVEL, 25, POLIWHIRL
 	db 0
 ; Learnset
 	db 6, MIST
