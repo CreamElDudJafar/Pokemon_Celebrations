@@ -558,7 +558,7 @@ BillsHouseHiddenObjects:
 	db -1 ; end
 
 ViridianCityHiddenObjects:
-	hidden_object 14,  4, POTION, HiddenItems
+	hidden_object 15,  4, POTION, HiddenItems
 	db -1 ; end
 
 SafariZoneRestHouse2HiddenObjects:
