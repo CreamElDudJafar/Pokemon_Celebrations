@@ -139,18 +139,18 @@ VermilionGymTrashSuccessText1::
 	rst TextScriptEnd
 
 ; unused
-VermilionGymTrashSuccessText2::
-	text_far _VermilionGymTrashSuccessText2
-	text_end
+;VermilionGymTrashSuccessText2::
+;	text_far _VermilionGymTrashSuccessText2
+;	text_end
 
 ; unused
-VermilionGymTrashSuccesPlaySfx:
-	text_asm
-	call WaitForSoundToFinish
-	ld a, SFX_SWITCH
-	rst _PlaySound
-	call WaitForSoundToFinish
-	rst TextScriptEnd
+;VermilionGymTrashSuccesPlaySfx:
+;	text_asm
+;	call WaitForSoundToFinish
+;	ld a, SFX_SWITCH
+;	rst _PlaySound
+;	call WaitForSoundToFinish
+;	rst TextScriptEnd
 
 VermilionGymTrashSuccessText3::
 	text_far _VermilionGymTrashSuccessText3
