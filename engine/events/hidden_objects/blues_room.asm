@@ -1,8 +1,8 @@
 
-	ret ; unused
+;	ret ; unused
 
-UnusedPredefText::
-	db "@"
+;UnusedPredefText::
+;	db "@"
 
 PrintBookcaseText:
 	call EnableAutoTextBoxDrawing
