@@ -131,7 +131,7 @@ StartMenu_Pokemon::
 .fly
 	bit BIT_THUNDERBADGE, a
 	jp z, .newBadgeRequired
-	call CheckIfInOutsideMap
+	call CheckIfInFlyMap
 	jr z, .canFly
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMonNicks
@@ -202,7 +202,7 @@ StartMenu_Pokemon::
 	call GBPalWhiteOutWithDelay3
 	jp .goBackToMap
 .teleport
-;	call CheckIfInOutsideMap
+;	call CheckIfInFlyMap
 	jr .canTeleport
 ;	ld a, [wWhichPokemon]
 ;	ld hl, wPartyMonNicks
@@ -485,10 +485,10 @@ DrawTrainerInfo:
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $01
 	ld a, [wPlayerGender]
-    		and a
-   		jr z, .AreBoy
-    		ld de, GreenPicFront
-    		lb bc, BANK(GreenPicFront), $01
+	and a
+	jr z, .AreBoy
+	ld de, GreenPicFront
+	lb bc, BANK(GreenPicFront), $01
 .AreBoy
     	predef DisplayPicCenteredOrUpperRight
 	call DisableLCD
