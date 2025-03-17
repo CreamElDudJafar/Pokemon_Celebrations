@@ -937,10 +937,31 @@ _CantEscapeText::
 	text "Can't escape!"
 	prompt
 
-_NoRunningText::
-	text "No! There's no"
-	line "running from a"
-	cont "trainer battle!"
+;_NoRunningText::
+;	text "No! There's no"
+;	line "running from a"
+;	cont "trainer battle!"
+;	prompt
+
+_WannaSurrenderText::
+	text "Do you want to"
+	line "surrender?"
+	done
+
+_AreYouSureText::
+	text "Are you sure?"
+	done
+
+_LetsNotGiveUpYet::
+	text "Let's not give up"
+	line "just yet!"
+	prompt
+
+_PlayerGaveUpText:: ; new
+	text "<PLAYER> gave up!"
+
+	para "<PLAYER> blacked"
+	line "out!"
 	prompt
 
 _GotAwayText::
@@ -1796,9 +1817,6 @@ _DifficultyText::
     text "Select Difficulty"
     done
 
-_AreYouSureText::
-	text "Are you sure?"
-	done
 
 _BoyGirlText::
     text "Play as a boy, or"

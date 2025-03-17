@@ -1162,12 +1162,14 @@ ChooseNextMon:
 HandlePlayerBlackOut:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
-	jr z, .notRival1Battle
+	jr z, .noLossText
 	ld a, [wCurOpponent]
 	cp OPP_RIVAL1
-	jr nz, .notRival1Battle
-	hlcoord 0, 0  ; rival 1 battle
+	jr nz, .noLossText
+.lossText
 	lb bc, 8, 21
+.surrendered
+	hlcoord 0, 0  ; rival 1 battle
 	call ClearScreenArea
 	call ScrollTrainerPicAfterBattle
 	ld c, 40
@@ -1177,9 +1179,16 @@ HandlePlayerBlackOut:
 	ld a, [wCurMap]
 	cp OAKS_LAB
 	ret z            ; starter battle in oak's lab: don't black out
-.notRival1Battle
+.noLossText
 	ld b, SET_PAL_BATTLE_BLACK
 	call RunPaletteCommand
+
+	; edited, to handle surrender from a trainer
+	ld a, [wSurrenderedFromTrainerBattle]
+	and a
+	ld hl, PlayerGaveUpText
+	jr nz, .noLinkBattle
+
 	ld hl, PlayerBlackedOutText2
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
@@ -1200,6 +1209,10 @@ Rival1WinText:
 
 PlayerBlackedOutText2:
 	text_far _PlayerBlackedOutText2
+	text_end
+
+PlayerGaveUpText:
+	text_far _PlayerGaveUpText
 	text_end
 
 LinkBattleLostText:
@@ -1532,6 +1545,10 @@ NoWillText:
 ; try to run from battle (hl = player speed, de = enemy speed)
 ; stores whether the attempt was successful in carry flag
 TryRunningFromBattle:
+	ld a, [wIsInBattle]
+	dec a
+	jp nz, .trainerBattle
+; back to vanilla
 	call IsGhostBattle
 	jp z, .canEscape ; jump if it's a ghost battle
 	ld a, [wBattleType]
@@ -1540,9 +1557,9 @@ TryRunningFromBattle:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	jp z, .canEscape
-	ld a, [wIsInBattle]
-	dec a
-	jr nz, .trainerBattle ; jump if it's a trainer battle
+;	ld a, [wIsInBattle]
+;	dec a
+;	jr nz, .trainerBattle ; jump if it's a trainer battle
 	ld a, [wNumRunAttempts]
 	inc a
 	ld [wNumRunAttempts], a
@@ -1560,7 +1577,7 @@ TryRunningFromBattle:
 	ld hl, hEnemySpeed
 	ld c, 2
 	call StringCmp
-	jr nc, .canEscape ; jump if player speed greater than enemy speed
+	jp nc, .canEscape ; jump if player speed greater than enemy speed
 	xor a
 	ldh [hMultiplicand], a
 	ld a, 32
@@ -1611,7 +1628,18 @@ TryRunningFromBattle:
 	ld hl, CantEscapeText
 	jr .printCantEscapeOrNoRunningText
 .trainerBattle
-	ld hl, NoRunningText
+;	ld hl, NoRunningText
+	call WantToSurrenderFromTrainerBattle
+.test
+	jr nz, .noSurrender
+; we did surrender
+	ld a, 1
+	ld [wSurrenderedFromTrainerBattle], a
+	jp HandlePlayerBlackOut
+.noSurrender
+	ld hl, LetsNotGiveUpYet
+	rst _PrintText
+	ret
 .printCantEscapeOrNoRunningText
 	rst _PrintText
 	ld a, 1
@@ -1652,8 +1680,12 @@ CantEscapeText:
 	text_far _CantEscapeText
 	text_end
 
-NoRunningText:
-	text_far _NoRunningText
+;NoRunningText:
+;	text_far _NoRunningText
+;	text_end
+
+LetsNotGiveUpYet:
+	text_far _LetsNotGiveUpYet
 	text_end
 
 GotAwayText:
@@ -6924,6 +6956,34 @@ PlayMoveAnimation:
 	call Delay3
 	vc_hook_red Reduce_move_anim_flashing_Psychic
 	predef_jump MoveAnimation
+
+WantToSurrenderFromTrainerBattle:
+	ld a, [wCurMap]
+	cp OAKS_LAB
+	jr nz, .notOaksLab
+	dec a
+	ret
+.notOaksLab
+	ld hl, WannaSurrenderText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	ret nz
+	ld hl, AreYouSureText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	ret
+
+WannaSurrenderText:
+	text_far _WannaSurrenderText
+	text_end
+
+AreYouSureText:
+	text_far _AreYouSureText
+	text_end
 
 InitBattle::
 	ld a, [wCurOpponent]
