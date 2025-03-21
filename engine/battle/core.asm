@@ -833,8 +833,10 @@ FaintEnemyPokemon:
 	call SaveScreenTilesToBuffer1
 	xor a
 	ld [wBattleResult], a
-	ld b, EXP_ALL
-	call IsItemInBag
+;	ld b, EXP_ALL
+;	call IsItemInBag
+	ld hl, wd728
+	bit 2, [hl]
 	push af
 	jr z, .giveExpToMonsThatFought ; if no exp all, then jump
 

@@ -26,6 +26,8 @@ Route15Gate2FOaksAideText:
 	jr nz, .no_item
 	SetEvent EVENT_GOT_EXP_ALL
 .got_item
+	ld a, [wd728]
+	set 2, [hl]
 	ld hl, .ExpAllText
 	rst _PrintText
 .no_item

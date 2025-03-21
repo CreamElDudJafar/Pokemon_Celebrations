@@ -112,3 +112,13 @@ _BoxIsFullReminderText::
         para "Change the BOX at"
 	line "a #MON CENTER!"
 	prompt
+
+_ExpAllActivatedText:: 
+	text "<PLAYER> switched"
+	line "on the EXP.ALL."
+	prompt
+
+_ExpAllDeactivatedText:: 
+	text "<PLAYER> switched"
+	line "off the EXP.ALL."
+	prompt

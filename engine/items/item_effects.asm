@@ -91,7 +91,7 @@ ItemUsePtrTable:
 	dw UnusableItem      ; SILPH_SCOPE
 	dw ItemUsePokeFlute  ; POKE_FLUTE
 	dw UnusableItem      ; LIFT_KEY
-	dw UnusableItem      ; EXP_ALL
+	dw ItemUseExpAll     ; EXP_ALL
 	dw ItemUseOldRod     ; OLD_ROD
 	dw ItemUseGoodRod    ; GOOD_ROD
 	dw ItemUseSuperRod   ; SUPER_ROD
@@ -1996,6 +1996,26 @@ ItemfinderFoundItemText:
 
 ItemfinderFoundNothingText:
 	text_far _ItemfinderFoundNothingText
+	text_end
+
+ItemUseExpAll: 
+	ld a, [wIsInBattle]
+	and a
+	jp nz, ItemUseNotTime
+	ld a, [wd728]
+	bit 2, a ;
+	ld hl, .ActivatedText
+	jr z, .got_text
+	ld hl, .DeactivatedText
+.got_text
+	xor 1 <<2
+	ld [wd728], a
+	jp PrintText
+.ActivatedText:
+	text_far _ExpAllActivatedText
+	text_end
+.DeactivatedText:
+	text_far _ExpAllDeactivatedText
 	text_end
 
 ItemUsePPUp:
