@@ -442,6 +442,7 @@ DisplayChangeBoxMenu:
 	ld b, 2
 	ld c, 9
 	call TextBoxBorder
+	callfar SendPokeballPal
 	ld hl, ChooseABoxText
 	rst _PrintText
 	hlcoord 11, 0

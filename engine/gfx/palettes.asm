@@ -189,10 +189,13 @@ SetPal_PokemonWholeScreen:
 	rst _CopyData
 	pop bc
 	ld a, c
-	and a
+	cp 1
 	ld a, PAL_BLACK
-	jr nz, .next
+	jr z, .next
+	ld a, c
+	cp 2
 	ld a, [wWholeScreenPaletteMonSpecies]
+	jr z, .next
 	call DeterminePaletteIDOutOfBattle
 .next
 	ld [wPalPacket + 1], a
@@ -639,3 +642,14 @@ INCLUDE "data/pokemon/palettes.asm"
 INCLUDE "data/sgb/sgb_palettes.asm"
 
 INCLUDE "data/sgb/sgb_border.asm"
+
+SendPokeballPal:
+	ld a, PAL_REDBAR
+	jr SendCustomPacket
+
+
+SendCustomPacket:
+	ld [wWholeScreenPaletteMonSpecies], a
+	ld c, 2
+	ld b, SET_PAL_POKEMON_WHOLE_SCREEN
+	jp RunPaletteCommand

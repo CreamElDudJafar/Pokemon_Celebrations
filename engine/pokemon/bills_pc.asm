@@ -170,6 +170,8 @@ BillsPCMenu:
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	call Delay3
+	ld b, SET_PAL_OVERWORLD
+	call RunPaletteCommand
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	jp nz, ExitBillsPC
