@@ -1523,10 +1523,14 @@ wEndBattleLoseTextPointer:: dw
 	ds 2
 wEndBattleTextRomBank:: db
 
-	ds 1
+UNION
 
+w2CharStringBuffer:: ds 3
+NEXTU
+	ds 1
 ; the address _of the address_ of the current subanimation entry
 wSubAnimAddrPtr:: dw
+ENDU
 
 UNION
 ; the address of the current subentry of the current subanimation

@@ -572,7 +572,7 @@ ItemUseBall:
 	ld hl, ItemUseBallText08
 .printTransferredToPCText
 	rst _PrintText
-        call .boxCheck
+        call PrintRemainingBoxSpacePrompt
 	jr .done
 
 .oldManCaughtMon
@@ -592,18 +592,6 @@ ItemUseBall:
 	inc a
 	ld [wItemQuantity], a
 	jp RemoveItemFromInventory
-
-.boxCheck
-        ld a, [wBoxCount] ; is box full?
-	cp MONS_PER_BOX
-	ret nz
-	ld hl, BoxFullReminderTXT
-	rst _PrintText	
-	ret
-
-BoxFullReminderTXT:
-	text_far _BoxIsFullReminderText
-	text_end
 
 ItemUseBallText00:
 ;"It dodged the thrown ball!"
@@ -640,6 +628,16 @@ ItemUseBallText07:
 ItemUseBallText08:
 ;"X was transferred to someone's PC"
 	text_far _ItemUseBallText08
+	text_end
+
+NoBoxSlotsLeftText:
+;"0 slots left in Box X! Time to change boxes!"
+	text_far _NoBoxSlotsLeftText
+	text_end
+
+BoxSlotsLeftText:
+;"X slots left in box X"
+	text_far _BoxSlotsLeftText
 	text_end
 
 ItemUseBallText06:
@@ -3010,3 +3008,41 @@ CheckMapForMon:
 	jr nz, .loop
 	dec hl
 	ret
+
+;;;;;;;;;; pureRGBnote: ADDED: text indicating your box is full or how much is left
+PrintRemainingBoxSpacePrompt:
+	call PrintRemainingBoxSpace
+	jp DisplayTextPromptButton
+
+PrintRemainingBoxSpace:
+	ld hl, wBoxNumString
+	ld a, [wCurrentBoxNum]
+	and %01111111 ; last bit of wCurrentBoxNum is used as a flag and should be ignored
+	inc a ; wCurrentBoxNum starts at 0 but we want 1
+	call Load2DigitNumberBelow20
+	ld a, [wBoxCount]
+	cp MONS_PER_BOX
+	jr nz, .notFullBox
+	ld hl, NoBoxSlotsLeftText
+	rst _PrintText
+	ret
+.notFullBox
+	n_sub_a MONS_PER_BOX
+	ld hl, w2CharStringBuffer
+	call Load2DigitNumberBelow20
+	ld hl, BoxSlotsLeftText
+	rst _PrintText
+	ret
+
+Load2DigitNumberBelow20:
+	cp 10
+	jr c, .singleDigit
+	sub 10
+	ld [hl], "1"
+	inc hl
+.singleDigit
+	add NUMBER_CHAR_OFFSET
+	ld [hli], a
+	ld [hl], "@"
+	ret
+;;;;;;;;;;

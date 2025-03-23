@@ -202,3 +202,7 @@ DisplayRepelWoreOffText::
 	rst _PrintText
 	callfar UseAnotherRepel ; PureRGBnote: ADDED: when repel wears off ask to use another if available
 	jp CloseTextDisplay
+
+DisplayTextPromptButton::
+	ld hl, TextScriptPromptButton
+	jp TextCommandProcessor
