@@ -1,106 +1,79 @@
 SECTION "Audio RAM", WRAM0
 
-; crysaudio start
+wUnusedC000:: db
 
-; nonzero if playing
-wMusicPlaying:: db
+wSoundID:: db
 
-wAudio::
-wChannel1:: channel_struct wChannel1
-wChannel2:: channel_struct wChannel2
-wChannel3:: channel_struct wChannel3
-wChannel4:: channel_struct wChannel4
+; bit 7: whether sound has been muted
+; all bits: whether the effective is active
+; Store 1 to activate effect (any value in the range [1, 127] works).
+; All audio is muted and music is paused. Sfx continues playing until it
+; ends normally.
+; Store 0 to resume music.
+wMuteAudioAndPauseMusic:: db
 
-	ds 1
+wDisableChannelOutputWhenSfxEnds:: db
 
-wCurTrackDuty:: db
-wCurTrackVolumeEnvelope:: db
-wCurTrackFrequency:: dw
-wUnusedBCDNumber:: db ; BCD value, dummied out
-wCurNoteDuration:: db ; used in MusicE0 and LoadNote
+wStereoPanning:: db
 
-wCurMusicByte:: db
-wCurChannel:: db
-wVolume::
-; corresponds to rNR50
-; Channel control / ON-OFF / Volume (R/W)
-;   bit 7 - Vin->SO2 ON/OFF
-;   bit 6-4 - SO2 output level (volume) (# 0-7)
-;   bit 3 - Vin->SO1 ON/OFF
-;   bit 2-0 - SO1 output level (volume) (# 0-7)
-	db
-wSoundOutput::
-; corresponds to rNR51
-; bit 4-7: ch1-4 so2 on/off
-; bit 0-3: ch1-4 so1 on/off
-	db
-wPitchSweep::
-; corresponds to rNR10
-; bit 7:   unused
-; bit 4-6: sweep time
-; bit 3:   sweep direction
-; but 0-2: sweep shift
-	db
+wSavedVolume:: db
 
-wMusicID:: dw
-wMusicBank:: db
-wNoiseSampleAddress:: dw
-wNoiseSampleDelay:: db
-	ds 1
-wMusicNoiseSampleSet:: db
-wSFXNoiseSampleSet:: db
+wChannelCommandPointers:: ds NUM_CHANNELS * 2
+wChannelReturnAddresses:: ds NUM_CHANNELS * 2
 
-wLowHealthAlarm::
-; bit 7: on/off
-; bit 4: pitch
-; bit 0-3: counter
-	db
+wChannelSoundIDs:: ds NUM_CHANNELS
 
-wMusicFade::
-; fades volume over x frames
-; bit 7: fade in/out
-; bit 0-5: number of frames for each volume level
-; $00 = none (default)
-	db
-wMusicFadeCount:: db
-wMusicFadeID:: dw
+wChannelFlags1:: ds NUM_CHANNELS
+wChannelFlags2:: ds NUM_CHANNELS
 
-	ds 5
+wChannelDutyCycles:: ds NUM_CHANNELS
+wChannelDutyCyclePatterns:: ds NUM_CHANNELS
 
-wCryPitch:: dw
-wCryLength:: dw
+; reloaded at the beginning of a note. counts down until the vibrato begins.
+wChannelVibratoDelayCounters:: ds NUM_CHANNELS
+wChannelVibratoExtents:: ds NUM_CHANNELS
+; high nybble is rate (counter reload value) and low nybble is counter.
+; time between applications of vibrato.
+wChannelVibratoRates:: ds NUM_CHANNELS
+wChannelFrequencyLowBytes:: ds NUM_CHANNELS
+; delay of the beginning of the vibrato from the start of the note
+wChannelVibratoDelayCounterReloadValues:: ds NUM_CHANNELS
 
-wLastVolume:: db
-wUnusedMusicF9Flag:: db
+wChannelPitchSlideLengthModifiers:: ds NUM_CHANNELS
+wChannelPitchSlideFrequencySteps:: ds NUM_CHANNELS
+wChannelPitchSlideFrequencyStepsFractionalPart:: ds NUM_CHANNELS
+wChannelPitchSlideCurrentFrequencyFractionalPart:: ds NUM_CHANNELS
+wChannelPitchSlideCurrentFrequencyHighBytes:: ds NUM_CHANNELS
+wChannelPitchSlideCurrentFrequencyLowBytes:: ds NUM_CHANNELS
+wChannelPitchSlideTargetFrequencyHighBytes:: ds NUM_CHANNELS
+wChannelPitchSlideTargetFrequencyLowBytes:: ds NUM_CHANNELS
 
-wSFXPriority::
-; if nonzero, turn off music when playing sfx
-	db
+; Note delays are stored as 16-bit fixed-point numbers where the integer part
+; is 8 bits and the fractional part is 8 bits.
+wChannelNoteDelayCounters:: ds NUM_CHANNELS
+wChannelLoopCounters:: ds NUM_CHANNELS
+wChannelNoteSpeeds:: ds NUM_CHANNELS
+wChannelNoteDelayCountersFractionalPart:: ds NUM_CHANNELS
 
-	ds 1
+wChannelOctaves:: ds NUM_CHANNELS
+; also includes fade for hardware channels that support it
+wChannelVolumes:: ds NUM_CHANNELS
 
-wChannel1JumpCondition:: db
-wChannel2JumpCondition:: db
-wChannel3JumpCondition:: db
-wChannel4JumpCondition:: db
+wMusicWaveInstrument:: db
+wSfxWaveInstrument:: db
+wMusicTempo:: dw
+wSfxTempo:: dw
+wSfxHeaderPointer:: dw
 
-wStereoPanningMask:: db
+wNewSoundID:: db
 
-wCryTracks::
-; plays only in left or right track depending on what side the monster is on
-; both tracks active outside of battle
-	db
+wAudioROMBank:: db
+wAudioSavedROMBank:: db
 
-wSFXDuration:: db
-wCurSFX::
-; id of sfx currently playing
-	db
+wFrequencyModifier:: db
+wTempoModifier:: db
 
-wSFXDontWait:: ds 1
-
-wAudioEnd::
-
-; crysaudio end
+	ds 13
 
 
 SECTION "Sprite State Data", WRAM0
@@ -1457,7 +1430,7 @@ wTempTilesetNumTiles:: db
 ; so that it can be restored when the player is done with the pokemart NPC
 wSavedListScrollOffset:: db
 
-	ds 2
+wSum:: dw
 
 ; base coordinates of frame block
 wBaseCoordX:: db
@@ -1465,7 +1438,7 @@ wBaseCoordY:: db
 
 ; low health alarm counter/enable
 ; high bit = enable, others = timer to cycle frequencies
-wLowHealthAlarmOrig:: db
+wLowHealthAlarm:: db
 
 ; counts how many tiles of the current frame block have been drawn
 wFBTileCounter:: db
@@ -1845,9 +1818,7 @@ wPokedexOwnedEnd::
 wPokedexSeen:: flag_array NUM_POKEMON
 wPokedexSeenEnd::
 
-wNumBagItems:: db
-; item, quantity
-wBagItems:: ds BAG_ITEM_CAPACITY * 2 + 1 
+ds 42
 
 wPlayerMoney:: ds 3 ; BCD
 
@@ -1937,21 +1908,31 @@ wWarpEntries:: ds 32 * 4 ; Y, X, warp ID, map ID
 ; if $ff, the player's coordinates are not updated when entering the map
 wDestinationWarpID:: db
 
-;;;;;;;
+;;;;;;;;;; note: CHANGED: this empty space is now used for bigger bag space
 UNION
 ; original size of this empty space
 ds 128
 
 NEXTU
-
-wChannel5:: channel_struct wChannel5
-wChannel6:: channel_struct wChannel6
+wNumBagItems:: db
+; item, quantity
+wBagItems:: ds BAG_ITEM_CAPACITY * 2 + 1 ; now holds 50 items
+;;;;
 
 wUniQuizAnswer:: db
 
-wUnusedC000:: db
+wDifficulty::
+		; $00 = normal
+		; $01 = hard
+			ds 1
 
-wSum:: dw
+	wPlayerGender::
+		; $00 = male
+		; $01 = female
+			ds 1
+	
+
+; 23 bytes left to use
 
 ENDU
 ;;;;;;;;;;
@@ -2162,29 +2143,14 @@ wSeafoamIslandsB3FCurScript:: db
 wRoute23CurScript:: db
 wSeafoamIslandsB4FCurScript:: db
 wRoute18Gate1FCurScript:: db
-	ds 6
+	ds 78
 wGameProgressFlagsEnd::
 
-UNION
-    ds 128
-NEXTU
-wChannel7:: channel_struct wChannel7
-wChannel8:: channel_struct wChannel8
+	ds 56
 
-wDifficulty::
-    ; $00 = normal
-    ; $01 = hard
-    ds 1
+wObtainedHiddenItemsFlags:: flag_array 112
 
-wPlayerGender::
-    ; $00 = male
-    ; $01 = female
-    ds 1
-ENDU
-
-wObtainedHiddenItemsFlags:: flag_array MAX_HIDDEN_ITEMS
-
-wObtainedHiddenCoinsFlags:: flag_array MAX_HIDDEN_COINS
+wObtainedHiddenCoinsFlags:: flag_array 16
 
 ; $00 = walking
 ; $01 = biking
