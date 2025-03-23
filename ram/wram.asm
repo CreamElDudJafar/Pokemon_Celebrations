@@ -1937,7 +1937,7 @@ wWarpEntries:: ds 32 * 4 ; Y, X, warp ID, map ID
 ; if $ff, the player's coordinates are not updated when entering the map
 wDestinationWarpID:: db
 
-;;;;;;
+;;;;;;;
 UNION
 ; original size of this empty space
 ds 128
