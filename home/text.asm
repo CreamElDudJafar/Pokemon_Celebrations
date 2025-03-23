@@ -226,6 +226,10 @@ DoneText::
 .stop:
 	text_end
 
+TextScriptPromptButton::
+	text_promptbutton
+	text_end
+
 Paragraph::
 	push de
 	ld a, "▼"

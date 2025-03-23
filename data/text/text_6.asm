@@ -48,6 +48,25 @@ _ItemUseBallText08::
 	cont "someone's PC!"
 	prompt
 
+_NoBoxSlotsLeftText::
+	text "BOX @"
+	text_ram wBoxNumString
+	text" is now full."
+	line "It won't hold any"
+	cont "more #MON."
+
+	para "Change the BOX at"
+	line "a #MON CENTER!@"
+	text_end
+
+_BoxSlotsLeftText::
+	text_ram w2CharStringBuffer
+	text " slots left in"
+	line "BOX @"
+	text_ram wBoxNumString
+	text ".@"
+	text_end
+
 _ItemUseBallText06::
 	text "New #DEX data"
 	line "will be added for"
