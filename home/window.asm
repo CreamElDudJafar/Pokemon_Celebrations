@@ -50,6 +50,9 @@ HandleMenuInput_::
 	ld [wCheckFor180DegreeTurn], a
 	ldh a, [hJoy5]
 	ld b, a
+	bit BIT_A_BUTTON, a
+	jr nz, .checkOtherKeys
+
 	bit BIT_D_UP, a
 	jr z, .checkIfDownPressed
 .upPressed
@@ -90,14 +93,12 @@ HandleMenuInput_::
 	and b ; does the menu care about any of the pressed keys?
 	jp z, .loop1
 .checkIfAButtonOrBButtonPressed
-	ldh a, [hJoy5]
+	ld a, b
 	and A_BUTTON | B_BUTTON
 	jr z, .skipPlayingSound
 .AButtonOrBButtonPressed
-	push hl
-	ld hl, wFlags_0xcd60
-	bit 5, [hl]
-	pop hl
+	ld a, [wFlags_0xcd60]
+	bit 5, a
 	jr nz, .skipPlayingSound
 	ld a, SFX_PRESS_AB
 	rst _PlaySound
@@ -108,7 +109,7 @@ HandleMenuInput_::
 	ldh [hDownArrowBlinkCount1], a ; restore previous values
 	xor a
 	ld [wMenuWrappingEnabled], a ; disable menu wrapping
-	ldh a, [hJoy5]
+	ld a, b
 	ret
 .noWrappingAround
 	ld a, [wMenuWatchMovingOutOfBounds]
