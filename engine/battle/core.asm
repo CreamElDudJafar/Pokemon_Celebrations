@@ -7250,7 +7250,9 @@ LoadMonBackPic:
 	call ClearScreenArea
 	ld hl,  wMonHBackSprite - wMonHeader
 	call UncompressMonSprite
-	call LoadBackSpriteUnzoomed
+	predef ScaleSpriteByTwo
+	ld de, vBackPic
+	call InterlaceMergeSpriteBuffers
 	ld hl, vSprites
 	ld de, vBackPic
 	ld c, (2 * SPRITEBUFFERSIZE) / 16 ; count of 16-byte chunks to be copied
@@ -7258,11 +7260,6 @@ LoadMonBackPic:
 	ld b, a
 	jp CopyVideoData
 
-LoadBackSpriteUnzoomed:
-	ld a, $66
-	ld de, vBackPic
-	push de
-	jp LoadUncompressedBackSprite
 
 ; PureRGBnote: FIXED: MOVED: This code was moved from Battle Core, and now correctly redraws ghost sprites if we're facing an unidentified ghost.
 ; It also correctly minimizes/substitutes the opponent if they were minimized/substituted.

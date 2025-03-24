@@ -214,7 +214,6 @@ HoFLoadPlayerPics:
 	predef ScaleSpriteByTwo
 	ld de, vBackPic
 	call InterlaceMergeSpriteBuffers
-
 	ld c, $1
 
 HoFLoadMonPlayerPicTileIDs:

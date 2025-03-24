@@ -31,7 +31,6 @@ LoadMonFrontSprite::
 	call UncompressMonSprite
 	ld hl, wMonHSpriteDim
 	ld a, [hli]
-	LoadUncompressedBackSprite::
 	ld c, a
 	pop de
 	; fall through
