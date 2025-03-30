@@ -1165,9 +1165,21 @@ HandlePlayerBlackOut:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	jr z, .noLossText
+	ld a, [wSurrenderedFromTrainerBattle]
+	and a
+	lb bc, 12, SCREEN_WIDTH
+	jr nz, .surrendered
+; back to vanilla
 	ld a, [wCurOpponent]
 	cp OPP_RIVAL1
-	jr nz, .noLossText
+	jr z, .lossText
+	cp OPP_RIVAL2
+	jr z, .lossText
+	cp OPP_RIVAL3
+	jr z, .lossText
+	cp OPP_PROF_OAK
+	jr z, .lossText
+	jr .noLossText
 .lossText
 	lb bc, 8, 21
 .surrendered
@@ -1176,8 +1188,9 @@ HandlePlayerBlackOut:
 	call ScrollTrainerPicAfterBattle
 	ld c, 40
 	rst _DelayFrames
-	ld hl, Rival1WinText
-	rst _PrintText
+;	ld hl, Rival1WinText
+;	rst _PrintText
+	call PrintEndBattleText
 	ld a, [wCurMap]
 	cp OAKS_LAB
 	ret z            ; starter battle in oak's lab: don't black out
