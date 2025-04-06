@@ -2488,27 +2488,7 @@ PartyMenuOrRockOrRun:
 ; display the two status screens
 	predef StatusScreenLoop
 ; now we need to reload the enemy mon pic
-	ld a, [wEnemyBattleStatus2]
-	bit HAS_SUBSTITUTE_UP, a ; does the enemy mon have a substitute?
-	ld hl, AnimationSubstitute
-	jr nz, .doEnemyMonAnimation
-; enemy mon doesn't have substitute
-	ld a, [wEnemyMonMinimized]
-	and a ; has the enemy mon used Minimise?
-	ld hl, AnimationMinimizeMon
-	jr nz, .doEnemyMonAnimation
-; enemy mon is not minimised
-	ld a, [wEnemyMonSpecies]
-	ld [wcf91], a
-	ld [wd0b5], a
-	call GetMonHeader
-	ld de, vFrontPic
-	call LoadMonFrontSprite
-	jr .enemyMonPicReloaded
-.doEnemyMonAnimation
-	ld b, BANK(AnimationSubstitute) ; BANK(AnimationMinimizeMon)
-	rst _Bankswitch
-.enemyMonPicReloaded ; enemy mon pic has been reloaded, so return to the party menu
+	call ReloadEnemyMonPicAfterStatusScreen
 	jp .partyMenuWasSelected
 .switchMon
 	ld a, [wPlayerMonNumber]
@@ -7079,12 +7059,10 @@ InitWildBattle:
 	call LoadEnemyMonData
 	call DoBattleTransitionAndInitBattleVariables
 	ld a, [wCurOpponent]
-	cp RESTLESS_SOUL
-	jr z, .isGhost
-	call IsGhostBattle
-	jr nz, .isNoGhost
+	call CheckShouldLoadGhostSprite
+	jr nc, .isNoGhost
 .isGhost
-call LoadGhostPic
+	call LoadGhostData
 	jr .spriteLoaded
 .isNoGhost
 	ld de, vFrontPic
@@ -7276,3 +7254,80 @@ LoadMonBackPic:
 	ldh a, [hLoadedROMBank]
 	ld b, a
 	jp CopyVideoData
+
+; PureRGBnote: FIXED: MOVED: This code was moved from Battle Core, and now correctly redraws ghost sprites if we're facing an unidentified ghost.
+; It also correctly minimizes/substitutes the opponent if they were minimized/substituted.
+ReloadEnemyMonPicAfterStatusScreen::
+	ld a, [wEnemyBattleStatus2]
+	bit HAS_SUBSTITUTE_UP, a ; does the enemy mon have a substitute?
+	ld hl, AnimationSubstituteEnemyMon
+	jr nz, .doEnemyMonAnimation
+; enemy mon doesn't have substitute
+	ld a, [wEnemyMonMinimized]
+	and a ; has the enemy mon used Minimise?
+	ld hl, AnimationMinimizeEnemyMon
+	jr nz, .doEnemyMonAnimation
+; enemy mon isn't minimized
+	call CheckShouldReloadGhostSprite
+	jr c, LoadGhostSprite
+; enemy mon is showing normally
+	ld a, [wEnemyMonSpecies]
+	ld [wcf91], a
+	ld [wd0b5], a
+	call GetMonHeader
+	ld de, vFrontPic
+	jp LoadMonFrontSprite
+.doEnemyMonAnimation
+	ld b, BANK(AnimationSubstituteEnemyMon) ; BANK(AnimationMinimizeEnemyMon)
+	rst _Bankswitch
+	ret ; enemy mon pic has been reloaded, so return to the party menu
+	ld a, MON_GHOST
+	ld [wcf91], a
+	ld de, vFrontPic
+	call LoadMonFrontSprite ; load ghost sprite
+	pop af
+	ld [wcf91], a
+	ret
+
+
+LoadGhostData::
+	ld a, MON_GHOST
+	ld [wd11e], a
+	call GetMonName
+	ld hl, wcd6d
+	ld de, wEnemyMonNick  ; set name to "GHOST"
+	ld bc, NAME_LENGTH
+	rst _CopyData
+	; fall through
+LoadGhostSprite:
+	ld hl, wMonHSpriteDim
+	ld a, $66
+	ld [hli], a   ; write sprite dimensions
+	ld bc, GhostPic
+	ld a, c
+	ld [hli], a   ; write front sprite pointer
+	ld [hl], b
+	ld a, [wcf91]
+	push af
+	ld a, MON_GHOST
+	ld [wcf91], a
+	ld de, vFrontPic
+	call LoadMonFrontSprite ; load ghost sprite
+	pop af
+	ld [wcf91], a
+	ret
+
+CheckShouldLoadGhostSprite::
+	ld a, [wCurOpponent]
+	cp RESTLESS_SOUL
+	jr z, CheckShouldReloadGhostSprite.yes
+	; fall through
+CheckShouldReloadGhostSprite::
+	callfar IsGhostBattle
+	jr nz, .no
+.yes
+	scf
+	ret
+.no
+	and a
+	ret
