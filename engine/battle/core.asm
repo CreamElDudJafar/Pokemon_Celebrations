@@ -7026,7 +7026,6 @@ InitWildBattle:
 	ld [wIsInBattle], a
 	call LoadEnemyMonData
 	call DoBattleTransitionAndInitBattleVariables
-	ld a, [wCurOpponent]
 	call CheckShouldLoadGhostSprite
 	jr nc, .isNoGhost
 .isGhost
