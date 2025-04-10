@@ -34,7 +34,7 @@ DEF SHOW EQU $15
 	const HS_SAFFRON_CITY_D                ; 16
 	const HS_SAFFRON_CITY_E                ; 17
 	const HS_SAFFRON_CITY_F                ; 18
-	const HS_ROUTE_1_OAK                   		; E4 
+	const HS_ROUTE_1_OAK                   ; E4 
 	const HS_ROUTE_2_ITEM_1                ; 19 X
 	const HS_ROUTE_2_ITEM_2                ; 1A X
 	const HS_ROUTE_4_ITEM                  ; 1B X
@@ -181,7 +181,6 @@ DEF SHOW EQU $15
 	const HS_SILPH_CO_7F_RIVAL             ; A7
 	const HS_SILPH_CO_7F_ITEM_1            ; A8 X
 	const HS_SILPH_CO_7F_ITEM_2            ; A9 X
-	const HS_SILPH_CO_7F_8                 ; AA XXX sprite doesn't exist
 	const HS_SILPH_CO_8F_1                 ; AB
 	const HS_SILPH_CO_8F_2                 ; AC
 	const HS_SILPH_CO_8F_3                 ; AD
@@ -197,7 +196,6 @@ DEF SHOW EQU $15
 	const HS_SILPH_CO_11F_1                ; B7
 	const HS_SILPH_CO_11F_2                ; B8
 	const HS_SILPH_CO_11F_3                ; B9
-	const HS_UNUSED_MAP_F4_1               ; BA XXX sprite doesn't exist
 	const HS_POKEMON_MANSION_2F_ITEM       ; BB X
 	const HS_POKEMON_MANSION_3F_ITEM_1     ; BC X
 	const HS_POKEMON_MANSION_3F_ITEM_2     ; BD X
