@@ -21,5 +21,11 @@ _IndigoPlateauLobbyCooltrainerFText::
 	para "If you win, a"
 	line "door opens to the"
 	cont "next trainer!"
-	cont "Good luck!"
+	
+	para "Be aware that you"
+	line "cannot use the"
+	cont "PORTABLE PC after"
+	cont "this door!"
+
+	para "Good luck!"
 	done
