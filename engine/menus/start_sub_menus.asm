@@ -825,7 +825,6 @@ SwitchPartyMon_InitVarOrSwapData:
 
 StartMenu_PortablePC:: ; new
 
-; if none of the above cp is met, let's open the pc and do the things
 ; next piece is to preserve the map text pointers
 	ld hl, wCurMapTextPtr
 	ld a, [hli]
@@ -843,12 +842,6 @@ StartMenu_PortablePC:: ; new
 	cp LANCES_ROOM
 	jr z, .cantUseItHere
 ; if none of the above cp is met, let's open the pc and do the things
-; next piece is to preserve the map text pointers
-	ld hl, wCurMapTextPtr
-	ld a, [hli]
-	ld [wUniQuizAnswer], a
-	ld a, [hl]
-	ld [wUniQuizAnswer+1], a
 ; normal stuff
 	callfar ActivatePC ; main part
 	jr .done
