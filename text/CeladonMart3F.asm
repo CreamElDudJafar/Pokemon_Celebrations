@@ -66,7 +66,7 @@ _CeladonMart3FLittleBoyText::
 	done
 
 _CeladonMart3FSNESText::
-	text "It's an SNES!"
+	text "It's an N64!"
 	done
 
 _CeladonMart3FRPGText::

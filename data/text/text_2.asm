@@ -576,7 +576,7 @@ _IndigoPlateauHQText::
 
 _RedBedroomSNESText::
 	text "<PLAYER> is"
-	line "playing the SNES!"
+	line "playing the N64!"
 	cont "...Okay!"
 	cont "It's time to go!"
 	done
