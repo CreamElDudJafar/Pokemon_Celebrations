@@ -89,6 +89,7 @@
 	const SPRITE_GEY
 	const SPRITE_PIKA
 	const SPRITE_ZAP
+	const SPRITE_BULBASAUR 
 	const SPRITE_VOLTORB
 	const SPRITE_ELECTRODE
 	const SPRITE_KABUTO
@@ -101,6 +102,7 @@
 	const SPRITE_SABRINA
 	const SPRITE_BLAINE
 	const SPRITE_BILL
+	const SPRITE_OFFICER_JENNY
 DEF FIRST_STILL_SPRITE EQU const_value
 	const SPRITE_POKE_BALL               ; $3d
 	const SPRITE_FOSSIL                  ; $3e
