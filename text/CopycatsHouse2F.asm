@@ -79,8 +79,8 @@ _CopycatsHouse2FRareDollText::
 
 _CopycatsHouse2FSNESText::
 	text "A game with MARIO"
-	line "wearing a bucket"
-	cont "on his head!"
+	line "trying to collect"
+	cont "120 stars!"
 	done
 
 _CopycatsHouse2FPCMySecretsText::
