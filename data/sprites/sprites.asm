@@ -94,6 +94,7 @@ SpriteSheetPointerTable:
 	overworld_sprite GeySprite, 12             ; SPRITE_GEY
 	overworld_sprite PikaSprite, 12             ; SPRITE_PIKA
 	overworld_sprite ZapSprite, 12             ; SPRITE_ZAP
+	overworld_sprite BulbasaurSprite, 12       ; SPRITE_BULBASAUR
 	overworld_sprite VoltorbSprite, 12         ; SPRITE_VOLTORB
         overworld_sprite ElectrodeSprite, 12       ; SPRITE_ELECTRODE
 	overworld_sprite KabutoSprite, 12          ; SPRITE_KABUTO
@@ -106,6 +107,7 @@ SpriteSheetPointerTable:
 	overworld_sprite SabrinaSprite, 12
 	overworld_sprite BlaineSprite, 12
 	overworld_sprite BillSprite, 12	
+	overworld_sprite OfficerJennySprite, 12     ; SPRITE_OFFICER_JENNY
 	overworld_sprite PokeBallSprite, 4          ; SPRITE_POKE_BALL
 	overworld_sprite FossilSprite, 4            ; SPRITE_FOSSIL
 	overworld_sprite BoulderSprite, 4           ; SPRITE_BOULDER

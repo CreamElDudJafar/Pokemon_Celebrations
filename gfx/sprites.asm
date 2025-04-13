@@ -101,6 +101,11 @@ NidofSprite::           INCBIN "gfx/sprites/nidof.2bpp"
 NidomSprite::           INCBIN "gfx/sprites/nidom.2bpp"
 GeySprite::           INCBIN "gfx/sprites/gey.2bpp"
 PikaSprite::           INCBIN "gfx/sprites/pika.2bpp"
+
+
+SECTION "NPC Sprites 4", ROMX
+
+BulbasaurSprite::     INCBIN "gfx/sprites/bulbasaur.2bpp"
 ZapSprite::           INCBIN "gfx/sprites/zap.2bpp"
 VoltorbSprite::       INCBIN "gfx/sprites/voltorb.2bpp"
 ElectrodeSprite::     INCBIN "gfx/sprites/electrode.2bpp"
@@ -114,3 +119,4 @@ ErikaSprite::           INCBIN "gfx/sprites/erika.2bpp"
 SabrinaSprite::           INCBIN "gfx/sprites/sabrina.2bpp"
 BlaineSprite::           INCBIN "gfx/sprites/blaine.2bpp"
 BillSprite::            INCBIN "gfx/sprites/bill.2bpp"
+OfficerJennySprite::     INCBIN "gfx/sprites/officer_jenny.2bpp"
