@@ -1479,6 +1479,7 @@ EnemySendOutFirstMon:
 	call GetMonHeader
 	ld de, vFrontPic
 	call LoadMonFrontSprite 
+	ld a, -$31
 	ldh [hStartTileID], a
 	hlcoord 15, 6
 	predef AnimateSendingOutMon
