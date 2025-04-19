@@ -2906,7 +2906,7 @@ ReadSuperRodData:
 ; return e = 0 if no bite
 	ld a, [wCurMap]
 	ld de, 3 ; each fishing group is three bytes wide
-	ld hl, SuperRodData
+	ld hl, SuperRodFishingSlots
 	call IsInArray
 	jr c, .ReadFishingGroup
 	ld e, $2 ; $2 if no fishing groups found
@@ -2980,6 +2980,7 @@ FindWildLocationsOfMon:
 	inc c
 	jr .loop
 .done
+	farcall CheckMapForFishingMon
 	ld a, $ff ; list terminator
 	ld [de], a
 	ret
