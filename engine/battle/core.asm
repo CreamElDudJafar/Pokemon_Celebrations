@@ -4073,15 +4073,15 @@ CheckForDisobedience:
 	ld a, 65 ; Blastoise/Charizard/Venusaur's level
 	jr nc, .next
 	cp 7
-	ld a, 50 ; Rhydon's level
+	ld a, 53 ; Rhydon's level
 	jr nc, .next
 	cp 6
-	ld a, 48 ; Arcanine's level
+	ld a, 50 ; Arcanine's level
 	jr nc, .next
 	cp 5
-	ld a, 46 ; Alakazam's level
+	ld a, 48 ; Alakazam's level
 	jr nc, .next
-    cp 4
+        cp 4
 	ld a, 44 ; Weezing's level
 	jr nc, .next
 	cp 3

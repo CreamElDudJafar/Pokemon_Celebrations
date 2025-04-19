@@ -122,7 +122,7 @@ CeladonGymErikaText:
 	jr nz, .afterBeat
 	call z, CeladonGymReceiveTM21
 	call DisableWaitingAfterTextDisplay
-	jr .done
+	jr .todone
 .afterBeat
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
@@ -139,13 +139,13 @@ CeladonGymErikaText:
 	ld hl, .ReceivedRainbowBadgeText
 	ld de, .ReceivedRainbowBadgeText
 	call SaveEndBattleTextPointers
-	ldh a, [hSpriteIndex]
-	ld [wSpriteIndex], a
-	call EngageMapTrainer
-	call InitBattleEnemyParameters
-	ld a, $4
-	ld [wGymLeaderNo], a
-	jr .endBattle
+	farcall GetBadgesObtained
+	ld a, [wNumSetBits]
+	cp 5
+	jr nc, .Erika6thGym
+	cp 4
+	jr nc, .Erika5thGym
+	jr .Erika4thGym
 .todone
 	jr .done
 .ErikaRematch
@@ -160,7 +160,7 @@ CeladonGymErikaText:
 	call Delay3
 	ld a, OPP_ERIKA
 	ld [wCurOpponent], a
-	ld a, 2
+	ld a, 4
 	ld [wTrainerNo], a
 	ld a, $4 ; new script
 	ld [wCeladonGymCurScript], a
@@ -170,6 +170,31 @@ CeladonGymErikaText:
 	ld hl, .PreBattleRematchRefusedText
 	rst _PrintText
 	jr .done
+.Erika6thGym
+	call Delay3
+	ld a, OPP_ERIKA
+	ld [wCurOpponent], a
+	ld a, 3
+	ld [wTrainerNo], a
+	ld a, $4 ; new script
+	ld [wCeladonGymCurScript], a
+	ld [wCurMapScript], a
+	jr .afterBatttle
+.Erika5thGym
+	call Delay3
+	ld a, OPP_ERIKA
+	ld [wCurOpponent], a
+	ld a, 2
+	ld [wTrainerNo], a
+	ld a, $4 ; new script
+	ld [wCeladonGymCurScript], a
+	ld [wCurMapScript], a
+	jr .afterBatttle
+.Erika4thGym
+	ldh a, [hSpriteIndex]
+	ld [wSpriteIndex], a
+	call EngageMapTrainer
+	call InitBattleEnemyParameters
 .afterBatttle
 	ld a, $4
 	ld [wGymLeaderNo], a

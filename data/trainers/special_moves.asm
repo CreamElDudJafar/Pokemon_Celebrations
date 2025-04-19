@@ -121,7 +121,45 @@ SpecialTrainerMoves:
 	db 4, 3, MEGA_DRAIN
 	db 0
 
+	
 	db ERIKA, 2
+	db 1, 1, MEGA_DRAIN
+	db 1, 2, REFLECT
+	db 1, 3, POISONPOWDER
+	db 2, 1, ACID
+	db 2, 2, STUN_SPORE
+	db 2, 3, SLUDGE
+	db 3, 1, SLEEP_POWDER
+	db 3, 2, ABSORB
+	db 3, 3, VINE_WHIP
+	db 4, 1, SLUDGE
+	db 4, 2, RAZOR_LEAF
+	db 4, 3, LEECH_SEED
+	db 5, 1, PETAL_DANCE
+	db 5, 2, CUT
+	db 5, 3, MEGA_DRAIN
+	db 0
+
+	
+	db ERIKA, 3
+	db 1, 1, MEGA_DRAIN
+	db 1, 2, REFLECT
+	db 1, 3, POISONPOWDER
+	db 2, 1, ACID
+	db 2, 2, STUN_SPORE
+	db 2, 3, SLUDGE
+	db 3, 1, SLEEP_POWDER
+	db 3, 2, ABSORB
+	db 3, 3, VINE_WHIP
+	db 4, 1, SLUDGE
+	db 4, 2, RAZOR_LEAF
+	db 4, 3, LEECH_SEED
+	db 5, 1, PETAL_DANCE
+	db 5, 2, CUT
+	db 5, 3, MEGA_DRAIN
+	db 0
+
+	db ERIKA, 4
 	db 1, 1, SLUDGE
 	db 1, 2, RAZOR_LEAF
 	db 1, 3, LEECH_SEED
@@ -152,12 +190,33 @@ SpecialTrainerMoves:
 	db 3, 1, FIRE_BLAST
 	db 3, 2, AMNESIA
 	db 3, 3, EXPLOSION
-	db 4, 1, DOUBLE_TEAM
-	db 4, 2, PSYCHIC_M
-	db 4, 3, CONFUSION
+	db 4, 1, GLARE
+	db 4, 2, WRAP
+	db 4, 3, EARTHQUAKE
+	db 5, 1, DOUBLE_TEAM
+	db 5, 2, PSYCHIC_M
+	db 5, 3, CONFUSION
 	db 0
 
 	db KOGA, 2
+	db 1, 1, TOXIC
+	db 1, 2, DOUBLE_TEAM
+	db 1, 3, CONFUSE_RAY
+	db 2, 1, SLUDGE
+	db 2, 2, MEGA_DRAIN
+	db 2, 3, THUNDERBOLT
+	db 3, 1, FIRE_BLAST
+	db 3, 2, AMNESIA
+	db 3, 3, EXPLOSION
+	db 4, 1, GLARE
+	db 4, 2, WRAP
+	db 4, 3, EARTHQUAKE
+	db 5, 1, DOUBLE_TEAM
+	db 5, 2, PSYCHIC_M
+	db 5, 3, CONFUSION
+	db 0
+
+	db KOGA, 3
 	db 1, 1, GLARE
 	db 1, 2, EARTHQUAKE
 	db 1, 3, WRAP
@@ -236,6 +295,24 @@ SpecialTrainerMoves:
 	db 0
 
 	db SABRINA, 2
+	db 1, 1, PSYCHIC_M
+	db 1, 2, SURF
+	db 1, 3, THUNDER_WAVE
+	db 2, 1, MEGA_KICK
+	db 2, 2, BARRIER
+	db 2, 3, SOLARBEAM
+	db 3, 1, ICE_BEAM
+	db 3, 2, COUNTER
+	db 3, 3, METRONOME
+	db 4, 1, HYPNOSIS
+	db 4, 2, MEGA_PUNCH
+	db 4, 3, PSYCHIC_M
+	db 5, 1, THUNDER_WAVE
+	db 5, 2, REFLECT
+	db 5, 3, DIG
+	db 0
+
+	db SABRINA, 3
 	db 1, 1, PSYCHIC_M
 	db 1, 2, NIGHT_SHADE
 	db 1, 3, DOUBLE_TEAM

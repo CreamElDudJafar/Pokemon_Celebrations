@@ -139,13 +139,11 @@ SaffronGymSabrinaText:
 	ld hl, .ReceivedMarshBadgeText
 	ld de, .ReceivedMarshBadgeText
 	call SaveEndBattleTextPointers
-	ldh a, [hSpriteIndex]
-	ld [wSpriteIndex], a
-	call EngageMapTrainer
-	call InitBattleEnemyParameters
-	ld a, $6
-	ld [wGymLeaderNo], a
-	jr .endBattle
+	farcall GetBadgesObtained
+	ld a, [wNumSetBits]
+	cp 5
+	jr nc, .Sabrina6thGym
+	jr .Sabrina5thGym
 .todone
 	jr .done
 .SabrinaRematch
@@ -160,7 +158,7 @@ SaffronGymSabrinaText:
 	call Delay3
 	ld a, OPP_SABRINA
 	ld [wCurOpponent], a
-	ld a, 2
+	ld a, 3
 	ld [wTrainerNo], a
 	ld a, $4 ; new script
 	ld [wSaffronGymCurScript], a
@@ -170,6 +168,21 @@ SaffronGymSabrinaText:
 	ld hl, .PreBattleRematchRefusedText
 	rst _PrintText
 	jr .done
+.Sabrina5thGym
+	call Delay3
+	ld a, OPP_SABRINA
+	ld [wCurOpponent], a
+	ld a, 2
+	ld [wTrainerNo], a
+	ld a, $4 ; new script
+	ld [wSaffronGymCurScript], a
+	ld [wCurMapScript], a
+	jr .afterBatttle
+.Sabrina6thGym
+	ldh a, [hSpriteIndex]
+	ld [wSpriteIndex], a
+	call EngageMapTrainer
+	call InitBattleEnemyParameters
 .afterBatttle
 	ld a, $6
 	ld [wGymLeaderNo], a
