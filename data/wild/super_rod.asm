@@ -1,101 +1,81 @@
-; super rod encounters
-SuperRodData:
-	; map, fishing group
-	dbw PALLET_TOWN,         .Group1
-	dbw VIRIDIAN_CITY,       .Group1
-	dbw CERULEAN_CITY,       .Group3
-	dbw VERMILION_CITY,      .Group4
-	dbw CELADON_CITY,        .Group5
-	dbw FUCHSIA_CITY,        .Group10
-	dbw CINNABAR_ISLAND,     .Group8
-	dbw ROUTE_4,             .Group3
-	dbw ROUTE_6,             .Group4
-	dbw ROUTE_10,            .Group5
-	dbw ROUTE_11,            .Group4
-	dbw ROUTE_12,            .Group7
-	dbw ROUTE_13,            .Group7
-	dbw ROUTE_17,            .Group7
-	dbw ROUTE_18,            .Group7
-	dbw ROUTE_19,            .Group8
-	dbw ROUTE_20,            .Group8
-	dbw ROUTE_21,            .Group8
-	dbw ROUTE_22,            .Group2
-	dbw ROUTE_23,            .Group9
-	dbw ROUTE_24,            .Group3
-	dbw ROUTE_25,            .Group3
-	dbw CERULEAN_GYM,        .Group3
-	dbw VERMILION_DOCK,      .Group4
-	dbw SEAFOAM_ISLANDS_B3F, .Group8
-	dbw SEAFOAM_ISLANDS_B4F, .Group8
-	dbw SAFARI_ZONE_EAST,    .Group6
-	dbw SAFARI_ZONE_NORTH,   .Group6
-	dbw SAFARI_ZONE_WEST,    .Group6
-	dbw SAFARI_ZONE_CENTER,  .Group6
-	dbw CERULEAN_CAVE_2F,    .Group9
-	dbw CERULEAN_CAVE_B1F,   .Group9
-	dbw CERULEAN_CAVE_1F,    .Group9
+SuperRodFishingSlots::
+	db PALLET_TOWN, STARYU, 10, TENTACOOL, 10, STARYU, 10, TENTACOOL, 20
+	db VIRIDIAN_CITY, POLIWAG, 5, POLIWAG, 10, POLIWAG, 15, POLIWAG, 10
+	db CERULEAN_CITY, GOLDEEN, 25, GOLDEEN, 30, SEAKING, 30, SEAKING, 40
+	db VERMILION_CITY, TENTACOOL, 15, TENTACOOL, 20, TENTACOOL, 15, HORSEA, 20
+	db CELADON_CITY, GOLDEEN, 15, GOLDEEN, 15, GOLDEEN, 15, GOLDEEN, 20
+	db FUCHSIA_CITY, MAGIKARP, 35, MAGIKARP, 30, MAGIKARP, 35, GYARADOS, 35
+	db CINNABAR_ISLAND, STARYU, 15, TENTACOOL, 15, STARYU, 10, TENTACOOL, 30
+	db ROUTE_4, GOLDEEN, 25, GOLDEEN, 25, GOLDEEN, 30, SEAKING, 30
+	db ROUTE_6, GOLDEEN, 25, GOLDEEN, 20, GOLDEEN, 25, GOLDEEN, 25
+	db ROUTE_24, GOLDEEN, 25, GOLDEEN, 25, GOLDEEN, 30, SEAKING, 30
+	db ROUTE_25, KRABBY, 15, KRABBY, 15, KINGLER, 20, KINGLER, 25
+	db ROUTE_10, KRABBY, 20, KRABBY, 20, HORSEA, 15, KINGLER, 25
+	db ROUTE_11, TENTACOOL, 20, TENTACOOL, 20, TENTACOOL, 20, HORSEA, 15
+	db ROUTE_12, HORSEA, 25, HORSEA, 25, SEADRA, 25, SEADRA, 35
+	db ROUTE_13, HORSEA, 15, HORSEA, 20, TENTACOOL, 10, SEADRA, 20
+	db ROUTE_17, TENTACOOL, 5, TENTACOOL, 15, SHELLDER, 25, SHELLDER, 35
+	db ROUTE_18, TENTACOOL, 25, SHELLDER, 25, SHELLDER, 30, SHELLDER, 40
+	db ROUTE_19, TENTACOOL, 25, STARYU, 25, TENTACOOL, 35, TENTACRUEL, 35
+	db ROUTE_20, TENTACOOL, 30, TENTACRUEL, 30, STARYU, 30, TENTACRUEL, 40
+	db ROUTE_21, TENTACOOL, 20, STARYU, 20, TENTACOOL, 30, TENTACRUEL, 30
+	db ROUTE_22, POLIWAG, 10, POLIWAG, 15, POLIWAG, 15, POLIWHIRL, 15
+	db ROUTE_23, POLIWHIRL, 45, POLIWRATH, 45, KABUTO, 45, OMANYTE, 45
+	db VERMILION_DOCK, TENTACOOL, 15, TENTACOOL, 15, STARYU, 15, SHELLDER, 15
+	db SAFARI_ZONE_CENTER, MAGIKARP, 20, MAGIKARP, 20, DRATINI, 20, DRAGONAIR, 25
+	db SAFARI_ZONE_EAST, MAGIKARP, 25, MAGIKARP, 20, DRATINI, 25, DRATINI, 25
+	db SAFARI_ZONE_NORTH, MAGIKARP, 25, MAGIKARP, 20, GYARADOS, 20, DRATINI, 20
+	db SAFARI_ZONE_WEST, MAGIKARP, 25, MAGIKARP, 20, DRATINI, 20, DRATINI, 20
+	db SEAFOAM_ISLANDS_B3F, KRABBY, 40, STARYU, 40, KINGLER, 40, STARYU, 40
+	db SEAFOAM_ISLANDS_B4F, KRABBY, 40, STARYU, 40, KINGLER, 40, STARYU, 40
+	db CERULEAN_CAVE_1F, SEAKING, 55, DEWGONG, 55, CLOYSTER, 55, GYARADOS, 55
+	db CERULEAN_CAVE_B1F, SEAKING, 60, STARMIE, 60, KABUTO, 60, OMANYTE, 60
 	db -1 ; end
 
-; fishing groups
-; number of monsters, followed by level/monster pairs
 
-.Group1:
-	db 2
-	db 15, TENTACOOL
-	db 15, POLIWAG
+CheckMapForFishingMon:
+	push hl
+	push bc
+	ld hl, SuperRodFishingSlots
+.loop
+	ld a, [hl] ; current map idW
+	cp $ff
+	jr z, .done
+	ld c, a
+	inc hl
 
-.Group2:
-	db 2
-	db 15, GOLDEEN
-	db 15, POLIWAG
-
-.Group3:
-	db 3
-	db 15, PSYDUCK
-	db 15, GOLDEEN
-	db 15, KRABBY
-
-.Group4:
-	db 2
-	db 15, KRABBY
-	db 15, SHELLDER
-
-.Group5:
-	db 2
-	db 23, POLIWHIRL
-	db 15, SLOWPOKE
-
-.Group6:
-	db 4
-	db 15, DRATINI
-	db 15, KRABBY
-	db 15, PSYDUCK
-	db 15, SLOWPOKE
-
-.Group7:
-	db 4
-	db 5, TENTACOOL
-	db 15, KRABBY
-	db 15, GOLDEEN
-	db 15, MAGIKARP
-
-.Group8:
-	db 4
-	db 15, STARYU
-	db 15, HORSEA
-	db 15, SHELLDER
-	db 15, GOLDEEN
-
-.Group9:
-	db 4
-	db 23, SLOWBRO
-	db 23, SEAKING
-	db 23, KINGLER
-	db 23, SEADRA
-
-.Group10:
-	db 4
-	db 23, SEAKING
-	db 15, KRABBY
-	db 15, GOLDEEN
-	db 15, MAGIKARP
+	ld b, $0
+.loop2
+	ld a, $4 ; 4 pokemon per map
+	cp b
+	jr z, .loop
+	ld a, [wd11e] ; ID of the mon we're searching for
+	; Do old rod and good rod mons manually because there's so little of them
+	cp MAGIKARP
+	jr z, .found
+	cp POLIWAG
+	jr z, .found
+	cp GOLDEEN
+	jr z, .found
+	cp HORSEA
+	jr z, .found
+	cp [hl]
+	jr nz, .notfound
+.found
+	dec de
+	ld a, [de]
+	cp c
+	inc de
+	jr z, .notfound ; already added this to buffer
+	ld a, c ; found so add map id to list
+	ld [de], a
+	inc de
+.notfound
+	inc hl
+	inc hl
+	inc b
+	jr .loop2
+.done
+	pop bc
+	pop hl
+	ret
