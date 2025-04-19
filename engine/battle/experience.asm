@@ -132,15 +132,15 @@ GainExperience:
 	ld d, 65 ; Blastoise/Charizard/Venusaur's level
 	jr nc, .next1
 	cp 7
-	ld d, 50 ; Rhydon's level
+	ld d, 53 ; Rhydon's level
 	jr nc, .next1
 	cp 6
-	ld d, 48 ; Arcanine's level
+	ld d, 50 ; Arcanine's level
 	jr nc, .next1
 	cp 5
-	ld d, 46 ; Alakazam's level
+	ld d, 48 ; Alakazam's level
 	jr nc, .next1
-    cp 4
+        cp 4
 	ld d, 44 ; Weezing's level
 	jr nc, .next1
 	cp 3
