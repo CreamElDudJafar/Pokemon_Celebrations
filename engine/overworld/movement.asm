@@ -26,6 +26,7 @@ UpdatePlayerSprite:
 	ld h, HIGH(wSpriteStateData1)
 	ld a, [wWalkCounter]
 	and a
+	ld b, 4
 	jr nz, .moving
 	ld a, [wPlayerMovingDirection]
 ; check if down
@@ -45,9 +46,16 @@ UpdatePlayerSprite:
 	jr .next
 .checkIfRight
 	bit PLAYER_DIR_BIT_RIGHT, a
-	jr z, .notMoving
+	jr z, .checkForIdleAnimation
 	ld a, SPRITE_FACING_RIGHT
 	jr .next
+
+.checkForIdleAnimation
+ 	ld a, [wWalkBikeSurfState]
+ 	cp 2
+ 	ld b, 12
+ 	jr z, .idleAnimation
+
 .notMoving
 ; zero the animation counters
 	xor a
@@ -56,6 +64,7 @@ UpdatePlayerSprite:
 	jr .calcImageIndex
 .next
 	ld [wSpritePlayerStateData1FacingDirection], a
+.idleAnimation
 	ld a, [wFontLoaded]
 	bit 0, a
 	jr nz, .notMoving
@@ -69,8 +78,8 @@ UpdatePlayerSprite:
 	ld a, [hl]
 	inc a
 	ld [hl], a
-	cp 4
-	jr nz, .calcImageIndex
+	cp b
+	jr c, .calcImageIndex
 	xor a
 	ld [hl], a
 	inc hl
@@ -304,22 +313,9 @@ TryWalking:
 
 ; update the walking animation parameters for a sprite that is currently walking
 UpdateSpriteInWalkingAnimation:
-	ldh a, [hCurrentSpriteOffset]
-	add $7
-	ld l, a
-	ld a, [hl]                       ; x#SPRITESTATEDATA1_INTRAANIMFRAMECOUNTER
-	inc a
-	ld [hl], a                       ; [x#SPRITESTATEDATA1_INTRAANIMFRAMECOUNTER]++
-	cp $4
-	jr nz, .noNextAnimationFrame
-	xor a
-	ld [hl], a                       ; [x#SPRITESTATEDATA1_INTRAANIMFRAMECOUNTER] = 0
-	inc l
-	ld a, [hl]                       ; x#SPRITESTATEDATA1_ANIMFRAMECOUNTER
-	inc a
-	and $3
-	ld [hl], a                       ; advance to next animation frame every 4 ticks (16 ticks total for one step)
-.noNextAnimationFrame
+	ld c, 4
+	call DoSpriteWalkingAnimation
+
 	ldh a, [hCurrentSpriteOffset]
 	add $3
 	ld l, a
@@ -361,7 +357,7 @@ UpdateSpriteInWalkingAnimation:
 	and $7f
 	ld [hl], a                       ; x#SPRITESTATEDATA2_MOVEMENTDELAY:
 	                                 ; set next movement delay to a random value in [0,$7f]
-	inc [hl]                                 
+	inc [hl]                               
 	dec h ; HIGH(wSpriteStateData1)
 	ldh a, [hCurrentSpriteOffset]
 	inc a
@@ -377,9 +373,41 @@ UpdateSpriteInWalkingAnimation:
 	ld [hl], a                       ; [x#SPRITESTATEDATA1_XSTEPVECTOR] = 0
 	ret
 
+DoSpriteWalkingAnimation:
+ 	ldh a, [hCurrentSpriteOffset]
+ 	add $7
+ 	ld l, a
+ 
+ 	ld a, [hl]                       ; x#SPRITESTATEDATA1_INTRAANIMFRAMECOUNTER
+ 	inc a
+ 	ld [hl], a                       ; [x#SPRITESTATEDATA1_INTRAANIMFRAMECOUNTER]++
+ 	cp c
+ 	ret c
+ 	xor a
+ 	ld [hli], a                       ; [x#SPRITESTATEDATA1_INTRAANIMFRAMECOUNTER] = 0
+ 	ld a, [hl]                       ; x#SPRITESTATEDATA1_ANIMFRAMECOUNTER
+ 	inc a
+ 	and $3
+ 	ld [hl], a                       ; advance to next animation frame every 4 ticks (16 ticks total for one step)
+ 	ret
+
 ; update [x#SPRITESTATEDATA2_MOVEMENTDELAY] for sprites in the delayed state (x#SPRITESTATEDATA1_MOVEMENTSTATUS)
 UpdateSpriteMovementDelay:
-	ld h, HIGH(wSpriteStateData2)
+	ldh a, [hCurrentSpriteOffset]
+ 	ld l, a
+ 	ld a, [hl]
+ 	ld c, 12
+ 	cp SPRITE_SWIMMER
+ 	jr z, .done
+ 	cp SPRITE_SEEL
+ 	jr nz, .done
+ 	ld a, [wCurMap]
+ 	cp FUCHSIA_CITY
+ .done	
+ 	push af
+ 	call z, DoSpriteWalkingAnimation
+ 	
+ 	inc h
 	ldh a, [hCurrentSpriteOffset]
 	add $6
 	ld l, a
@@ -392,13 +420,17 @@ UpdateSpriteMovementDelay:
 	jr .moving
 .tickMoveCounter
 	dec [hl]                ; x#SPRITESTATEDATA2_MOVEMENTDELAY
-	jr nz, notYetMoving
+	jr nz, .notYetWalking
 .moving
 	dec h
 	ldh a, [hCurrentSpriteOffset]
 	inc a
 	ld l, a
 	ld [hl], $1             ; [x#SPRITESTATEDATA1_MOVEMENTSTATUS] = 1 (mark as ready to move)
+.notYetWalking
+ 	pop af
+ 	jp z, UpdateSpriteImage
+
 notYetMoving:
 	ld h, HIGH(wSpriteStateData1)
 	ldh a, [hCurrentSpriteOffset]
