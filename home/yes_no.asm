@@ -31,3 +31,18 @@ DisplayYesNoChoice::
 	ld [wTextBoxID], a
 	call DisplayTextBoxID
 	jp LoadScreenTilesFromBuffer1
+
+DisplayMultiChoiceTextBox::
+	xor a
+	ld [wCurrentMenuItem], a
+DisplayMultiChoiceTextBoxNoMenuReset::
+	ld a, l
+	ld [wListPointer], a
+	ld a, h
+	ld [wListPointer + 1], a
+	ld a, b
+	ld [wMenuWatchedKeys], a
+	callfar DisplayMultiChoiceMenu
+	ldh a, [hJoy5]
+	bit BIT_B_BUTTON, a
+	ret

@@ -223,6 +223,9 @@ PrintSafariZoneSteps::
 	ret c
 	cp CERULEAN_CAVE_2F
 	ret nc
+	ld a, [wSafariType]
+	cp SAFARI_TYPE_FREE_ROAM
+	ret z
 	hlcoord 0, 0
 	ld b, 3
 	ld c, 7

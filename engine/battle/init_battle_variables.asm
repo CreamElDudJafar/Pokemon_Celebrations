@@ -34,6 +34,9 @@ InitBattleVariables:
 	jr c, .notSafariBattle
 	cp SAFARI_ZONE_CENTER_REST_HOUSE
 	jr nc, .notSafariBattle
+	ld a, [wSafariType]
+	and a 
+	jr nz, .notSafariBattle
 	ld a, BATTLE_TYPE_SAFARI
 	ld [wBattleType], a
 .notSafariBattle

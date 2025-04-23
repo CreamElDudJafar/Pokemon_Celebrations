@@ -1,6 +1,9 @@
 SafariZoneCheck::
 	CheckEventHL EVENT_IN_SAFARI_ZONE ; if we are not in the Safari Zone,
 	jr z, SafariZoneGameStillGoing ; don't bother printing game over text
+	ld a, [wSafariType]
+	cp SAFARI_TYPE_FREE_ROAM
+	jr z, SafariZoneGameStillGoing
 	ld a, [wNumSafariBalls]
 	and a
 	jr z, SafariZoneGameOver
@@ -11,6 +14,9 @@ IF DEF(_DEBUG)
 	call DebugPressedOrHeldB
 	ret nz
 ENDC
+	ld a, [wSafariType]
+	cp SAFARI_TYPE_FREE_ROAM
+	ret z
 	ld a, [wSafariSteps]
 	ld b, a
 	ld a, [wSafariSteps + 1]
@@ -76,6 +82,18 @@ SafariGameOverText:
 	ld hl, GameOverText
 	rst _PrintText
 	rst TextScriptEnd
+
+; PureRGBnote: ADDED: used when leaving the safari zone by flying, teleporting, blacking out, etc.
+;                     clears all variables related to the safari game you were in
+ClearSafariFlags::
+	ResetEvents EVENT_SAFARI_GAME_OVER, EVENT_IN_SAFARI_ZONE
+	xor a
+	ld [wSafariType], a
+	ld [wNumSafariBalls], a
+	ld [wSafariSteps], a
+	ld [wSafariZoneGameOver], a 
+	ld [wSafariZoneGateCurScript], a ; SCRIPT_SAFARIZONEGATE_DEFAULT
+	ret
 
 TimesUpText:
 	text_far _TimesUpText
