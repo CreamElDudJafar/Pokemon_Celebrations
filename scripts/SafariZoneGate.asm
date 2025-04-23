@@ -13,6 +13,7 @@ SafariZoneGate_ScriptPointers:
 	dw_const SafariZoneGatePlayerMovingDownScript,       SCRIPT_SAFARIZONEGATE_PLAYER_MOVING_DOWN
 	dw_const SafariZoneGateLeavingSafariScript,          SCRIPT_SAFARIZONEGATE_LEAVING_SAFARI
 	dw_const SafariZoneGateSetScriptAfterMoveScript,     SCRIPT_SAFARIZONEGATE_SET_SCRIPT_AFTER_MOVE
+	dw_const SafariZoneGateScript7,                      SCRIPT_SAFARIZONEGATE_7
 	EXPORT SCRIPT_SAFARIZONEGATE_LEAVING_SAFARI ; used by engine/events/hidden_objects/safari_game.asm
 
 SafariZoneGateDefaultScript:
@@ -117,6 +118,21 @@ SafariZoneGateSetScriptAfterMoveScript:
 	ld [wSafariZoneGateCurScript], a
 	ret
 
+SafariZoneGateScript7:
+	call SafariZoneGateReturnSimulatedJoypadStateScript
+	ret nz
+	ld a, PLAYER_DIR_RIGHT
+	ld [wPlayerMovingDirection], a
+	ld a, $9
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ld a, D_DOWN
+	ld c, $1
+	call SafariZoneEntranceAutoWalk
+	ld a, SCRIPT_SAFARIZONEGATE_PLAYER_MOVING_DOWN
+	ld [wSafariZoneGateCurScript], a
+	ret
+
 SafariZoneEntranceAutoWalk:
 	push af
 	ld b, 0
@@ -157,10 +173,9 @@ SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText:
 	jp nz, .PleaseComeAgain
 	xor a
 	ldh [hMoney], a
-	ld a, $05
-	ldh [hMoney + 1], a
-	ld a, $00
 	ldh [hMoney + 2], a
+	ld a, 5
+	ldh [hMoney + 1], a
 	call HasEnoughMoney
 	jr nc, .success
 	ld hl, .NotEnoughMoneyText
@@ -170,10 +185,9 @@ SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText:
 .success
 	xor a
 	ld [wPriceTemp], a
-	ld a, $05
-	ld [wPriceTemp + 1], a
-	ld a, $00
 	ld [wPriceTemp + 2], a
+	ld a, 5
+	ld [wPriceTemp + 1], a
 	ld hl, wPriceTemp + 2
 	ld de, wPlayerMoney + 2
 	ld c, 3
@@ -183,12 +197,8 @@ SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText:
 	call DisplayTextBoxID
 	ld hl, .MakePaymentText
 	rst _PrintText
-	ld a, 30
-	ld [wNumSafariBalls], a
-	ld a, HIGH(502)
-	ld [wSafariSteps], a
-	ld a, LOW(502)
-	ld [wSafariSteps + 1], a
+	call AskGameType
+	jr c, .PleaseComeAgain
 	ld a, D_UP
 	ld c, 3
 	call SafariZoneEntranceAutoWalk
@@ -212,8 +222,8 @@ SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText:
 
 .MakePaymentText
 	text_far _SafariZoneGateSafariZoneWorker1ThatllBe500PleaseText
-	sound_get_item_1
-	text_far _SafariZoneGateSafariZoneWorker1CallYouOnThePAText
+;	sound_get_item_1
+;	text_far _SafariZoneGateSafariZoneWorker1CallYouOnThePAText
 	text_end
 
 .PleaseComeAgainText
@@ -265,6 +275,10 @@ SafariZoneGateSafariZoneWorker1LeavingEarlyText:
 	text_far _SafariZoneGateSafariZoneWorker1GoodLuckText
 	text_end
 
+PleaseComeAgainText:
+	text_far _SafariZoneGateSafariZoneWorker1PleaseComeAgainText
+	text_end
+
 SafariZoneGateSafariZoneWorker1GoodHaulComeAgainText:
 	text_far _SafariZoneGateSafariZoneWorker1GoodHaulComeAgainText
 	text_end
@@ -278,7 +292,11 @@ SafariZoneGateSafariZoneWorker2Text:
 	and a
 	ld hl, .YoureARegularHereText
 	jr nz, .print_text
-	ld hl, .SafariZoneExplanationText
+	call AskGameTypeExplanation
+	jr c, .noSelection
+	rst TextScriptEnd
+.noSelection
+	ld hl, .YoureARegularHereText
 .print_text
 	rst _PrintText
 	rst TextScriptEnd
@@ -293,4 +311,127 @@ SafariZoneGateSafariZoneWorker2Text:
 
 .YoureARegularHereText
 	text_far _SafariZoneGateSafariZoneWorker2YoureARegularHereText
+	text_end
+
+SafariZoneEntranceConvertBCDtoNumber:
+	push hl
+	ld c, a
+	and $f
+	ld l, a
+	ld h, $0
+	ld a, c
+	and $f0
+	swap a
+	ld bc, 10
+	call AddNTimes
+	ld a, l
+	pop hl
+	ret
+
+AskGameType:
+	ld hl, SafariZoneEntranceWhatGame
+	rst _PrintText
+	ld hl, SafariTypeOptions
+	ld b, A_BUTTON | B_BUTTON
+	call DisplayMultiChoiceTextBox
+	jr nz, .goodbye
+	ld hl, TextPointers_SafariGames
+	ld a, [wCurrentMenuItem]
+	call GetAddressFromPointerArray
+	rst _PrintText
+	and a
+	ret
+.goodbye
+	; give back the 500 that was just deducted
+	ld de, wPlayerMoney + 2
+	ld hl, hMoney + 2 ; total price of items
+	ld c, 3 ; length of money in bytes
+	predef AddBCDPredef ; add total price to money
+	ld a, MONEY_BOX
+	ld [wTextBoxID], a
+	call DisplayTextBoxID ; redraw money text box
+	scf
+	ret
+
+TextPointers_SafariGames:
+	dw SafariClassicPaidInfo
+	dw SafariFreeRoamPaidInfo
+
+SafariZoneEntranceWhatGame:
+	text_far _SafariZoneEntranceWhatGame
+	text_end
+
+SafariZoneEntranceSafariBallsReceived:
+	text_far _SafariZoneEntranceSafariBallsReceived
+	sound_get_item_1
+	text_end
+
+SafariZonePAText:
+	text_far _SafariZoneEntranceText_75360
+	text_end
+
+SafariClassicPaidInfo:
+	text_asm
+	ld hl, SafariZoneClassicText
+	rst _PrintText
+	ld hl, SafariZoneEntranceSafariBallsReceived
+	rst _PrintText
+	ld hl, SafariZonePAText
+	rst _PrintText
+	ld a, 30
+	ld [wNumSafariBalls], a
+	ld a, HIGH(502)
+	ld [wSafariSteps], a
+	ld a, LOW(502)
+	ld [wSafariSteps + 1], a
+	ld a, SAFARI_TYPE_CLASSIC
+	ld [wSafariType], a
+	rst TextScriptEnd
+
+
+SafariFreeRoamPaidInfo:
+	text_asm
+	ld hl, SafariZoneFreeRoam
+	rst _PrintText
+	xor a
+	ld [wNumSafariBalls], a
+	ld a, SAFARI_TYPE_FREE_ROAM
+	ld [wSafariType], a
+	rst TextScriptEnd
+
+SafariZoneClassicText:
+	text_far _SafariZoneClassic
+	text_end
+
+SafariZoneFreeRoam:
+	text_far _SafariZoneFreeRoam
+	text_end
+
+AskGameTypeExplanation:
+	ld hl, SafariZoneHelp
+	rst _PrintText
+	ld hl, SafariTypeOptions
+	ld b, A_BUTTON | B_BUTTON
+	call DisplayMultiChoiceTextBox
+	jr nz, .goodbye
+	ld hl, TextPointers_SafariExplanations
+	ld a, [wCurrentMenuItem]
+	call GetAddressFromPointerArray
+	rst _PrintText
+	and a
+	ret
+.goodbye
+	scf
+	ret
+
+TextPointers_SafariExplanations:
+	dw ExplanationText
+	dw SafariZoneFreeRoam
+
+SafariZoneHelp:
+	text_far _SafariZoneHelp
+	text_end
+
+ExplanationText:
+	text_far _SafariZoneGateSafariZoneWorker2SafariZoneExplanationText
 	text_end

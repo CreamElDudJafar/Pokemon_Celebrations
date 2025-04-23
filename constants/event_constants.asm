@@ -723,6 +723,10 @@
 	const EVENT_BEAT_MEWTWO
 	const EVENT_BEAT_MEW
 
+;arbitrary flags
+	const_next $8D0
+	const FLAG_SKIP_MULTI_CHOICE_LOADGBPAL
+
 ; Indigo Plateau events
 	const_next $8E0
 DEF INDIGO_PLATEAU_EVENTS_START EQU const_value

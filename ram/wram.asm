@@ -2380,7 +2380,9 @@ wUnusedDA38:: db
 ; mostly copied from map-specific map script pointer and written back later
 wCurMapScript:: db
 
-	ds 6
+wSafariType:: db
+
+	ds 5
 
 wPlayTimeHours:: db
 wPlayTimeMaxed:: db

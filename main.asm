@@ -374,3 +374,4 @@ INCLUDE "engine/pokemon/evos_moves.asm"
 SECTION "Move Descriptions", ROMX
 
 INCLUDE "engine/pokemon/move_descriptions.asm"
+INCLUDE "engine/menus/multi_choice_menu.asm"
