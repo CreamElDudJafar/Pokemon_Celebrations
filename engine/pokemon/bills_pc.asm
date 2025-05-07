@@ -112,17 +112,21 @@ BillsPC_::
 	rst _PrintText
 
 BillsPCMenu:
+	ld hl, wd730
+	set 6, [hl]
 	ld a, [wParentMenuItem]
 	ld [wCurrentMenuItem], a
-	ld hl, vChars2 tile $78
-	ld de, PokeballTileGraphics
-	lb bc, BANK(PokeballTileGraphics), 1
-	call CopyVideoData
+	ResetEvent FLAG_VIEW_PC_PKMN
+	callfar LoadBillsPCExtraTiles
 	call LoadScreenTilesFromBuffer2DisableBGTransfer
+	hlcoord 0, 12
+	lb bc, 4, 18
+	call TextBoxBorder
 	hlcoord 0, 0
 	ld b, 10
 	ld c, 12
 	call TextBoxBorder
+	call UpdateSprites
 	hlcoord 2, 2
 	ld de, BillsPCMenuText
 	call PlaceString
@@ -135,7 +139,7 @@ BillsPCMenu:
 	inc hl
 	ld a, 4
 	ld [hli], a ; wMaxMenuItem
-	ld a, A_BUTTON | B_BUTTON
+	ld a, A_BUTTON | B_BUTTON | SELECT
 	ld [hli], a ; wMenuWatchedKeys
 	xor a
 	ld [hli], a ; wLastMenuItem
@@ -146,33 +150,24 @@ BillsPCMenu:
 	ld [wPlayerMonNumber], a
 	ld hl, WhatText
 	rst _PrintText
-	hlcoord 9, 14
-	ld b, 2
-	ld c, 9
-	call TextBoxBorder
-	ld a, [wCurrentBoxNum]
-	and $7f
-	cp 9
-	jr c, .singleDigitBoxNum
-; two digit box num
-	sub 9
-	hlcoord 17, 16
-	ld [hl], "1"
-	add "0"
-	jr .next
-.singleDigitBoxNum
-	add "1"
-.next
-	ldcoord_a 18, 16
-	hlcoord 10, 16
-	ld de, BoxNoPCText
-	call PlaceString
+	decoord 13, 13
+	callfar DrawCurrentBoxPrompt
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	call Delay3
+.handleMenuInput
 	ld b, SET_PAL_OVERWORLD
 	call RunPaletteCommand
 	call HandleMenuInput
+	bit BIT_SELECT, a
+	jr z, .notSelect
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .handleMenuInput
+	ld [wParentMenuItem], a
+	SetEvent FLAG_VIEW_PC_PKMN
+	jp BillsPCWithdraw
+.notSelect
 	bit BIT_B_BUTTON, a
 	jp nz, ExitBillsPC
 	call PlaceUnfilledArrowMenuCursor
@@ -210,6 +205,8 @@ BillsPCDeposit:
 	ld a, [wPartyCount]
 	dec a
 	jr nz, .partyLargeEnough
+	ld hl, wd730
+	res 6, [hl]
 	ld hl, CantDepositLastMonText
 	rst _PrintText
 	jp BillsPCMenu
@@ -217,6 +214,8 @@ BillsPCDeposit:
 	ld a, [wBoxCount]
 	cp MONS_PER_BOX
 	jr nz, .boxNotFull
+	ld hl, wd730
+	res 6, [hl]
 	ld hl, BoxFullText
 	rst _PrintText
 	jp BillsPCMenu
@@ -224,8 +223,9 @@ BillsPCDeposit:
 	ld hl, wPartyCount
 	call DisplayMonListMenu
 	jp c, BillsPCMenu
+	call BillsPCBackupListIndex
 	call DisplayDepositWithdrawMenu
-	jp nc, BillsPCMenu
+	jp nc, .doneDepositDialogBox
 	ld a, [wcf91]
 	call GetCryData
 	call PlaySoundWaitForCurrent
@@ -253,28 +253,56 @@ BillsPCDeposit:
 	ld [hl], "@"
 	ld hl, MonWasStoredText
 	rst _PrintText
-	jp BillsPCMenu
+;	jp BillsPCMenu
+.doneDepositDialogBox
+	call BillsPCRestoreListIndex
+	ld a, [wBoxCount]
+	cp MONS_PER_BOX
+	jp z, BillsPCMenu ; if no space left to deposit, exit the menu automatically
+	ld a, [wPartyCount]
+	dec a
+	jp z, BillsPCMenu ; if 1 pokemon left in party, exit the menu automatically
+	ld hl, wd730
+	set 6, [hl]
+	ld hl, WhatText
+	rst _PrintText
+	; in case we displayed the status menu, need to reload these
+	call RedrawCurrentBoxPrompt
+	jp BillsPCDeposit
+
 
 BillsPCWithdraw:
 	ld a, [wBoxCount]
 	and a
 	jr nz, .boxNotEmpty
+	ld hl, wd730
+	res 6, [hl]
 	ld hl, NoMonText
 	rst _PrintText
 	jp BillsPCMenu
 .boxNotEmpty
+	CheckEvent FLAG_VIEW_PC_PKMN
+	jr nz, .viewStart
 	ld a, [wPartyCount]
 	cp PARTY_LENGTH
 	jr nz, .partyNotFull
+	ld hl, wd730
+	res 6, [hl]
 	ld hl, CantTakeMonText
 	rst _PrintText
 	jp BillsPCMenu
+.viewStart
+	ld hl, ViewMode
+	call .redrawTextBoxAndCurrentBox
 .partyNotFull
 	ld hl, wBoxCount
 	call DisplayMonListMenu
 	jp c, BillsPCMenu
+	CheckEvent FLAG_VIEW_PC_PKMN
+	jr nz, .viewPkmn
+	call BillsPCBackupListIndex
 	call DisplayDepositWithdrawMenu
-	jp nc, BillsPCMenu
+	jr nc, .doneWithdrawDialogBox
 	ld a, [wWhichPokemon]
 	ld hl, wBoxMonNicks
 	call GetPartyMonName
@@ -290,25 +318,57 @@ BillsPCWithdraw:
 	call WaitForSoundToFinish
 	ld hl, MonIsTakenOutText
 	rst _PrintText
-	jp BillsPCMenu
+;	jp BillsPCMenu
+.doneWithdrawDialogBox
+	call BillsPCRestoreListIndex
+	ld a, [wBoxCount]
+	and a
+	jp z, BillsPCMenu ; if no pokemon left to withdraw, exit the menu automatically
+	ld a, [wPartyCount]
+	cp PARTY_LENGTH
+	jp z, BillsPCMenu ; if party is full (can't withdraw more), exit the menu automatically
+	ld hl, WhatText
+	call .redrawTextBoxAndCurrentBox
+	jp BillsPCWithdraw ; otherwise go back to the menu
+.redrawTextBoxAndCurrentBox
+	push hl
+	ld hl, wd730
+	set 6, [hl]
+	pop hl
+	rst _PrintText
+	jp RedrawCurrentBoxPrompt
+.viewPkmn
+	call DisplayDepositWithdrawMenu.viewStats
+	ld hl, ViewMode
+	call .redrawTextBoxAndCurrentBox
+	jp BillsPCWithdraw
 
 BillsPCRelease:
 	ld a, [wBoxCount]
 	and a
 	jr nz, .loop
+	ld hl, wd730
+	res 6, [hl]
 	ld hl, NoMonText
 	rst _PrintText
 	jp BillsPCMenu
 .loop
+	ld hl, wd730
+	set 6, [hl]
+	ld hl, ReleaseWhichMonText
+	rst _PrintText
 	ld hl, wBoxCount
 	call DisplayMonListMenu
 	jp c, BillsPCMenu
+	call BillsPCBackupListIndex
+	ld hl, wd730
+	res 6, [hl]
 	ld hl, OnceReleasedText
 	rst _PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
-	jr nz, .loop
+	jr nz, .doneReleaseDialogBox
 	inc a
 	ld [wRemoveMonFromBox], a
 	call RemovePokemon
@@ -317,7 +377,13 @@ BillsPCRelease:
 	call PlayCry
 	ld hl, MonWasReleasedText
 	rst _PrintText
-	jp BillsPCMenu
+;	jp BillsPCMenu
+.doneReleaseDialogBox
+	call BillsPCRestoreListIndex
+	ld a, [wBoxCount]
+	and a
+	jp z, BillsPCMenu ; if no pokemon left to release, exit the menu automatically
+	jp .loop ; otherwise go back to the menu
 
 BillsPCChangeBox:
 	farcall ChangeBox
@@ -415,7 +481,7 @@ DisplayDepositWithdrawMenu:
 	ld [hli], a ; wListScrollOffset
 	ld [hl], a ; wMenuWatchMovingOutOfBounds
 	ld [wPlayerMonNumber], a
-	ld [wPartyAndBillsPCSavedMenuItem], a
+;	ld [wPartyAndBillsPCSavedMenuItem], a
 .loop
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
@@ -445,6 +511,8 @@ DisplayDepositWithdrawMenu:
 	call ReloadTilesetTilePatterns
 	call RunDefaultPaletteCommand
 	call LoadGBPal
+	CheckEvent FLAG_VIEW_PC_PKMN
+	jr nz, .exit
 	jr .loop
 
 DepositPCText:  db "DEPOSIT@"
@@ -459,6 +527,10 @@ SwitchOnText:
 
 WhatText:
 	text_far _WhatText
+	text_end
+
+ViewMode:
+	text_far _ViewModeText
 	text_end
 
 DepositWhichMonText:
@@ -547,3 +619,20 @@ JustAMomentText::
 
 OpenBillsPCText::
 	script_bills_pc
+
+BillsPCBackupListIndex:
+	ld a, [wListScrollOffset]
+	ld [wSavedListScrollOffset], a
+	ret
+
+BillsPCRestoreListIndex:
+	ld a, [wSavedListScrollOffset]
+	ld [wListScrollOffset], a
+	ld a, [wPartyAndBillsPCSavedMenuItem]
+	ld [wCurrentMenuItem], a
+	ret
+
+RedrawCurrentBoxPrompt:
+	callfar LoadBillsPCExtraTiles ; in the case of displaying pokemon status menu, this needs to be reloaded
+	decoord 13, 13
+	jpfar DrawCurrentBoxPrompt ; redraw current box prompt since it probably changed
