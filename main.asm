@@ -364,6 +364,8 @@ INCLUDE "engine/menus/item_descriptions.asm"
 INCLUDE "engine/overworld/use_another_repel.asm"
 INCLUDE "engine/battle/move_effects/drain_hp.asm" ; Moved from Bank1
 INCLUDE "engine/overworld/select_button_functionality.asm"
+INCLUDE "engine/menus/multi_choice_menu.asm"
+INCLUDE "engine/menus/change_box_menu.asm"
 
 
 SECTION "Evo Moves", ROMX
@@ -374,4 +376,3 @@ INCLUDE "engine/pokemon/evos_moves.asm"
 SECTION "Move Descriptions", ROMX
 
 INCLUDE "engine/pokemon/move_descriptions.asm"
-INCLUDE "engine/menus/multi_choice_menu.asm"
