@@ -4,6 +4,9 @@
 
 	charmap "<NULL>",    $00
 	charmap "<LF>",      $1F
+	charmap "<user>",    $46
+	charmap "<opponent>", $47
+	charmap "<BAGE>",    $48
 	charmap "<PAGE>",    $49
 	charmap "<PKMN>",    $4a ; "<PK><MN>"
 	charmap "<_CONT>",   $4b ; implements "<CONT>"
@@ -155,8 +158,7 @@
 	charmap "'t",        $be
 	charmap "'v",        $bf
 
-	charmap "<LVL>",     $dc
-	charmap "%",         $dd
+	charmap "<LVL>",     $dd
 	charmap "&",         $de
 	charmap "'",         $e0
 	charmap "<PK>",      $e1
@@ -170,9 +172,9 @@
 	charmap "!",         $e7
 	charmap ".",         $e8
 
-	charmap "ァ",         $e9 ; katakana small a, unused
-	charmap "ゥ",         $ea ; katakana small u, unused
-	charmap "ェ",         $eb ; katakana small e, unused
+	charmap "→",         $e9 ; PureRGBnote: ADDED: right facing arrow character
+	charmap "+",         $ea ; PureRGBnote: ADDED: plus sign
+	charmap "%",         $eb ; PureRGBnote: ADDED: percent sign
 
 	charmap "▷",         $ec
 	charmap "▶",         $ed

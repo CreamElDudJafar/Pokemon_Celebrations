@@ -1671,6 +1671,8 @@ TryRunningFromBattle:
 	dec a
 .playSound
 	ld [wBattleResult], a
+	ld hl, wBattleFunctionalFlags
+	set 1, [hl]
 	ld a, SFX_RUN
 	call PlaySoundWaitForCurrent
 	ld hl, GotAwayText
@@ -1974,10 +1976,10 @@ DrawEnemyHUDAndHPBar:
 	and a
 	jr z, .notOwned
 	coord hl, 1, 1 ; horizontal/vertical
-	ld [hl], $D0 ; replace this with your Poké Ball icon or other character
-	.notOwned
+	ld [hl], $DF ; replace this with your Poké Ball icon or other character
+.notOwned
 	pop hl
-	.notWildBattle ;dannyE fix
+.notWildBattle ;dannyE fix
 	;============================== end of new code
 	ld de, wEnemyMonNick
 	hlcoord 1, 0
@@ -3340,6 +3342,10 @@ playPlayerMoveAnimation:
 	pop af
 	ld [wAnimationType], a
 	ld a, [wPlayerMoveNum]
+;;;;;;; PureRGBnote: ADDED: set the flag that makes the animation code mark this move as seen in the movedex
+	ld hl, wBattleFunctionalFlags
+	set 0, [hl]
+;;;;;;;;;;
 	call PlayMoveAnimation
 	call HandleExplodingAnimation
 	call DrawPlayerHUDAndHPBar
@@ -5296,6 +5302,8 @@ MetronomePickMove:
 	xor a
 	ld [wAnimationType], a
 	ld a, METRONOME
+	ld hl, wBattleFunctionalFlags
+	set 0, [hl]
 	call PlayMoveAnimation ; play Metronome's animation
 ; values for player turn
 	ld de, wPlayerMoveNum
@@ -5861,6 +5869,8 @@ playEnemyMoveAnimation:
 	pop af
 	ld [wAnimationType], a
 	ld a, [wEnemyMoveNum]
+	ld hl, wBattleFunctionalFlags
+	set 0, [hl]
 	call PlayMoveAnimation
 	call HandleExplodingAnimation
 	call DrawEnemyHUDAndHPBar
