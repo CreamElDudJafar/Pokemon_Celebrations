@@ -151,6 +151,7 @@ ROMX $1F
 	"Sound Effects 3"
 ;	"Audio Engine 3"
 ;	"Music 3"
+	"NPC Sprites 5"
 ROMX $20
 	"Text 1"
 ROMX $21
