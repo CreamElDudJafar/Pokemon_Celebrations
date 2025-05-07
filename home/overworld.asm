@@ -149,6 +149,7 @@ OverworldLoopLessDelay::
 .noDirectionButtonsPressed
 	ld hl, wFlags_0xcd60
 	res 2, [hl]
+	call SwitchRunningToWalkingSprites
 	call UpdateSprites
 	ld a, 1
 	ld [wCheckFor180DegreeTurn], a
@@ -307,12 +308,33 @@ OverworldLoopLessDelay::
 	; surf at 2x walking speed
 	ld a, [wWalkBikeSurfState]
 	cp $02
-	jr z, .surfFaster
-	; Holding B makes you run at 2x walking speed
+	jr z, .speedUp
+; Add running shoes
+; Holding B makes you run at 2x walking speed
 	ld a, [hJoyHeld]
 	and B_BUTTON
-	jr z, .notRunning
-.surfFaster
+	jr nz, .checkIfWalking
+; running sprites
+; if reached here then player is not running, so check if we need to update sprites
+	ld a, [wWalkBikeSurfState]
+	and a ; WALKING?
+	jr nz, .notRunning ; if not walking, no need to update sprites
+	ld hl, wd732
+	bit 7, [hl]
+	jr z, .notRunning ; if wasn't running, no need to update sprites
+	res 7, [hl]
+	call LoadWalkingPlayerSpriteGraphics
+	jr .notRunning
+.checkIfWalking
+	ld a, [wWalkBikeSurfState]
+	and a ; WALKING?
+	jr nz, .speedUp ; if not walking, no need to update sprites
+	ld hl, wd732
+	bit 7, [hl]
+	jr nz, .speedUp ; if already running, no need to update sprites
+	set 7, [hl]
+	call LoadRunningPlayerSpriteGraphics
+.speedUp
 	call DoBikeSpeedup
 .notRunning
 	;original .normalPlayerSpriteAdvancement continues here
@@ -899,6 +921,16 @@ LoadPlayerSpriteGraphics::
 	jp z, LoadBikePlayerSpriteGraphics
 	dec a
 	jp z, LoadSurfingPlayerSpriteGraphics
+	jp LoadWalkingPlayerSpriteGraphics
+
+SwitchRunningToWalkingSprites: ; marcelnote - running sprites
+	ld a, [wWalkBikeSurfState]
+	and a ; WALKING?
+	ret nz ; if not walking, do nothing
+	ld hl, wd732
+	bit 7, [hl]
+	ret z ; if wasn't running, do nothing
+	res 7, [hl]
 	jp LoadWalkingPlayerSpriteGraphics
 
 IsBikeRidingAllowed::
@@ -2038,29 +2070,45 @@ RunMapScript::
 .return
 	ret
 
+LoadRunningPlayerSpriteGraphics::
+; new sprite copy stuff
+	ld de, RedRunSprite
+	ld a, [wPlayerGender]
+	and a
+	jr z, .AreGuy1
+	ld de, GreenRunSprite
+.AreGuy1
+	ld hl, vNPCSprites
+	jr LoadPlayerSpriteGraphicsCommon
+
 LoadWalkingPlayerSpriteGraphics::
 	ld de, RedSprite
-	   ld a, [wPlayerGender]
-   		and a
-    		jr z, .AreGuy1
-    		ld de, GreenSprite
-	.AreGuy1
-    		ld hl,vNPCSprites
-    		jr LoadPlayerSpriteGraphicsCommon
+	ld a, [wPlayerGender]
+   	and a
+        jr z, .AreGuy1
+    	ld de, GreenSprite
+.AreGuy1
+    	ld hl,vNPCSprites
+    	jr LoadPlayerSpriteGraphicsCommon
 
 LoadSurfingPlayerSpriteGraphics::
-	ld de, SeelSprite
+	ld de, RedSurfSprite
+	ld a, [wPlayerGender]
+	and a
+	jr z, .AreGuy2
+	ld de, GreenSurfSprite
+.AreGuy2
 	ld hl, vNPCSprites
 	jr LoadPlayerSpriteGraphicsCommon
 
 LoadBikePlayerSpriteGraphics::
 	ld de, RedBikeSprite
 	ld a, [wPlayerGender]
-    		and a
-    		jr z, .AreGuy2
-    		ld de, GreenBikeSprite
-	.AreGuy2
-    		ld hl, vNPCSprites
+    	and a
+    	jr z, .AreGuy3
+    	ld de, GreenBikeSprite
+.AreGuy3
+    	ld hl, vNPCSprites
 
 LoadPlayerSpriteGraphicsCommon::
 	push de
