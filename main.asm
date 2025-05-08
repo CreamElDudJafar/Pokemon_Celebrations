@@ -211,6 +211,8 @@ INCLUDE "engine/menus/pokedex.asm"
 INCLUDE "engine/movie/trade.asm"
 INCLUDE "engine/movie/intro.asm"
 INCLUDE "engine/movie/trade2.asm"
+INCLUDE "engine/menus/movedex.asm"
+INCLUDE "data/moves/movedex_type_palettes.asm"
 
 
 SECTION "Pokédex Rating", ROMX
@@ -338,6 +340,7 @@ INCLUDE "engine/items/itemfinder.asm"
 SECTION "Vending Machine", ROMX
 
 INCLUDE "engine/events/vending_machine.asm"
+INCLUDE "engine/pokemon/calc_stats.asm"
 
 
 SECTION "Itemfinder 2", ROMX
@@ -366,6 +369,7 @@ INCLUDE "engine/battle/move_effects/drain_hp.asm" ; Moved from Bank1
 INCLUDE "engine/overworld/select_button_functionality.asm"
 INCLUDE "engine/menus/multi_choice_menu.asm"
 INCLUDE "engine/menus/change_box_menu.asm"
+INCLUDE "engine/menus/text_multi_button_prompt.asm"
 
 
 SECTION "Evo Moves", ROMX

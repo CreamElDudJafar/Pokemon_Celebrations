@@ -86,7 +86,6 @@ MACRO n_sub_a ; arg = which constant value a will be subtracted from. result a =
 	add \1 + 1
 ENDM
 
-
 MACRO srl_a_3x ; optimized version of doing srl a three times (shift a right 3 times) (aka divide by 8)
 	rrca
 	rrca
