@@ -94,8 +94,6 @@ HandlePokedexSideMenu:
 	add b
 	inc a
 	ld [wd11e], a
-	ld a, [wd11e]
-;	ld a, [wPokedexNum]
 	push af
 	ld a, [wDexMaxSeenMon]
 	push af ; this doesn't need to be preserved
