@@ -1957,7 +1957,7 @@ wDifficulty::
 			ds 1
 	
 
-; 23 bytes left to use
+; 3 bytes left to use
 
 ENDU
 ;;;;;;;;;;
