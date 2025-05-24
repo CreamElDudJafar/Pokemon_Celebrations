@@ -20,12 +20,15 @@ _GotMapText::
 	text_end
 
 _MapHelpText::
-	text "Press SELECT"
-	line "when looking at"
+	text "You can press"
+	line "SELECT when in"
 	cont "your POKéDEX to"
-	cont "view the TOWN"
-	cont "MAP. Easy!"
+	cont "use the TOWN MAP."
+
+	para "It is also in the"
+	line "START MENU."
 	done
+
 
 _BluesHouseDaisyBagFullText::
 	text "You have too much"
