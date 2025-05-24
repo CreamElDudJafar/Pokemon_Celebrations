@@ -107,9 +107,9 @@ PlayerPCDeposit:
 	ld [wListMenuID], a
 	call DisplayListMenuID
 	jp c, PlayerPCMenu
-;	ld a, [wcf91]
-;       call IsItemHM
-;	jr c, .CantDeposit
+	ld a, [wcf91]
+        call IsItemHM
+	jr c, .CantDeposit
 	call IsKeyItem
 	ld a, 1
 	ld [wItemQuantity], a
@@ -139,10 +139,10 @@ PlayerPCDeposit:
 	ld hl, ItemWasStoredText
 	rst _PrintText
 	jp .loop
-;.CantDeposit
-;	ld hl, TooImportantToDepositText
-;	rst _PrintText
-;	jp .loop
+.CantDeposit
+	ld hl, TooImportantToDepositText
+	call PrintText
+	jp .loop
 
 PlayerPCWithdraw:
 	xor a
