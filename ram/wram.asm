@@ -2196,7 +2196,6 @@ wPlayerGender::
     ; $01 = female
     ds 1
 
-wUniQuizAnswer:: db
 
 wUnusedC000:: db
 

@@ -1213,7 +1213,7 @@ OaksLabOakGotPokedexText:
 
 OaksLabOakThatWasMyDreamText:
 	text_far _OaksLabOakThatWasMyDreamText
-	db $11 ; play received item sound
+	sound_get_key_item
 	text_asm
 	lb bc, POKE_BALL,5
 	call GiveItem
