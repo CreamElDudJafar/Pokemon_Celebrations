@@ -2693,7 +2693,7 @@ PlayApplyingAttackSound:
 	ld a, b
 	ld [wTempoModifier], a
 	ld a, c
-	jp PlayBattleSound
+	jp PlaySound
 
 
 ;;;;;;;;;; PureRGBnote: ADDED: code for setting moves as seen for the movedex

@@ -1832,7 +1832,18 @@ wPokedexOwnedEnd::
 wPokedexSeen:: flag_array NUM_POKEMON
 wPokedexSeenEnd::
 
-ds 42
+	ds 20
+
+UNION
+
+ds 22
+
+NEXTU
+
+wMovedexSeen:: flag_array NUM_ATTACKS
+wMovedexSeenEnd::
+
+ENDU
 
 wPlayerMoney:: ds 3 ; BCD
 
