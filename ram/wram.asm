@@ -1944,7 +1944,6 @@ wNumBagItems:: db
 wBagItems:: ds BAG_ITEM_CAPACITY * 2 + 1 ; now holds 50 items
 ;;;;
 
-wUniQuizAnswer:: db
 
 wDifficulty::
 		; $00 = normal
@@ -1957,7 +1956,7 @@ wDifficulty::
 			ds 1
 	
 
-; 3 bytes left to use
+; 4 bytes left to use
 
 ENDU
 ;;;;;;;;;;
