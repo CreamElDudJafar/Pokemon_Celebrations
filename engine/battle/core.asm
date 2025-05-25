@@ -2855,6 +2855,10 @@ NoMovesLeftText:
 	text_end
 
 SwapMovesInMenu:
+  ld a, [wPlayerBattleStatus3]
+  bit TRANSFORMED, a
+  jp nz, MoveSelectionMenu ; No move swapping while transformed
+
 	ld a, [wMenuItemToSwap]
 	and a
 	jr z, .noMenuItemSelected
