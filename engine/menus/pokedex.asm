@@ -103,14 +103,14 @@ HandlePokedexSideMenu:
 	jr z, .exitSideMenu
 	call PokedexToIndex
 	ld hl, wTopMenuItemY
-	ld a, 8
+	ld a, 7
 	ld [hli], a ; top menu item Y
 	ld a, 15
 	ld [hli], a ; top menu item X
 	xor a
 	ld [hli], a ; current menu item ID
 	inc hl
-	ld a, 4
+	ld a, 5
 	ld [hli], a ; max menu item ID
 	ld a, A_BUTTON | B_BUTTON
 	ld [hli], a ; menu watched keys (A button and B button)
@@ -132,9 +132,10 @@ HandlePokedexSideMenu:
 	jr z, .choseMove
 	dec a
 	jr z, .choseArea
-.choseQuit
 	dec a
 	jr z, .choseCry
+.choseQuit
+	ld b, 1
 .exitSideMenu
 	pop af
 	ld [wDexMaxSeenMon], a
@@ -158,9 +159,9 @@ HandlePokedexSideMenu:
 
 .buttonBPressed
 	push bc
-	hlcoord 15, 8
+	hlcoord 15, 7
 	ld de, 20
-	lb bc, " ", 9
+	lb bc, " ", 11
 	call DrawTileLine ; cover up the menu cursor in the side menu
 	pop bc
 	jr .exitSideMenu
@@ -387,7 +388,7 @@ Pokedex_DrawInterface:
 	hlcoord 1, 1
 	ld de, PokedexContentsText
 	call PlaceString
-	hlcoord 16, 8
+	hlcoord 16, 7
 	ld de, PokedexMenuItemsText
 	call PlaceString
 ; find the highest pokedex number among the pokemon the player has seen
@@ -435,7 +436,8 @@ PokedexMenuItemsText:
 	next "STAT"
 	next "MOVE"
 	next "AREA"
-	next "CRY@"
+	next "CRY"
+	next "QUIT@"
 
 Pokedex_PlacePokemonList:
 	xor a
