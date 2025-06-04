@@ -16,23 +16,27 @@ PlayBattleMusic::
 	ld a, [wCurOpponent]
 	cp OPP_ID_OFFSET
 	jr c, .wildBattle
-	cp OPP_LORELEI
-	jr z, .Elite4Battle
-	cp OPP_BRUNO
-	jr z, .Elite4Battle
-	cp OPP_AGATHA
-	jr z, .Elite4Battle
-	cp OPP_LANCE
-	jr z, .Elite4Battle
 	cp OPP_RIVAL3
-	jr nz, .normalTrainerBattle
-	ld a, MUSIC_FINAL_BATTLE
-	jr .playSong
-.Elite4Battle
+	jr z, .finalBattle
+	cp OPP_LANCE
+	jr z, .GymLeaderBattle
+	cp OPP_LORELEI
+	jr z, .GymLeaderBattle
+	cp OPP_BRUNO
+	jr z, .GymLeaderBattle
+	cp OPP_AGATHA
+	jr z, .GymLeaderBattle
+	cp OPP_PROF_OAK
+	jr z, .finalBattle 
+	jr .normalTrainerBattle
+.GymLeaderBattle
 	ld a, MUSIC_GYM_LEADER_BATTLE
 	jr .playSong
 .normalTrainerBattle
 	ld a, MUSIC_TRAINER_BATTLE
+	jr .playSong
+.finalBattle
+	ld a, MUSIC_FINAL_BATTLE
 	jr .playSong
 .wildBattle
 	ld a, MUSIC_WILD_BATTLE
