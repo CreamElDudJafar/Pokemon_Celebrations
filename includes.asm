@@ -1,5 +1,3 @@
-DEF GEN_2_MUSIC EQU 0
-
 INCLUDE "macros/asserts.asm"
 INCLUDE "macros/const.asm"
 INCLUDE "macros/predef.asm"
