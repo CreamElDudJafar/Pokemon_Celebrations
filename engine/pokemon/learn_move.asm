@@ -178,10 +178,10 @@ TryingToLearn:
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
-;	push af
+	push af
 ;	push bc
 ;	call IsMoveHM
-	pop bc
+;	pop bc
 	pop de
 	ld a, d
 ;       jr c, .hm

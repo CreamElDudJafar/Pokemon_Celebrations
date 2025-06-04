@@ -6,10 +6,6 @@ PlayBattleMusic::
 	ld [wNewSoundID], a
 	rst _PlaySound
 	rst _DelayFrame
-	ld c, 0 ; BANK(Music_GymLeaderBattle)
-	ld [wNewSoundID], a
-	rst _PlaySound
-	rst _DelayFrame
 	ld c, BANK(Music_GymLeaderBattle)
 	ld a, [wGymLeaderNo]
 	and a
