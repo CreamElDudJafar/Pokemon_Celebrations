@@ -1162,7 +1162,20 @@ wExpAmountGained:: dw
 wGainBoostedExp:: db
 ENDU
 
-	ds 44
+wUnusedC000:: db
+
+	ds 20
+
+UNION
+	ds 22 ; 22 of the 43 bytes of free space
+
+NEXTU
+wMovedexSeen:: flag_array NUM_ATTACKS
+wMovedexSeenEnd::
+
+ENDU
+
+wStoredMovedexListIndex:: db
 
 wListPointer:: dw
 
@@ -1951,21 +1964,16 @@ wDestinationWarpID:: db
 
 ;;;;;;
 UNION
-; original size of this empty space
-ds 128
+; original size of this empty space was 128
+ds 100
 
 NEXTU
 
 wChannel5:: channel_struct wChannel5
 wChannel6:: channel_struct wChannel6
-
-wMovedexSeen:: flag_array NUM_ATTACKS
-wMovedexSeenEnd::
-
-wStoredMovedexListIndex:: db
-
 ENDU
 ;;;;;;;;;;
+; 28 bytes removed for increased bag space
 
 ; number of signs in the current map (up to 16)
 wNumSigns:: db
@@ -2045,7 +2053,7 @@ wPlayerCoins:: dw ; BCD
 wMissableObjectFlags:: flag_array $100
 wMissableObjectFlagsEnd::
 
-	ds 7
+	ds 4
 
 ; saved copy of SPRITESTATEDATA1_IMAGEINDEX (used for sprite facing/anim)
 wSavedSpriteImageIndex:: db
@@ -2091,7 +2099,7 @@ wRedsHouse2FCurScript:: db
 wViridianMartCurScript:: db
 wRoute22GateCurScript:: db
 wCeruleanCityCurScript:: db
-	ds 7
+	ds 2
 wSSAnneBowCurScript:: db
 wViridianForestCurScript:: db
 wMuseum1FCurScript:: db
@@ -2153,7 +2161,7 @@ wCeruleanCaveB1FCurScript:: db
 wVictoryRoad1FCurScript:: db
 	ds 1
 wLancesRoomCurScript:: db
-	ds 4
+	ds 2
 wSilphCo10FCurScript:: db
 wSilphCo11FCurScript:: db
 	ds 1
@@ -2173,7 +2181,7 @@ wSeafoamIslandsB3FCurScript:: db
 wRoute23CurScript:: db
 wSeafoamIslandsB4FCurScript:: db
 wRoute18Gate1FCurScript:: db
-	ds 6
+	ds 2
 wGameProgressFlagsEnd::
 
 UNION
@@ -2181,19 +2189,6 @@ UNION
 NEXTU
 wChannel7:: channel_struct wChannel7
 wChannel8:: channel_struct wChannel8
-
-wDifficulty::
-    ; $00 = normal
-    ; $01 = hard
-    ds 1
-
-wPlayerGender::
-    ; $00 = male
-    ; $01 = female
-    ds 1
-
-
-wUnusedC000:: db
 
 ENDU
 
@@ -2218,7 +2213,15 @@ wFossilItem:: db
 ; mon that will result from the item
 wFossilMon:: db
 
-	ds 2
+wDifficulty::
+    ; $00 = normal
+    ; $01 = hard
+    ds 1
+
+wPlayerGender::
+    ; $00 = male
+    ; $01 = female
+    ds 1
 
 ; trainer classes start at OPP_ID_OFFSET
 wEnemyMonOrTrainerClass:: db
