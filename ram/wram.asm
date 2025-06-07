@@ -1131,13 +1131,7 @@ wExpAmountGained:: dw
 wGainBoostedExp:: db
 ENDU
 
-wGymCityName:: ds 17
-
-wGymLeaderName:: ds NAME_LENGTH
-
-	ds 15
-
-wStoredMovedexListIndex:: db
+	ds 44
 
 wListPointer:: dw
 
@@ -1954,6 +1948,8 @@ wDifficulty::
 	
 
 ; 4 bytes left to use
+
+wStoredMovedexListIndex:: db
 
 ENDU
 ;;;;;;;;;;
