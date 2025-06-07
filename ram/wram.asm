@@ -1162,13 +1162,7 @@ wExpAmountGained:: dw
 wGainBoostedExp:: db
 ENDU
 
-wGymCityName:: ds 17
-
-wGymLeaderName:: ds NAME_LENGTH
-
-	ds 15
-
-wStoredMovedexListIndex:: db
+	ds 44
 
 wListPointer:: dw
 
@@ -1967,6 +1961,8 @@ wChannel6:: channel_struct wChannel6
 
 wMovedexSeen:: flag_array NUM_ATTACKS
 wMovedexSeenEnd::
+
+wStoredMovedexListIndex:: db
 
 ENDU
 ;;;;;;;;;;
