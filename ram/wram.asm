@@ -1941,15 +1941,14 @@ wDifficulty::
 		; $01 = hard
 			ds 1
 
-	wPlayerGender::
+wPlayerGender::
 		; $00 = male
 		; $01 = female
 			ds 1
-	
-
-; 4 bytes left to use
 
 wStoredMovedexListIndex:: db
+
+; 4 bytes left to use
 
 ENDU
 ;;;;;;;;;;
