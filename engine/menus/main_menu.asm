@@ -439,257 +439,298 @@ SaveScreenInfoText:
 
 DisplayOptionMenu:
 	hlcoord 0, 0
-	ld b, 3
-	ld c, 18
+	lb bc, SCREEN_HEIGHT - 2, SCREEN_WIDTH - 2
 	call TextBoxBorder
-	hlcoord 0, 5
-	ld b, 3
-	ld c, 18
-	call TextBoxBorder
-	hlcoord 0, 10
-	ld b, 3
-	ld c, 18
-	call TextBoxBorder
-	hlcoord 1, 1
-	ld de, TextSpeedOptionText
-	call PlaceString
-	hlcoord 1, 6
-	ld de, BattleAnimationOptionText
-	call PlaceString
-	hlcoord 1, 11
-	ld de, BattleStyleOptionText
+	hlcoord 2, 2
+	ld de, AllOptionsText
 	call PlaceString
 	hlcoord 2, 16
 	ld de, OptionMenuCancelText
 	call PlaceString
 	xor a
-	ld [wCurrentMenuItem], a
-	ld [wLastMenuItem], a
-	inc a
-	ld [wLetterPrintingDelayFlags], a
-	ld [wOptionsCancelCursorX], a
-	ld a, 3 ; text speed cursor Y coordinate
-	ld [wTopMenuItemY], a
-	call SetCursorPositionsFromOptions
-	ld a, [wOptionsTextSpeedCursorX] ; text speed cursor X coordinate
-	ld [wTopMenuItemX], a
-	ld a, $01
-	ldh [hAutoBGTransferEnabled], a ; enable auto background transfer
-	call Delay3
+	ld [wOptionsCursorLocation], a
+	ld b, 3 ; the number of options to loop through
 .loop
-	call PlaceMenuCursor
-	call SetOptionsFromCursorPositions
-.getJoypadStateLoop
+	push bc
+	call GetOptionPointer ; updates the next option
+	pop bc
+	ld hl, wOptionsCursorLocation
+	inc [hl] ; moves the cursor for the highlighted option
+	dec b
+	jr nz, .loop
+	xor a
+	ld [wOptionsCursorLocation], a
+	inc a
+	ldh [hAutoBGTransferEnabled], a
+	call Delay3
+.optionMenuLoop
 	call JoypadLowSensitivity
 	ldh a, [hJoy5]
-	ld b, a
-	and A_BUTTON | B_BUTTON | START | D_RIGHT | D_LEFT | D_UP | D_DOWN ; any key besides select pressed?
-	jr z, .getJoypadStateLoop
-	bit BIT_B_BUTTON, b
-	jr nz, .exitMenu
-	bit BIT_START, b
-	jr nz, .exitMenu
-	bit BIT_A_BUTTON, b
-	jr z, .checkDirectionKeys
-	ld a, [wTopMenuItemY]
-	cp 16 ; is the cursor on Cancel?
+	and START | B_BUTTON
+	ret nz ; exit option menu
+	call OptionsControl
+	jr c, .dpadDelay
+	call GetOptionPointer
+	ret c  ; exit option menu
+.dpadDelay
+	call OptionsMenu_UpdateCursorPosition
+	call Delay3
+	jr .optionMenuLoop
+
+
+OptionsMenu_UpdateCursorPosition:
+	hlcoord 1, 1
+	ld de, SCREEN_WIDTH
+	ld c, 16
+.loop
+	ld [hl], " "
+	add hl, de
+	dec c
 	jr nz, .loop
-.exitMenu
-	ld a, SFX_PRESS_AB
-	rst _PlaySound
+	hlcoord 1, 2
+	ld bc, SCREEN_WIDTH * 2
+	ld a, [wOptionsCursorLocation]
+	call AddNTimes
+	ld [hl], "▶"
 	ret
-.eraseOldMenuCursor
-	ld [wTopMenuItemX], a
-	call EraseMenuCursor
-	jp .loop
-.checkDirectionKeys
-	ld a, [wTopMenuItemY]
-	bit BIT_D_DOWN, b
-	jr nz, .downPressed
-	bit BIT_D_UP, b
-	jr nz, .upPressed
-	cp 8 ; cursor in Battle Animation section?
-	jr z, .cursorInBattleAnimation
-	cp 13 ; cursor in Battle Style section?
-	jr z, .cursorInBattleStyle
-	cp 16 ; cursor on Cancel?
-	jr z, .loop
-.cursorInTextSpeed
-	bit BIT_D_LEFT, b
-	jp nz, .pressedLeftInTextSpeed
-	jp .pressedRightInTextSpeed
-.downPressed
-	cp 16
-	ld b, -13
-	ld hl, wOptionsTextSpeedCursorX
-	jr z, .updateMenuVariables
-	ld b, 5
-	cp 3
-	inc hl
-	jr z, .updateMenuVariables
-	cp 8
-	inc hl
-	jr z, .updateMenuVariables
-	ld b, 3
-	inc hl
-	jr .updateMenuVariables
-.upPressed
-	cp 8
-	ld b, -5
-	ld hl, wOptionsTextSpeedCursorX
-	jr z, .updateMenuVariables
-	cp 13
-	inc hl
-	jr z, .updateMenuVariables
-	cp 16
-	ld b, -3
-	inc hl
-	jr z, .updateMenuVariables
-	ld b, 13
-	inc hl
-.updateMenuVariables
-	add b
-	ld [wTopMenuItemY], a
-	ld a, [hl]
-	ld [wTopMenuItemX], a
-	call PlaceUnfilledArrowMenuCursor
-	jp .loop
-.cursorInBattleAnimation
-	ld a, [wOptionsBattleAnimCursorX] ; battle animation cursor X coordinate
-	xor $0b ; toggle between 1 and 10
-	ld [wOptionsBattleAnimCursorX], a
-	jp .eraseOldMenuCursor
-.cursorInBattleStyle
-	ld a, [wOptionsBattleStyleCursorX] ; battle style cursor X coordinate
-	xor $0b ; toggle between 1 and 10
-	ld [wOptionsBattleStyleCursorX], a
-	jp .eraseOldMenuCursor
-.pressedLeftInTextSpeed
-	ld a, [wOptionsTextSpeedCursorX] ; text speed cursor X coordinate
-	cp 1
-	jr z, .updateTextSpeedXCoord
-	cp 7
-	jr nz, .fromSlowToMedium
-	sub 6
-	jr .updateTextSpeedXCoord
-.fromSlowToMedium
-	sub 7
-	jr .updateTextSpeedXCoord
-.pressedRightInTextSpeed
-	ld a, [wOptionsTextSpeedCursorX] ; text speed cursor X coordinate
-	cp 14
-	jr z, .updateTextSpeedXCoord
-	cp 7
-	jr nz, .fromFastToMedium
-	add 7
-	jr .updateTextSpeedXCoord
-.fromFastToMedium
-	add 6
-.updateTextSpeedXCoord
-	ld [wOptionsTextSpeedCursorX], a ; text speed cursor X coordinate
-	jp .eraseOldMenuCursor
 
-TextSpeedOptionText:
-	db   "TEXT SPEED"
-	next " FAST  MEDIUM SLOW@"
 
-BattleAnimationOptionText:
-	db   "BATTLE ANIMATION"
-	next " ON       OFF@"
-
-BattleStyleOptionText:
-	db   "BATTLE STYLE"
-	next " SHIFT    SET@"
+AllOptionsText:
+	db "TEXT SPEED :"
+	next "ANIMATION  :"
+	next "BATTLESTYLE:@"
 
 OptionMenuCancelText:
 	db "CANCEL@"
 
-; sets the options variable according to the current placement of the menu cursors in the options menu
-SetOptionsFromCursorPositions:
-	ld hl, TextSpeedOptionData
-	ld a, [wOptionsTextSpeedCursorX] ; text speed cursor X coordinate
-	ld c, a
-.loop
-	ld a, [hli]
-	cp c
-	jr z, .textSpeedMatchFound
-	inc hl
-	jr .loop
-.textSpeedMatchFound
-	ld a, [hl]
-	ld d, a
-	ld a, [wOptionsBattleAnimCursorX] ; battle animation cursor X coordinate
-	dec a
-	jr z, .battleAnimationOn
-.battleAnimationOff
-	set 7, d
-	jr .checkBattleStyle
-.battleAnimationOn
-	res 7, d
-.checkBattleStyle
-	ld a, [wOptionsBattleStyleCursorX] ; battle style cursor X coordinate
-	dec a
-	jr z, .battleStyleShift
-.battleStyleSet
-	set 6, d
-	jr .storeOptions
-.battleStyleShift
-	res 6, d
-.storeOptions
-	ld a, d
-	ld [wOptions], a
-	ret
-
-; reads the options variable and places menu cursors in the correct positions within the options menu
-SetCursorPositionsFromOptions:
-	ld hl, TextSpeedOptionData + 1
-	ld a, [wOptions]
-	ld c, a
-	and $3f
-	push bc
-	ld de, 2
-	call IsInArray
-	pop bc
-	dec hl
-	ld a, [hl]
-	ld [wOptionsTextSpeedCursorX], a ; text speed cursor X coordinate
-	hlcoord 0, 3
-	call .placeUnfilledRightArrow
-	sla c
-	ld a, 1 ; On
-	jr nc, .storeBattleAnimationCursorX
-	ld a, 10 ; Off
-.storeBattleAnimationCursorX
-	ld [wOptionsBattleAnimCursorX], a ; battle animation cursor X coordinate
-	hlcoord 0, 8
-	call .placeUnfilledRightArrow
-	sla c
-	ld a, 1
-	jr nc, .storeBattleStyleCursorX
-	ld a, 10
-.storeBattleStyleCursorX
-	ld [wOptionsBattleStyleCursorX], a ; battle style cursor X coordinate
-	hlcoord 0, 13
-	call .placeUnfilledRightArrow
-; cursor in front of Cancel
-	hlcoord 0, 16
-	ld a, 1
-.placeUnfilledRightArrow
+GetOptionPointer:
+	ld a, [wOptionsCursorLocation]
+	add a
 	ld e, a
 	ld d, 0
+	ld hl, OptionMenuJumpTable
 	add hl, de
-	ld [hl], "▷"
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl ; jump to the function for the current highlighted option
+
+
+OptionMenuJumpTable:
+	dw OptionsMenu_TextSpeed
+	dw OptionsMenu_BattleAnimations
+	dw OptionsMenu_BattleStyle
+	dw OptionsMenu_Dummy
+	dw OptionsMenu_Dummy
+	dw OptionsMenu_Dummy
+	dw OptionsMenu_Dummy
+	dw OptionsMenu_Cancel
+
+
+OptionsMenu_TextSpeed:
+	call GetTextSpeed
+	ldh a, [hJoy5]
+	bit 4, a ; right
+	jr nz, .pressedRight
+	bit 5, a
+	jr nz, .pressedLeft
+	jr .nonePressed
+.pressedRight
+	ld a, c
+	cp $2
+	jr c, .increase
+	ld c, $ff
+.increase
+	inc c
+	ld a, e
+	jr .save
+.pressedLeft
+	ld a, c
+	and a
+	jr nz, .decrease
+	ld c, $3
+.decrease
+	dec c
+	ld a, d
+.save
+	ld b, a
+	ld a, [wOptions]
+	and $f0
+	or b
+	ld [wOptions], a
+.nonePressed
+	ld b, $0
+	ld hl, TextSpeedStringsPointerTable
+	add hl, bc
+	add hl, bc
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	hlcoord 14, 2
+	call PlaceString
+	and a
 	ret
 
-; table that indicates how the 3 text speed options affect frame delays
-; Format:
-; 00: X coordinate of menu cursor
-; 01: delay after printing a letter (in frames)
-TextSpeedOptionData:
-	db 14, TEXT_DELAY_SLOW
-	db  7, TEXT_DELAY_MEDIUM
-	db  1, TEXT_DELAY_FAST
-	db  7, -1 ; end (default X coordinate)
+TextSpeedStringsPointerTable:
+	dw FastText
+	dw MidText
+	dw SlowText
+
+FastText:
+	db "FAST@"
+MidText:
+	db "MID @"
+SlowText:
+	db "SLOW@"
+
+GetTextSpeed:
+	ld a, [wOptions]
+	and $f
+	cp $5
+	jr z, .slowTextOption
+	cp $1
+	jr z, .fastTextOption
+; mid text option
+	ld c, $1
+	lb de, 1, 5
+	ret
+.slowTextOption
+	ld c, $2
+	lb de, 3, 1
+	ret
+.fastTextOption
+	ld c, $0
+	lb de, 5, 3
+	ret
+
+
+OptionsMenu_BattleAnimations:
+	ldh a, [hJoy5]
+	and D_RIGHT | D_LEFT
+	jr nz, .asm_41d33
+	ld a, [wOptions]
+	and $80 ; mask other bits
+	jr .asm_41d3b
+.asm_41d33
+	ld a, [wOptions]
+	xor $80
+	ld [wOptions], a
+.asm_41d3b
+	ld bc, $0
+	sla a
+	rl c
+	ld hl, AnimationOptionStringsPointerTable
+	add hl, bc
+	add hl, bc
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	hlcoord 14, 4
+	call PlaceString
+	and a
+	ret
+
+AnimationOptionStringsPointerTable:
+	dw AnimationOnText
+	dw AnimationOffText
+
+AnimationOnText:
+	db "ON @"
+AnimationOffText:
+	db "OFF@"
+
+
+OptionsMenu_BattleStyle:
+	ldh a, [hJoy5]
+	and D_LEFT | D_RIGHT
+	jr nz, .asm_41d6b
+	ld a, [wOptions]
+	and $40 ; mask other bits
+	jr .asm_41d73
+.asm_41d6b
+	ld a, [wOptions]
+	xor $40
+	ld [wOptions], a
+.asm_41d73
+	ld bc, $0
+	sla a
+	sla a
+	rl c
+	ld hl, BattleStyleOptionStringsPointerTable
+	add hl, bc
+	add hl, bc
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	hlcoord 14, 6
+	call PlaceString
+	and a
+	ret
+
+BattleStyleOptionStringsPointerTable:
+	dw BattleStyleShiftText
+	dw BattleStyleSetText
+
+BattleStyleShiftText:
+	db "SHIFT@"
+BattleStyleSetText:
+	db "SET  @"
+
+OptionsMenu_Dummy:
+	and a
+	ret
+
+OptionsMenu_Cancel:
+	ldh a, [hJoy5]
+	and A_BUTTON ; clears carry
+	ret z
+	scf ; set carry flag to exit options menu
+	ret
+
+
+OptionsControl:
+	ld hl, wOptionsCursorLocation
+	ldh a, [hJoy5]
+	cp D_DOWN
+	jr z, .pressedDown
+	cp D_UP
+	jr z, .pressedUp
+	and a
+	ret
+
+.pressedDown
+	ld a, [hl]
+	cp 7    ; if Cancel, go back to top
+	jr nz, .doNotWrapAround
+	ld [hl], 0
+	scf
+	ret
+.doNotWrapAround
+	cp 2    ; if last option, go down to Cancel
+	jr c, .regularIncrement
+	ld [hl], 6
+.regularIncrement
+	inc [hl]
+	scf
+	ret
+
+.pressedUp
+	ld a, [hl]
+	cp 7    ; if Cancel, go up to last option
+	jr nz, .notCancel
+	ld [hl], 2
+	scf
+	ret
+.notCancel
+	and a    ; if first option, go down to Cancel
+	jr nz, .regularDecrement
+	ld [hl], 8
+.regularDecrement
+	dec [hl]
+	scf
+	ret
+
+
 
 CheckForPlayerNameInSRAM:
 ; Check if the player name data in SRAM has a string terminator character
