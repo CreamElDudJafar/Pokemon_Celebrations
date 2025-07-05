@@ -50,6 +50,10 @@ MainMenu:
 	ld de, NewGameText
 	call PlaceString
 .next2
+	coord hl, $00, $11
+	ld de, VersionText
+	call PlaceString
+
 	ld hl, wd730
 	res 6, [hl]
 	call UpdateSprites
@@ -84,6 +88,7 @@ MainMenu:
 	jr z, .choseContinue
 	cp 1
 	jp z, StartNewGame
+	call ClearScreen ; remove version text when in options
 	call DisplayOptionMenu
 	ld a, 1
 	ld [wOptionsInitialized], a
@@ -350,6 +355,12 @@ CableClubOptionsText:
 	db   "TRADE CENTER"
 	next "COLOSSEUM"
 	next "CANCEL@"
+
+VersionText:
+	db " "
+	db "Version"
+	db " 3.3"
+	db "@"
 
 DisplayContinueGameInfo:
 	xor a
