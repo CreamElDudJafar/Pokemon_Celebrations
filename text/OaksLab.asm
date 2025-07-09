@@ -373,6 +373,35 @@ _OaksLabRivalLeaveItAllToMeText::
 	cont "<PLAYER>! Hahaha!"
 	done
 
+_CompletedDexText::
+	text "Incredible,"
+	line "<PLAYER>!"
+
+	para "You've completed"
+	line "the #DEX!"
+
+	para "A long time ago,"
+	line "I was a serious"
+	cont "#MON trainer."
+
+	para "I haven't battled"
+	line "since I decided"
+	cont "that I wanted to"
+	cont "become a #MON"
+	cont "researcher, and"
+	cont "complete the"
+	cont "#DEX!"
+
+	para "Now that you have"
+	line "finished my dream"
+	cont "I will reward you"
+	cont "with a #MON"
+	cont "battle with me!"
+
+	para "I will be waiting"
+	line "on Route 1!"
+	done
+
 _OaksLabScientistText::
 	text "I study #MON as"
 	line "PROF.OAK's AIDE."
