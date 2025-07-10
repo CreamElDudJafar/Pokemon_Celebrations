@@ -60,7 +60,7 @@ ItemUsePtrTable:
 	dw UnusableItem      ; DOME_FOSSIL
 	dw UnusableItem      ; HELIX_FOSSIL
 	dw UnusableItem      ; SECRET_KEY
-	dw UnusableItem      ; ITEM_2C
+	dw ItemUseVitamin    ; CHEAT_CANDY
 	dw UnusableItem      ; BIKE_VOUCHER
 	dw ItemUseXAccuracy  ; X_ACCURACY
 	dw ItemUseEvoStone   ; LEAF_STONE
@@ -862,6 +862,9 @@ ItemUseMedicine:
 	jr z, ItemUseMedicine ; if so, force another choice
 .checkItemType
 	ld a, [wcf91]
+; Cheat Candy
+	cp CHEAT_CANDY
+	jp z, .useVitamin
 	cp REVIVE
 	jr nc, .healHP ; if it's a Revive or Max Revive
 	cp FULL_HEAL
@@ -1301,6 +1304,8 @@ ItemUseMedicine:
 	ld a, [wcf91]
 	cp RARE_CANDY
 	jp z, .useRareCandy
+	cp CHEAT_CANDY
+	jp z, .useRareCandy
 	push hl
 	sub HP_UP
 	add a
@@ -1486,6 +1491,10 @@ ItemUseMedicine:
 	ld [wcf91], a
 	pop af
 	ld [wWhichPokemon], a
+; Cheat Candy
+	ld a, [wcf91]
+	cp CHEAT_CANDY
+	ret z
 	jp RemoveUsedItem
 
 VitaminStatRoseText:
@@ -2686,7 +2695,7 @@ IsKeyItem_::
 	ld [wIsKeyItem], a
 	ld a, [wcf91]
 	cp HM01 ; is the item an HM or TM?
-	jr nc, .checkIfItemIsHM
+	ret nc
 ; if the item is not an HM or TM
 	push af
 	ld hl, KeyItemFlags
@@ -2703,10 +2712,6 @@ IsKeyItem_::
 	ld a, c
 	and a
 	ret nz
-.checkIfItemIsHM
-	ld a, [wcf91]
-	call IsItemHM
-	ret c
 	xor a
 	ld [wIsKeyItem], a
 	ret

@@ -258,6 +258,7 @@ ItemSortList::
 	db ITEMFINDER
 	db EXP_ALL
 	db TOWN_MAP
+	db CHEAT_CANDY
 	; Rods
 	db OLD_ROD
 	db GOOD_ROD
