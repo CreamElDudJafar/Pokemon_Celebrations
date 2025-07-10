@@ -21,7 +21,7 @@ TrainerClassMoveChoiceModifications:
 	move_choices 1, 2, 3, 4 ; BIKER
 	move_choices 1, 2, 3, 4 ; BURGLAR
 	move_choices 1, 2, 3, 4 ; ENGINEER
-	move_choices 1, 2, 3, 4 ; UNUSED_JUGGLER
+	move_choices 1, 2, 3, 4 ; JANINE
 	move_choices 1, 2, 3, 4 ; FISHER
 	move_choices 1, 2, 3, 4 ; SWIMMER
 	move_choices 1, 2, 3, 4 ; CUE_BALL
