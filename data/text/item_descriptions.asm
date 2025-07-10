@@ -322,6 +322,11 @@ _MaxElixerDescription::
 	next "PP of one #MON."
 	prompt
 
+_CheatCandyDescription::
+	text "Raises a #MON"
+	next "level by 1."
+	prompt
+
 _HM01Description::
 	text "Cuts using claws,"
 	next "scythes, etc."
