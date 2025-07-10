@@ -35,7 +35,7 @@ TrainerClassMoveChoiceModifications:
 	move_choices 1, 2, 3, 4 ; BLACKBELT
 	move_choices 1, 2, 3, 4 ; RIVAL1
 	move_choices 1, 2, 3, 4 ; PROF_OAK
-	move_choices 1, 2, 3, 4 ; CHIEF
+	move_choices 1, 2, 3, 4 ; JOY
 	move_choices 1, 2, 3, 4 ; SCIENTIST
 	move_choices 1, 2, 3, 4 ; GIOVANNI
 	move_choices 1, 2, 3, 4 ; ROCKET
@@ -56,4 +56,5 @@ TrainerClassMoveChoiceModifications:
 	move_choices 1, 2, 3, 4 ; CHANNELER
 	move_choices 1, 2, 3, 4 ; AGATHA
 	move_choices 1, 2, 3, 4 ; LANCE
+	move_choices 1, 2, 3, 4 ; JENNY
 	assert_list_length NUM_TRAINERS
