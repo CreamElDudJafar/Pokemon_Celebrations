@@ -2589,3 +2589,18 @@ LoadDestinationWarpPosition::
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	ret
+
+; PureRGBnote: ADDED: code for setting blackout map on flying or entering a pokecenter (instead of just when healing pokemon)
+
+SetLastBlackoutMap::
+	; called when entering pokemon centers
+	ld a, [wLastMap]
+	jr BlackoutMapCommon
+
+SetCurBlackoutMap::
+	; called after using FLY
+	ld a, [wCurMap]
+BlackoutMapCommon:
+	ld [wLastBlackoutMap], a
+	ret
+
