@@ -124,6 +124,7 @@ SabrinaSprite::           INCBIN "gfx/sprites/sabrina.2bpp"
 BlaineSprite::           INCBIN "gfx/sprites/blaine.2bpp"
 BillSprite::            INCBIN "gfx/sprites/bill.2bpp"
 OfficerJennySprite::     INCBIN "gfx/sprites/officer_jenny.2bpp"
+JanineSprite::           INCBIN "gfx/sprites/janine.2bpp"
 
 
 SECTION "NPC Sprites 5", ROMX

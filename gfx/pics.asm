@@ -218,6 +218,10 @@ ChannelerPic::     INCBIN "gfx/trainers/channeler.pic"
 AgathaPic::        INCBIN "gfx/trainers/agatha.pic"
 LancePic::         INCBIN "gfx/trainers/lance.pic"
 
+SECTION "Pics 12", ROMX
+JaninePic::        INCBIN "gfx/trainers/janine.pic"
+
+
 SECTION "Pics 7", ROMX
 StarmiePicFront::      INCBIN "gfx/pokemon/front/starmie.pic"
 StarmiePicBack::       INCBIN "gfx/pokemon/back/starmieb.pic"
