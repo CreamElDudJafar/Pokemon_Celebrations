@@ -32,6 +32,8 @@ HealEffect_:
 	jr z, .restEffect
 	ld hl, wEnemyMonStatus
 .restEffect
+	push hl
+	callfar UndoBurnParStats
 	ld a, [hl]
 	and a
 	ld [hl], 2 ; clear status and set number of turns asleep to 2
