@@ -37,12 +37,16 @@ Some FEATURES:
  -  - TM names in BAG and MART (TM24 it says TM24 THNDRBLT)
  - 20 item bag space still (Port PC)
  - Auto HM use (eg: surf, just touch the water and say YES)
- - Deletable HM's - Sort Items in BAG 
-- OAK Battle post game - Message when PC is full
+ - Deletable HM's 
+- Sort Items in BAG 
+- OAK Battle post game 
+- GYM LEADER AND ELITE 4 REMATCHES POST GAME
+- Message when PC is full
  - Check IV/DV - hold start/select and press STATS - EXP BAR - Caught Icon in battle 
 - Moon Stone can be bought in Celadon Mart- Moon Stone can be bought in Celadon Mart
  - Rockets Received a buff in levels and parties
- - Reusable Repel B/W - KARATE CHOP is now a FIGHTING TYPE instead of NORMAL
+ - Reusable Repel B/W 
+- KARATE CHOP is now a FIGHTING TYPE instead of NORMAL
  - Gust is now a Flying Type instead of NORMAL
 - Attack after waking up from Sleep 
 - Sleep engine fixed (it works now like gen 2 - max 6 turns)
