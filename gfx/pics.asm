@@ -260,6 +260,7 @@ GengarPicFront::      INCBIN "gfx/pokemon/front/gengar.pic"
 GengarPicBack::       INCBIN "gfx/pokemon/back/gengarb.pic"
 
 SECTION "Pics 8", ROMX
+
 GrowlithePicFront::   INCBIN "gfx/pokemon/front/growlithe.pic"
 GrowlithePicBack::    INCBIN "gfx/pokemon/back/growlitheb.pic"
 OnixPicFront::        INCBIN "gfx/pokemon/front/onix.pic"
@@ -374,6 +375,7 @@ MagikarpPicFront::     INCBIN "gfx/pokemon/front/magikarp.pic"
 MagikarpPicBack::      INCBIN "gfx/pokemon/back/magikarpb.pic"
 
 SECTION "Pics 11", ROMX
+
 BulbasaurPicFront::    INCBIN "gfx/pokemon/front/bulbasaur.pic"
 BulbasaurPicBack::     INCBIN "gfx/pokemon/back/bulbasaurb.pic"
 VenusaurPicFront::     INCBIN "gfx/pokemon/front/venusaur.pic"
@@ -400,6 +402,8 @@ GeodudePicFront::      INCBIN "gfx/pokemon/front/geodude.pic"
 GeodudePicBack::       INCBIN "gfx/pokemon/back/geodudeb.pic"
 PorygonPicFront::      INCBIN "gfx/pokemon/front/porygon.pic"
 PorygonPicBack::       INCBIN "gfx/pokemon/back/porygonb.pic"
+MewPicFront::          INCBIN "gfx/pokemon/front/mew.pic"
+MewPicBack::           INCBIN "gfx/pokemon/back/mewb.pic"
 
 
 
