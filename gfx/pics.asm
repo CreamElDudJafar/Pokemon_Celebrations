@@ -702,6 +702,8 @@ GeodudePicFront::      INCBIN "gfx/pokemon/front/geodude.pic"
 GeodudePicBack::       INCBIN "gfx/pokemon/back/geodudeb.pic"
 PorygonPicFront::      INCBIN "gfx/pokemon/front/porygon.pic"
 PorygonPicBack::       INCBIN "gfx/pokemon/back/porygonb.pic"
+MewPicFront::          INCBIN "gfx/pokemon/front/mew.pic"
+MewPicBack::           INCBIN "gfx/pokemon/back/mewb.pic"
 
 ELSE
 BulbasaurPicFront::    INCBIN "gfx/pokemon/front_rg/bulbasaur.pic"
@@ -730,6 +732,8 @@ GeodudePicFront::      INCBIN "gfx/pokemon/front_rg/geodude.pic"
 GeodudePicBack::       INCBIN "gfx/pokemon/back/geodudeb.pic"
 PorygonPicFront::      INCBIN "gfx/pokemon/front_rg/porygon.pic"
 PorygonPicBack::       INCBIN "gfx/pokemon/back/porygonb.pic"
+MewPicFront::          INCBIN "gfx/pokemon/front_rg/mew.pic"
+MewPicBack::           INCBIN "gfx/pokemon/back/mewb.pic"
 ENDC
 
 SECTION "Type Icons", ROMX
