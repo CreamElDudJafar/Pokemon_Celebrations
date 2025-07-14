@@ -42,10 +42,16 @@ PrepareOakSpeech:
 OakSpeech:
 	ld a, SFX_STOP_ALL_MUSIC
 	rst _PlaySound
+IF DEF(_DEBUG)
+	ld hl, wd732
+	bit BIT_DEBUG_MODE, [hl]
+	jr nz, .skipMusic
+ENDC
 	ld a, 0 ; BANK(Music_Routes2)
 	ld c, a
 	ld a, MUSIC_ROUTES2
 	call PlayMusic
+.skipMusic
 	call ClearScreen
 	call LoadTextBoxTilePatterns
 	call PrepareOakSpeech
@@ -127,12 +133,12 @@ OakSpeech:
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $00
 	ld a, [wPlayerGender] 	; check gender
-		and a      				; check gender
-		jr z, .NotGreen1
-		ld de, GreenPicFront
-		lb bc, BANK(GreenPicFront), $00
-	.NotGreen1:
-		call IntroDisplayPicCenteredOrUpperRight
+	and a      				; check gender
+	jr z, .NotGreen1
+	ld de, GreenPicFront
+	lb bc, BANK(GreenPicFront), $00
+.NotGreen1:
+	call IntroDisplayPicCenteredOrUpperRight
 	call MovePicLeft
 	ld hl, IntroducePlayerText
 	rst _PrintText
@@ -146,18 +152,18 @@ OakSpeech:
 	ld hl, IntroduceRivalText
 	rst _PrintText
 	call ChooseRivalName
-.skipSpeech
+;.skipSpeech
 	call GBFadeOutToWhite
 	call ClearScreen
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $00
 	ld a, [wPlayerGender] ; check gender
-   	  	and a      ; check gender
- 	  	jr z, .NotGreen2
-    	  	ld de, GreenPicFront
-          	lb bc, Bank(GreenPicFront), $00
-	.NotGreen2:
-    		call IntroDisplayPicCenteredOrUpperRight
+   	and a      ; check gender
+ 	jr z, .NotGreen2
+    	ld de, GreenPicFront
+        lb bc, Bank(GreenPicFront), $00
+.NotGreen2:
+    	call IntroDisplayPicCenteredOrUpperRight
 	call GBFadeInFromWhite
 	ld a, [wd72d]
 	and a
@@ -178,22 +184,23 @@ OakSpeech:
 	ld hl, vSprites
 	lb bc, BANK(RedSprite), $0C
 	ld a, [wPlayerGender] ; check gender
-    		and a      ; check gender
-    		jr z, .NotGreen3
-    		ld de,GreenSprite
-    		lb bc, BANK(GreenSprite), $0C
-	.NotGreen3:
-   	 	ld hl, vSprites
-   		call CopyVideoData
-    		ld de,ShrinkPic1
-   		lb bc, BANK(ShrinkPic1), $00
-   		call IntroDisplayPicCenteredOrUpperRight
+    	and a      ; check gender
+    	jr z, .NotGreen3
+    	ld de,GreenSprite
+    	lb bc, BANK(GreenSprite), $0C
+.NotGreen3:
+   	ld hl, vSprites
+   	call CopyVideoData
+    	ld de,ShrinkPic1
+   	lb bc, BANK(ShrinkPic1), $00
+   	call IntroDisplayPicCenteredOrUpperRight
 	ld c, 4
 	rst _DelayFrames
 	ld de, ShrinkPic2
 	lb bc, BANK(ShrinkPic2), $00
 	call IntroDisplayPicCenteredOrUpperRight
 	call ResetPlayerSpriteData
+.skipSpeech
 	ldh a, [hLoadedROMBank]
 	push af
 ;	ld a, 0 ; BANK(Music_PalletTown)
@@ -208,6 +215,11 @@ OakSpeech:
 	pop af
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
+IF DEF(_DEBUG)
+	ld hl, wd732
+	bit BIT_DEBUG_MODE, [hl]
+	jr nz, .skipDelay
+ENDC
 	ld c, 20
 	rst _DelayFrames
 	hlcoord 6, 5
@@ -220,6 +232,7 @@ OakSpeech:
 	ld c, 50
 	rst _DelayFrames
 	call GBFadeOutToWhite
+.skipDelay
 	jp ClearScreen
 OakSpeechText1:
 	text_far _OakSpeechText1
