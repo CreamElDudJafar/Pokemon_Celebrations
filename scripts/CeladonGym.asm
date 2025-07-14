@@ -122,14 +122,14 @@ CeladonGymErikaText:
 	jr nz, .afterBeat
 	call z, CeladonGymReceiveTM21
 	call DisableWaitingAfterTextDisplay
-	rst TextScriptEnd
+	jr .todone
 .afterBeat
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
 	jr nz, .ErikaRematch
 	ld hl, .PostBattleAdviceText
 	rst _PrintText
-	rst TextScriptEnd
+	jr .todone
 .beforeBeat
 	ld hl, .PreBattleText
 	rst _PrintText
@@ -146,6 +146,8 @@ CeladonGymErikaText:
 	cp 4
 	jr nc, .Erika5thGym
 	jr .Erika4thGym
+.todone
+	jr .done
 .ErikaRematch
 	ld hl, .PreBattleRematch1Text
 	rst _PrintText
@@ -167,7 +169,7 @@ CeladonGymErikaText:
 .refused
 	ld hl, .PreBattleRematchRefusedText
 	rst _PrintText
-	rst TextScriptEnd
+	jr .done
 .Erika6thGym
 	call Delay3
 	ld a, OPP_ERIKA
@@ -200,6 +202,7 @@ CeladonGymErikaText:
 	ld a, SCRIPT_CELADONGYM_ERIKA_POST_BATTLE
 	ld [wCeladonGymCurScript], a
 	ld [wCurMapScript], a
+.done
 	rst TextScriptEnd
 
 .PreBattleText:
