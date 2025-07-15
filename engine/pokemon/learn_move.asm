@@ -345,8 +345,17 @@ OneTwoAndText:
 	text_far _OneTwoAndText
 	text_pause
 	text_asm
+	ld a, [wIsInBattle]
+	and a
+	jr nz, .inBattlePoof ; PureRGBnote: FIXED: SFX_SWAP doesn't exist in the battle audio engine so it would play an arbitrary sound
 	ld a, SFX_SWAP
 	call PlaySoundWaitForCurrent
+	jr .done
+.inBattlePoof
+	push bc
+	farcall Music_LearnMovePoofInBattle ; play in-battle poof sound the same way the pokeflute is played in battle
+	pop bc
+.done
 	ld hl, PoofText
 	ret
 
