@@ -26,6 +26,7 @@ PromptUserToPlaySlots:
 	call GBPalNormal
 	ld a, $e4
 	ldh [rOBP0], a
+	call UpdateGBCPal_OBP0
 	ld hl, wd730
 	set 6, [hl]
 	xor a
@@ -461,6 +462,7 @@ SlotMachine_CheckForMatches:
 	ldh a, [rBGP]
 	xor $40
 	ldh [rBGP], a
+	call UpdateGBCPal_BGP
 	ld c, 5
 	rst _DelayFrames
 	dec b
@@ -477,6 +479,7 @@ SlotMachine_CheckForMatches:
 	call SlotMachine_PrintPayoutCoins
 	ld a, $e4
 	ldh [rOBP0], a
+	call UpdateGBCPal_OBP0
 	jp .done
 
 SymbolLinedUpSlotMachineText:
@@ -702,6 +705,7 @@ SlotMachine_PayCoinsToPlayer:
 	ldh a, [rOBP0]
 	xor $40 ; make the slot wheel symbols flash
 	ldh [rOBP0], a
+	call UpdateGBCPal_OBP0
 	ld a, 5
 .skip1
 	ld [wAnimCounter], a

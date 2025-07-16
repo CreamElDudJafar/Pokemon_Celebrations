@@ -379,6 +379,10 @@ UpdateMovingBgTiles::
 	and a
 	ret z
 
+	ld a, [rLY]
+	cp $90
+	ret c
+
 	ldh a, [hMovingBGTilesCounter1]
 	inc a
 	ldh [hMovingBGTilesCounter1], a

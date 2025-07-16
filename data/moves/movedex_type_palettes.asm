@@ -49,6 +49,9 @@ LoadTypeIcon:
 	ld c, a
 	add hl, bc 
 	add hl, bc ; pointer to which function to use for this type
+	ld a, d
+	cp PSYCHIC_TYPE
+	call z, CheckGBCPsychic
 	ld a, [hli]
 	ld e, a
 	ld a, [hl]
@@ -85,3 +88,10 @@ TypeGraphicMapping:
 	dw PsychicTypeIcon;psychic
 	dw IceTypeIcon;ice
 	dw DragonTypeIcon;dragon
+
+CheckGBCPsychic:
+	ld hl, _PsychicTypeGBCIcon
+	ret
+
+_PsychicTypeGBCIcon:
+	dw PsychicTypeGBCIcon

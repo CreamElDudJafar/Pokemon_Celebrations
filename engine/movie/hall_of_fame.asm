@@ -77,7 +77,7 @@ AnimateHallOfFame:
 	ld bc, HOF_MON
 	call AddNTimes
 	ld [hl], $ff
-	call SaveHallOfFameTeams
+	callfar SaveHallOfFameTeams
 	xor a
 	ld [wHoFMonSpecies], a
 	inc a
@@ -122,6 +122,7 @@ HoFShowMonOrPlayer:
 	call RunPaletteCommand
 	ld a, %11100100
 	ldh [rBGP], a
+	call UpdateGBCPal_BGP
 	ld c, $31 ; back pic
 	call HoFLoadMonPlayerPicTileIDs
 	ld d, $a0

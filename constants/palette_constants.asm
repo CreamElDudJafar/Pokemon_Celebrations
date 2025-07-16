@@ -49,7 +49,7 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_TOWNMAP   ; $0C
 	const PAL_LOGO1     ; $0D
 	const PAL_LOGO2     ; $0E
-	const PAL_0F        ; $0F
+	const PAL_EXP       ; $0F
 	const PAL_MEWMON    ; $10
 	const PAL_BLUEMON   ; $11
 	const PAL_REDMON    ; $12
@@ -71,6 +71,9 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_BADGE     ; $22
 	const PAL_CAVE      ; $23
 	const PAL_GAMEFREAK ; $24
+	const PAL_25
+	const PAL_26
+	const PAL_27
 	const PAL_BLACKMON
 	const PAL_WHITEMON
 	const PAL_BLUEGREENMON

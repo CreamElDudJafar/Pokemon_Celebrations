@@ -18,6 +18,7 @@ HallOfFame_ScriptPointers:
 	dw_const DoRet,                              SCRIPT_HALLOFFAME_NOOP
 
 HallOfFameResetEventsAndSaveScript:
+	callfar GBCSetCPU1xSpeed
 	call Delay3
 	ld a, [wLetterPrintingDelayFlags]
 	push af

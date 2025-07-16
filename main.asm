@@ -315,8 +315,7 @@ INCLUDE "gfx/version.asm"
 
 SECTION "bank1C", ROMX
 
-INCLUDE "engine/movie/splash.asm"
-INCLUDE "engine/movie/hall_of_fame.asm"
+
 INCLUDE "engine/overworld/healing_machine.asm"
 INCLUDE "engine/overworld/player_animations.asm"
 INCLUDE "engine/battle/ghost_marowak_anim.asm"
@@ -328,6 +327,7 @@ INCLUDE "engine/gfx/palettes.asm"
 INCLUDE "engine/menus/save.asm"
 INCLUDE "engine/items/tm_prices.asm"
 INCLUDE "engine/overworld/field_moves.asm"
+INCLUDE "engine/gfx/scroll_gfx_horizontally.asm"
 
 
 SECTION "Itemfinder 1", ROMX
@@ -377,6 +377,7 @@ INCLUDE "engine/menus/change_box_menu.asm"
 INCLUDE "engine/menus/text_multi_button_prompt.asm"
 INCLUDE "engine/items/super_rod.asm"
 INCLUDE "engine/gfx/animated_tiles_code.asm"
+INCLUDE "engine/gbc/gbc_cpu_speed.asm"
 
 
 SECTION "Evo Moves", ROMX
@@ -387,3 +388,17 @@ INCLUDE "engine/pokemon/evos_moves.asm"
 SECTION "Move Descriptions", ROMX
 
 INCLUDE "engine/pokemon/move_descriptions.asm"
+
+
+SECTION "Splash Animation", ROMX
+
+; moved from bank1C
+INCLUDE "engine/movie/splash.asm"
+INCLUDE "engine/movie/hall_of_fame.asm"
+
+
+SECTION "GBC Mode Code", ROMX
+
+; shinpokerednote: gbcnote: include the bgmap files from pokemon yellow
+INCLUDE "data/sgb/bg_map_attributes.asm"
+INCLUDE "engine/gfx/bg_map_attributes.asm"

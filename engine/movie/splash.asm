@@ -3,6 +3,8 @@ LoadShootingStarGraphics:
 	ldh [rOBP0], a
 	ld a, $a4
 	ldh [rOBP1], a
+	call UpdateGBCPal_OBP0
+	call UpdateGBCPal_OBP1
 	ld de, MoveAnimationTiles1 tile 3 ; star tile (top left quadrant)
 	ld hl, vChars1 tile $20
 	lb bc, BANK(MoveAnimationTiles1), 1
@@ -75,6 +77,7 @@ AnimateShootingStar:
 	ld hl, rOBP0
 	rrc [hl]
 	rrc [hl]
+	call UpdateGBCPal_OBP0
 	ld c, 10
 	call CheckForUserInterruption
 	ret c
@@ -118,6 +121,15 @@ AnimateShootingStar:
 	ld [hli], a ; X
 	inc de
 	inc hl
+	push bc
+	ld a, [de]
+	ld b, a
+	ld a, [hl]
+	and $f0
+	or b
+	ld [hl], a
+	inc de
+	pop bc
 	inc hl
 	dec c
 	jr nz, .smallStarsInnerLoop
@@ -159,29 +171,42 @@ SmallStarsWaveCoordsPointerTable:
 
 ; The stars that fall from the Gamefreak logo come in 4 waves of 4 OAM entries.
 ; These arrays contain the Y and X coordinates of each OAM entry.
+; shinpokerednote: gbcnote: these have been modified per Yellow version to have pal data for the GBC attribute bits
 
 SmallStarsWave1Coords:
-	db $68, $30
-	db $68, $40
-	db $68, $58
-	db $68, $78
+	db $68,$30
+	db $05,$68
+	db $40,$05
+	db $68,$58
+	db $04,$68
+	db $78,$07
+
 SmallStarsWave2Coords:
-	db $68, $38
-	db $68, $48
-	db $68, $60
-	db $68, $70
+	db $68,$38
+	db $05,$68
+	db $48,$06
+	db $68,$60
+	db $04,$68
+	db $70,$07
+
 SmallStarsWave3Coords:
-	db $68, $34
-	db $68, $4C
-	db $68, $54
-	db $68, $64
+	db $68,$34
+	db $05,$68
+	db $4c,$06
+	db $68,$54
+	db $06,$68
+	db $64,$07
+
 SmallStarsWave4Coords:
-	db $68, $3C
-	db $68, $5C
-	db $68, $6C
-	db $68, $74
+	db $68,$3c
+	db $05,$68
+	db $5c,$04
+	db $68,$6c
+	db $07,$68
+	db $74,$07
+
 SmallStarsEmptyWave:
-	db -1 ; end
+	db -1
 
 MoveDownSmallStars:
 	ld b, 8
@@ -200,6 +225,7 @@ MoveDownSmallStars:
 	ldh a, [rOBP1]
 	xor %10100000
 	ldh [rOBP1], a
+	call UpdateGBCPal_OBP1
 
 	ld c, 3
 	call CheckForUserInterruption
@@ -227,11 +253,12 @@ GameFreakLogoOAMData:
 	dbsprite 15, 12,  0,  0, $86, 0
 GameFreakLogoOAMDataEnd:
 
-GameFreakShootingStarOAMData:
-	dbsprite 20,  0,  0,  0, $a0, OAM_OBP1
-	dbsprite 21,  0,  0,  0, $a0, OAM_OBP1 | OAM_HFLIP
-	dbsprite 20,  1,  0,  0, $a1, OAM_OBP1
-	dbsprite 21,  1,  0,  0, $a1, OAM_OBP1 | OAM_HFLIP
+GameFreakShootingStarOAMData:	;shinpokerednote: gbcnote: changing the attribute to use palette 4 via GBC bits
+;last column is byte 3 of OAM data; the attribute byte
+	db $00,$A0,$A0,$14
+	db $00,$A8,$A0,$34
+	db $08,$A0,$A1,$14
+	db $08,$A8,$A1,$34
 GameFreakShootingStarOAMDataEnd:
 
 FallingStar:
