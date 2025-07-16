@@ -160,6 +160,7 @@ ENDC
 	call GBPalNormal
 	ld a, %11100100
 	ldh [rOBP0], a
+	call UpdateGBCPal_OBP0
 
 ; make pokemon logo bounce up and down
 	ld bc, hSCY ; background scroll Y
@@ -238,6 +239,16 @@ ENDC
 	xor a
 	ld [wUnusedCC5B], a
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; shinpokerednote: gbcnote: The tiles in the window need to be shifted so that the bottom
+;half of the title screen is in the top half of the window area.
+;This is accomplished by copying the tile map to vram at an offset.
+;The goal is to get the tile map for the bottom half of the title screen
+;resides in the BGMap1 address space (address $9c00).
+	ld a, (vBGMap0 + $300) / $100
+	call TitleScreenCopyTileMapToVRAM
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ; Keep scrolling in new mons indefinitely until the user performs input.
 .awaitUserInterruptionLoop
 	ld c, 200
@@ -305,6 +316,12 @@ TitleScreenPickNewMon:
 	ld [hl], a
 	call LoadTitleMonSprite
 
+	push de
+	ld d, CONVERT_BGP	
+	ld e, 2
+	farcall TransferMonPal
+	pop de
+
 	ld a, $90
 	ldh [hWY], a
 	ld d, 1 ; scroll out
@@ -314,19 +331,13 @@ TitleScreenPickNewMon:
 TitleScreenScrollInMon:
 	ld d, 0 ; scroll in
 	farcall TitleScroll
-	xor a
+;	xor a
+	ld a, $40
 	ldh [hWY], a
 	ret
 
 ScrollTitleScreenGameVersion:
-.wait
-	ldh a, [rLY]
-	cp l
-	jr nz, .wait
-
-	ld a, h
-	ldh [rSCX], a
-
+	predef BGLayerScrollingUpdate
 .wait2
 	ldh a, [rLY]
 	cp h
@@ -361,6 +372,12 @@ ENDC
 	ld e, a
 	ld a, [wPlayerCharacterOAMTile]
 	ld [hli], a ; tile
+	push af
+	ld a, [hl]
+	and %11111000
+	or  %00000010
+	ld [hl], a
+	pop af
 	inc a
 	ld [wPlayerCharacterOAMTile], a
 	inc hl

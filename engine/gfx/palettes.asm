@@ -291,7 +291,8 @@ BadgeBlkDataLengths:
 
 DeterminePaletteID:
 	bit TRANSFORMED, a ; a is battle status 3
-	ld a, PAL_GREYMON  ; if the mon has used Transform, use Ditto's palette
+	ld a, DEX_DITTO  ; if the mon has used Transform, use Ditto's palette
+	jr nz, DeterminePaletteIDOutOfBattle.skipDexNumConversion
 	ret nz
 	ld a, [hl]
 DeterminePaletteIDOutOfBattle:
@@ -345,6 +346,15 @@ UpdatePartyMenuBlkPacket:
 	ret
 
 SendSGBPacket:
+	ld a, 1
+	ld [hDisableJoypadPolling], a
+	call _SendSGBPacket
+;re-enable joypad polling
+	xor a
+	ld [hDisableJoypadPolling], a
+	ret
+
+_SendSGBPacket:
 ;check number of packets
 	ld a, [hl]
 	and $07
@@ -354,9 +364,6 @@ SendSGBPacket:
 .loop2
 ; save B for later use
 	push bc
-; disable ReadJoypad to prevent it from interfering with sending the packet
-	ld a, 1
-	ldh [hDisableJoypadPolling], a
 ; send RESET signal (P14=LOW, P15=LOW)
 	xor a
 	ldh [rJOYP], a
@@ -397,8 +404,6 @@ SendSGBPacket:
 ; set P14=HIGH,P15=HIGH
 	ld a, $30
 	ldh [rJOYP], a
-	xor a
-	ldh [hDisableJoypadPolling], a
 ; wait for about 70000 cycles
 	call Wait7000
 ; restore (previously pushed) number of packets
@@ -413,14 +418,17 @@ LoadSGB:
 	xor a
 	ld [wOnSGB], a
 	call CheckSGB
-	ret nc
-	ld a, 1
-	ld [wOnSGB], a
-	ld a, [wGBC]
+	jr c, .onSGB
+	ldh a, [hGBC]
 	and a
-	jr z, .notGBC
+	jr z, .onDMG
+	ld a, $1
+	ld [wOnSGB], a
+.onDMG
 	ret
-.notGBC
+.onSGB
+	ld a, $1
+	ld [wOnSGB], a
 	di
 	call PrepareSuperNintendoVRAMTransfer
 	ei
@@ -536,6 +544,7 @@ CopyGfxToSuperNintendoVRAM:
 	call DisableLCD
 	ld a, $e4
 	ldh [rBGP], a
+	call UpdateGBCPal_BGP
 	ld de, vChars1
 	ld a, [wCopyingSGBTileData]
 	and a
@@ -566,6 +575,7 @@ CopyGfxToSuperNintendoVRAM:
 	call SendSGBPacket
 	xor a
 	ldh [rBGP], a
+	call UpdateGBCPal_BGP
 	ei
 	ret
 
@@ -583,19 +593,49 @@ Wait7000:
 	ret
 
 SendSGBPackets:
-	ld a, [wGBC]
+	ldh a, [hGBC]
 	and a
 	jr z, .notGBC
 	push de
-	call InitGBCPalettes
+	call InitGBCPalettesNew
 	pop hl
-	call EmptyFunc3
+;	call EmptyFunc3
+; gbc note - initialize the second pal packet in de
+	call InitGBCPalettesNew	
+	ld a, [rLCDC]
+	and rLCDC_ENABLE_MASK
+	ret z
+	call Delay3
 	ret
 .notGBC
 	push de
 	call SendSGBPacket
 	pop hl
 	jp SendSGBPacket
+
+; PureRGBnote: ADDED: figure out if we have SGB or GBC palettes selected in the options.
+GetPalettes:
+	ld a, [wOptions2]
+	and %11
+	cp PALETTES_YELLOW
+	jr z, .gbcPalettes
+	ld a, [wOptions2]
+	bit 6, a
+	ld de, SuperPalettes
+;	jr z, .gotSuperPalettes
+;	ld de, SuperPalettes2
+.gotSuperPalettes
+	and a
+	ret
+.gbcPalettes
+	ld a, [wOptions2]
+	bit 6, a
+	ld de, GBCBasePalettes
+;	jr z, .gotGBCPalettes
+;	ld de, GBCBasePalettes2
+.gotGBCPalettes
+	scf
+	ret
 
 InitGBCPalettes:
 	ld a, $80 ; index 0 with auto-increment
@@ -618,6 +658,380 @@ InitGBCPalettes:
 	dec c
 	jr nz, .loop
 	ret
+
+InitGBCPalettesNew:	;shinpokerednote: gbcnote: updating this to work with the Yellow code
+	ld a, [hl]
+	and $f8
+	cp $20	;check to see if hl points to a blk pal packet
+	jp z, TranslatePalPacketToBGMapAttributes	;jump if so
+	;otherwise hl points to a different pal packet or wPalPacket
+	inc hl
+DEF index = 0
+	REPT NUM_ACTIVE_PALS
+		IF index > 0
+			pop hl
+		ENDC
+
+		ld a, [hli]	;get palette ID into 'A'
+		inc hl
+
+		IF index < (NUM_ACTIVE_PALS + -1)
+			push hl
+		ENDC
+
+		call GetGBCBasePalAddress	;get palette address into de
+		ld a, e
+		ld [wGBCBasePalPointers + index * 2], a
+		ld a, d
+		ld [wGBCBasePalPointers + index * 2 + 1], a
+
+		ld a, CONVERT_BGP
+		call DMGPalToGBCPal
+		ld a, index
+		call TransferCurBGPData
+
+		ld a, CONVERT_OBP0
+		call DMGPalToGBCPal
+		ld a, index
+		call TransferCurOBPData
+
+		ld a, CONVERT_OBP1
+		call DMGPalToGBCPal
+		ld a, index + 4
+		call TransferCurOBPData
+DEF index = index + 1
+	ENDR
+	ret
+
+GetGBCBasePalAddress:: ;shinpokerednote: gbcnote: new function
+; Input: a = palette ID
+; Output: de = palette address
+	push hl
+	ld l, a
+	xor a
+	ld h, a
+	add hl, hl
+	add hl, hl
+	add hl, hl
+;;;;;;;;;; PureRGBnote: ADDED: optional toggle between original SGB palettes and GBC palettes when playing on SGB
+	call GetPalettes
+;;;;;;;;;;
+	add hl, de
+	ld a, l
+	ld e, a
+	ld a, h
+	ld d, a
+	pop hl
+	ret
+	
+DMGPalToGBCPal::	;shinpokerednote: gbcnote: new function
+; Populate wGBCPal with colors from a base palette, selected using one of the
+; DMG palette registers.
+; Input:
+; a = which DMG palette register
+; de = address of GBC base palette
+	and a
+	jr nz, .notBGP
+;;;;;;;;;; PureRGBnote: ADDED: on GBC we will use the original duochromatic colors if the option is selected.
+	ld a, [wOptions2]
+	and %11 
+	jr nz, .notOG1 ; if this value is non-zero we're not using OG palettes on GBC
+	ld de, GBC_OGPalettes_BGOBJ1
+.notOG1
+;;;;;;;;;; 
+	ldh a, [rBGP]
+	ld [wLastBGP], a
+	jr .convert
+.notBGP
+	dec a
+	jr nz, .notOBP0
+;;;;;;;;;; PureRGBnote: ADDED: on GBC we will use the original duochromatic colors if the option is selected.
+	ld a, [wOptions2]
+	and %11 
+	jr nz, .notOG2 ; if this value is non-zero we're not using OG palettes on GBC
+	ld de, GBC_OGPalettes_OBJ0
+.notOG2
+;;;;;;;;;;
+	ldh a, [rOBP0]
+	ld [wLastOBP0], a
+	jr .convert
+.notOBP0
+;;;;;;;;;; PureRGBnote: ADDED: on GBC we will use the original duochromatic colors if the option is selected.
+	ld a, [wOptions2]
+	and %11 
+	jr nz, .notOG3 ; if this value is non-zero we're not using OG palettes on GBC
+	ld de, GBC_OGPalettes_BGOBJ1
+.notOG3
+;;;;;;;;;;
+	ldh a, [rOBP1]
+	ld [wLastOBP1], a
+.convert
+;"A" now holds the palette data
+DEF color_index = 0
+	REPT NUM_COLORS
+		ld b, a	;"B" now holds the palette data
+		and %11	;"A" now has just the value for the shade of palette color 0
+		call .GetColorAddress
+		push de
+		;get the palett color value in de
+		ld a, [hli]
+		ld e, a
+		ld a, [hl]
+		ld d, a
+		;now load the value that HL points to into wGBCPal offset by the loop
+		ld a, e
+		ld [wGBCPal + color_index * 2], a
+		ld a, d
+		ld [wGBCPal + color_index * 2 + 1], a
+		pop de
+
+		IF color_index < (NUM_COLORS + -1)
+			ld a, b	;restore the palette data back into "A"
+			;rotate the palette data bits twice to the right so the next color in line becomes color 0
+			rrca
+			rrca
+		ENDC
+DEF color_index = color_index + 1
+	ENDR
+	ret
+.GetColorAddress:
+	add a	;double the value of the shade in "A"
+	ld l, a	;load 2x shade value into "L"
+	xor a	;zero "A"
+	ld h, a	;and load it to "H", so HL is now [00|2x shade]
+	add hl, de	;HL now holds the base palette address offset by 2x shade in bytes (base, base+2, base+4, or base+6)
+	ret
+
+TransferCurBGPData:: ;shinpokerednote: gbcnote: code from pokemon yellow
+; a = indexed offset of wGBCBasePalPointers
+	push de
+	;multiply index by 8 since each index represents 8 bytes worth of data
+	add a
+	add a
+	add a
+	or $80 ; set auto-increment bit of rBGPI
+	ldh [rBGPI], a
+	ld de, rBGPD
+	ld hl, wGBCPal
+	ldh a, [rLCDC]
+	and 1 << rLCDC_ENABLE
+	jr nz, .lcdEnabled
+	rept NUM_COLORS
+	call TransferPalColorLCDDisabled
+	endr
+	jr .done
+.lcdEnabled
+	rept NUM_COLORS
+	call TransferPalColorLCDEnabled
+	endr
+.done
+	pop de
+	ret	
+
+BufferBGPPal:: ;shinpokerednote: gbcnote: code from pokemon yellow
+; Copy wGBCPal to palette a in wBGPPalsBuffer.
+; a = indexed offset of wGBCBasePalPointers
+	push de
+	;multiply index by 8 since each index represents 8 bytes worth of data
+	add a
+	add a
+	add a
+	ld l, a
+	xor a
+	ld h, a
+	ld de, wBGPPalsBuffer
+	add hl, de	;hl now points to wBGPPalsBuffer + 8*index
+	ld de, wGBCPal
+	ld c, PAL_SIZE
+.loop	;copy the 8 bytes of wGBCPal to its indexed spot in wBGPPalsBuffer
+	ld a, [de]
+	ld [hli], a
+	inc de
+	dec c
+	jr nz, .loop
+	pop de
+	ret
+	
+TransferBGPPals:: ;shinpokerednote: gbcnote: code from pokemon yellow
+; Transfer the buffered BG palettes.
+	ldh a, [rLCDC]
+	and 1 << rLCDC_ENABLE
+	jr z, .lcdDisabled
+	; have to wait until LCDC is disabled
+	; LCD should only ever be disabled during the V-blank period to prevent hardware damage
+	di	;disable interrupts
+.waitLoop
+	ldh a, [rLY]
+	cp 144	;V-blank can be confirmed when the value of LY is greater than or equal to 144
+	jr c, .waitLoop
+.lcdDisabled
+	call .DoTransfer
+	reti	;enable interrupts
+.DoTransfer:
+	xor a
+	or $80 ; set the auto-increment bit of rBPGI
+	ldh [rBGPI], a
+	ld de, rBGPD
+	ld hl, wBGPPalsBuffer
+	ld c, 4 * PAL_SIZE
+.loop
+	ld a, [hli]
+	ld [de], a
+	dec c
+	jr nz, .loop
+	ret
+
+TransferCurOBPData: ;shinpokerednote: gbcnote: code from pokemon yellow
+; a = indexed offset of wGBCBasePalPointers
+	push de
+	;multiply index by 8 since each index represents 8 bytes worth of data
+	add a
+	add a
+	add a
+	or $80 ; set auto-increment bit of OBPI
+	ldh [rOBPI], a
+	ld de, rOBPD
+	ld hl, wGBCPal
+	ldh a, [rLCDC]
+	and 1 << rLCDC_ENABLE
+	jr nz, .lcdEnabled
+	rept NUM_COLORS
+	call TransferPalColorLCDDisabled
+	endr
+	jr .done
+.lcdEnabled
+	rept NUM_COLORS
+	call TransferPalColorLCDEnabled
+	endr
+.done
+	pop de
+	ret	
+
+TransferPalColorLCDEnabled: ;shinpokerednote: gbcnote: code from pokemon yellow
+; Transfer a palette color while the LCD is enabled.
+; In case we're already in H-blank or V-blank, wait for it to end. This is a
+; precaution so that the transfer doesn't extend past the blanking period.
+	ldh a, [rSTAT]
+	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	jr z, TransferPalColorLCDEnabled	;repeat if still in h-blank or v-blank
+; Wait for H-blank or V-blank to begin.
+.notInBlankingPeriod
+	ldh a, [rSTAT]
+	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	jr nz, .notInBlankingPeriod
+; fall through
+TransferPalColorLCDDisabled:
+; Transfer a palette color while the LCD is disabled.
+	ld a, [hli]
+	ld [de], a
+	ld a, [hli]
+	ld [de], a
+	ret
+	
+_UpdateGBCPal_BGP:: ;shinpokerednote: gbcnote: code from pokemon yellow
+	;prevent the BGmap from updating during vblank 
+	;because this is going to take a frame or two in order to fully run
+	;otherwise a partial update (like during a screen whiteout) can be distracting
+	ld hl, hFlagsFFFA
+	set 1, [hl]
+DEF index = 0
+	REPT NUM_ACTIVE_PALS
+		ld a, [wGBCBasePalPointers + index * 2]
+		ld e, a
+		ld a, [wGBCBasePalPointers + index * 2 + 1]
+		ld d, a
+		xor a ; CONVERT_BGP
+		call DMGPalToGBCPal
+		ld a, index
+		call BufferBGPPal	; Copy wGBCPal to palette indexed in wBGPPalsBuffer.
+DEF index = index + 1
+	ENDR
+	call TransferBGPPals	;Transfer wBGPPalsBuffer contents to rBGPD
+	ld hl, hFlagsFFFA	;re-allow BGmap updates
+	res 1, [hl]
+	ret
+
+_UpdateGBCPal_OBP:: ;shinpokerednote: gbcnote: code from pokemon yellow
+; d then c = CONVERT_OBP0 or CONVERT_OBP1
+	ld a, d
+	ld c, a
+DEF index = 0
+	REPT NUM_ACTIVE_PALS
+		ld a, [wGBCBasePalPointers + index * 2]
+		ld e, a
+		ld a, [wGBCBasePalPointers + index * 2 + 1]
+		ld d, a
+		ld a, c
+		call DMGPalToGBCPal
+		ld a, c
+		dec a
+		rlca
+		rlca
+
+		IF index > 0
+			IF index == 1
+				inc a
+			ELSE
+				add index
+			ENDC
+		ENDC
+		;OBP0: a = 0, 1, 2, or 3
+		;OBP1: a = 4, 5, 6, or 7
+		call TransferCurOBPData
+DEF index = index + 1
+	ENDR
+	ret
+	
+;shinpokerednote: gbcnote: new function
+TranslatePalPacketToBGMapAttributes::
+; translate the SGB pals for blk packets into something usable for the GBC
+	push hl
+	pop de
+	ld hl, PalPacketPointers
+	ld a, [hli]
+	ld c, a
+.loop
+	ld a, e
+.innerLoop
+	cp [hl]
+	jr z, .checkHighByte
+	inc hl
+	inc hl
+	dec c
+	jr nz, .innerLoop
+	ret
+.checkHighByte
+; the low byte of pointer matched, so check the high byte
+	inc hl
+	ld a, d
+	cp [hl]
+	jr z, .foundMatchingPointer
+	inc hl
+	dec c
+	jr nz, .loop
+	ret
+.foundMatchingPointer
+	push de
+	ld d, c
+	callfar LoadBGMapAttributes
+	pop de
+	ret
+
+;shinpokerednote: gbcnote: pointers from pokemon yellow
+PalPacketPointers::
+	db (palPacketPointersEnd - palPacketPointers) / 2
+palPacketPointers:
+	dw BlkPacket_WholeScreen
+	dw BlkPacket_Battle
+	dw BlkPacket_StatusScreen
+	dw BlkPacket_Pokedex
+	dw BlkPacket_Slots
+	dw BlkPacket_Titlescreen
+	dw BlkPacket_NidorinoIntro
+	dw wPartyMenuBlkPacket
+	dw wTrainerCardBlkPacket
+	dw BlkPacket_GameFreakIntro
+palPacketPointersEnd:
 
 EmptyFunc3:
 	ret
@@ -652,11 +1066,45 @@ CopySGBBorderTiles:
 	jr nz, .tileLoop
 	ret
 
+;shinpokerednote: gbcnote: This function loads the palette for a given pokemon index in wCurPartySpecies into a specified palette register on the GBC
+;d = CONVERT_OBP0, CONVERT_OBP1, or CONVERT_BGP
+;e = palette register # (0 to 7)
+;if wCurPartySpecies has bit 7 set, then it the address holds a specific palette instead of a 'mon
+TransferMonPal:
+	ldh a, [hGBC]
+	and a
+	ret z 
+	ld a, e
+	push af
+	ld a, d
+	push af
+	ld a, [wcf91]
+	cp VICTREEBEL+1
+	jr c, .isMon
+	sub VICTREEBEL+1
+.back	
+	call GetGBCBasePalAddress
+	pop af
+	cp CONVERT_BGP
+	push af
+	call DMGPalToGBCPal
+	pop af
+	jr z, .do_bgp
+	pop af
+	jp TransferCurOBPData
+.do_bgp
+	pop af
+	jp TransferCurBGPData
+.isMon	
+	call DeterminePaletteIDOutOfBattle
+	jr .back
+
 INCLUDE "data/sgb/sgb_packets.asm"
 
 INCLUDE "data/pokemon/palettes.asm"
 
 INCLUDE "data/sgb/sgb_palettes.asm"
+INCLUDE "data/gbc/gbc_palettes.asm"
 
 INCLUDE "data/sgb/sgb_border.asm"
 

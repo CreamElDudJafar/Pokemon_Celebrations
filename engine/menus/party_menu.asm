@@ -3,7 +3,7 @@ DrawPartyMenu_::
 	ldh [hAutoBGTransferEnabled], a
 	call ClearScreen
 	call UpdateSprites
-	RedrawPartyMenu_ReloadSprites:
+RedrawPartyMenu_ReloadSprites:
 	farcall LoadPartyMonSprites ; load pokemon icon graphics
 
 RedrawPartyMenu_::

@@ -56,6 +56,7 @@ ENDC
 	call LoadTextBoxTilePatterns
 	call PrepareOakSpeech
 	predef InitPlayerData2
+	call RunDefaultPaletteCommand
 	ld hl, wNumBoxItems
 	ld a, POTION
 	ld [wcf91], a
@@ -280,6 +281,7 @@ FadeInIntroPic:
 .next
 	ld a, [hli]
 	ldh [rBGP], a
+	call UpdateGBCPal_BGP
 	ld c, 10
 	rst _DelayFrames
 	dec b
@@ -301,6 +303,7 @@ MovePicLeft:
 
 	ld a, %11100100
 	ldh [rBGP], a
+	call UpdateGBCPal_BGP
 .next
 	rst _DelayFrame
 	ldh a, [rWX]

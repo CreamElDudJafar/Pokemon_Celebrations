@@ -26,6 +26,9 @@ VBlank::
 	call VBlankCopy
 	call VBlankCopyDouble
 	call UpdateMovingBgTiles
+	ld a, [hFlagsFFFA]
+	bit 0, a
+	jr nz, .skipOAM
 	call hDMARoutine
 	ld a, BANK(PrepareOAMData)
 	ldh [hLoadedROMBank], a
@@ -33,7 +36,7 @@ VBlank::
 	call PrepareOAMData
 
 	; VBlank-sensitive operations end.
-
+.skipOAM
 	call Random
 
 	ldh a, [hVBlankOccurred]
@@ -54,6 +57,7 @@ VBlank::
 
 	callbs Music_DoLowHealthAlarm
 	callbs Audio1_UpdateMusic
+
 	farcall TrackPlayTime ; keep track of time played
 
 	ldh a, [hDisableJoypadPolling]

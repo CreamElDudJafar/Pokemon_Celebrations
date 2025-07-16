@@ -63,10 +63,13 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	ld a, c
 	ldh [hSCX], a
 	rst _DelayFrame
+	rst _DelayFrame ; gbcnote - do one extra frame to update screen
 	ld a, %11100100 ; inverted palette for silhouette effect
 	ldh [rBGP], a
 	ldh [rOBP0], a
 	ldh [rOBP1], a
+	call UpdateGBCPal_OBP0
+	call UpdateGBCPal_OBP1
 .slideSilhouettesLoop ; slide silhouettes of the player's pic and the enemy's pic onto the screen
 	ld h, b
 	ld l, $40
@@ -76,6 +79,14 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	ld h, $0
 	ld l, $60
 	call SetScrollXForSlidingPlayerBodyLeft ; end background scrolling on line $60
+
+	;gbcnote - Update BGP here so screen isn't revealed when scrolling is out of place
+	push af
+	ld a, b
+	cp $72
+	call z, UpdateGBCPal_BGP
+	pop af
+
 	call SlidePlayerHeadLeft
 	ld a, c
 	ldh [hSCX], a
@@ -118,11 +129,7 @@ SlidePlayerHeadLeft:
 	ret
 
 SetScrollXForSlidingPlayerBodyLeft:
-	ldh a, [rLY]
-	cp l
-	jr nz, SetScrollXForSlidingPlayerBodyLeft
-	ld a, h
-	ldh [rSCX], a
+	predef BGLayerScrollingUpdate ;gbcnote - consolidated into a predef that also fixes some issues
 .loop
 	ldh a, [rLY]
 	cp h
@@ -923,6 +930,11 @@ ReplaceFaintedEnemyMon:
 	ld hl, wEnemyHPBarColor
 	ld e, $00
 	call GetBattleHealthBarColor
+	ldpal a, SHADE_BLACK, SHADE_DARK, SHADE_LIGHT, SHADE_WHITE
+	ld [rOBP0], a
+	ld [rOBP1], a
+	call UpdateGBCPal_OBP0
+	call UpdateGBCPal_OBP1
 	callfar DrawEnemyPokeballs
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
@@ -6526,20 +6538,20 @@ LoadPlayerBackPic:
 	ld a, [wBattleType]
 	dec a ; is it the old man tutorial?
 	ld de, OldManPicBack   ; Load the old man back sprite preemptively
-               ld a, BANK(RedPicBack) ; Default Red back sprite will be used as a means to load in the Old Man back sprite
-    		jr z, .next
-    		ld a, [wPlayerGender]
-    		and a
-    		jr z, .RedBack
-    		ld de, GreenPicBack
-               ld a, BANK(GreenPicBack) ; Load female back sprite
-    		jr .next
-	.RedBack
-    		ld de, RedPicBack ; Load default Red back sprite
-               ld a, BANK(RedPicBack)
-	.next
-               ASSERT BANK(GreenPicBack) == BANK(OldManPicBack) ; These two ASSERTs make sure to cover
-               ASSERT BANK(RedPicBack) == BANK(OldManPicBack)   ; both sprite cases
+        ld a, BANK(RedPicBack) ; Default Red back sprite will be used as a means to load in the Old Man back sprite
+        jr z, .next
+    	ld a, [wPlayerGender]
+    	and a
+    	jr z, .RedBack
+    	ld de, GreenPicBack
+        ld a, BANK(GreenPicBack) ; Load female back sprite
+    	jr .next
+.RedBack
+    	ld de, RedPicBack ; Load default Red back sprite
+        ld a, BANK(RedPicBack)
+.next
+        ASSERT BANK(GreenPicBack) == BANK(OldManPicBack) ; These two ASSERTs make sure to cover
+        ASSERT BANK(RedPicBack) == BANK(OldManPicBack)   ; both sprite cases
 	call UncompressSpriteFromDE
 	predef ScaleSpriteByTwo
 	ld hl, wShadowOAM
@@ -6562,6 +6574,9 @@ LoadPlayerBackPic:
 	ld [hli], a ; OAM tile number
 	inc a ; increment tile number
 	ldh [hOAMTile], a
+; gbcnote- load correct palette for hat object
+	ld a, $2
+	ld [hl], a
 	inc hl
 	dec c
 	jr nz, .innerLoop

@@ -249,6 +249,7 @@ PlayAnimation:
 	push af
 	ld a, [wAnimPalette]
 	ldh [rOBP0], a
+	call UpdateGBCPal_OBP0
 	call LoadMoveAnimationTiles
 	vc_hook Reduce_move_anim_flashing_Mega_Punch_Self_Destruct_Explosion
 	call LoadSubanimation
@@ -258,6 +259,7 @@ PlayAnimation:
 	pop af
 	vc_hook_red Stop_reducing_move_anim_flashing_Blizzard
 	ldh [rOBP0], a
+	call UpdateGBCPal_OBP0
 .nextAnimationCommand
 	vc_hook_red Stop_reducing_move_anim_flashing_Hyper_Beam
 	vc_hook_blue Stop_reducing_move_anim_flashing_Bubblebeam_Hyper_Beam_Blizzard
@@ -564,6 +566,8 @@ SetAnimationPalette:
 	ldh [rOBP0], a
 	ld a, $6c
 	ldh [rOBP1], a
+	call UpdateGBCPal_OBP0
+	call UpdateGBCPal_OBP1
 	ret
 .notSGB
 	ld a, $e4
@@ -572,6 +576,8 @@ SetAnimationPalette:
 	ldh [rOBP0], a
 	ld a, $6c
 	ldh [rOBP1], a
+	call UpdateGBCPal_OBP0
+	call UpdateGBCPal_OBP1
 	ret
 
 PlaySubanimation:
@@ -687,6 +693,7 @@ DoBallTossSpecialEffects:
 	ldh a, [rOBP0]
 	xor %00111100 ; complement colors 1 and 2
 	ldh [rOBP0], a
+	call UpdateGBCPal_OBP0
 .skipFlashingEffect
 	ld a, [wSubAnimCounter]
 	cp 11 ; is it the beginning of the subanimation?
@@ -1064,14 +1071,17 @@ AnimationFlashScreen:
 	push af ; save initial palette
 	ld a, %00011011 ; 0, 1, 2, 3 (inverted colors)
 	ldh [rBGP], a
+	call UpdateGBCPal_BGP
 	ld c, 2
 	rst _DelayFrames
 	xor a ; white out background
 	ldh [rBGP], a
+	call UpdateGBCPal_BGP
 	ld c, 2
 	rst _DelayFrames
 	pop af
 	ldh [rBGP], a ; restore initial palette
+	call UpdateGBCPal_BGP
 	ret
 
 AnimationDarkScreenPalette:
@@ -1117,6 +1127,7 @@ SetAnimationBGPalette:
 	ld a, c
 .next
 	ldh [rBGP], a
+	call UpdateGBCPal_BGP
 	ret
 
 	ld b, $5
@@ -2351,6 +2362,7 @@ AnimationLeavesFalling:
 	push af
 	ld a, [wAnimPalette]
 	ldh [rOBP0], a
+	call UpdateGBCPal_OBP0
 	ld d, $37 ; leaf tile
 	ld a, 3 ; number of leaves
 	ld [wNumFallingObjects], a

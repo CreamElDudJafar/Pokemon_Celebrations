@@ -63,6 +63,7 @@ DisplayListMenuID::
 	ld [wMenuWatchedKeys], a
 	ld c, 10
 	rst _DelayFrames
+	homecall PrepareOAMData	; shinpokerednote: gbcnote: makes mart menus cleaner by updating the OAM sprite table ahead of vblank
 
 DisplayListMenuIDLoop::
 	xor a

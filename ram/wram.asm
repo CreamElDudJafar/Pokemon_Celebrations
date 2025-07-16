@@ -432,7 +432,8 @@ wNPCMovementDirections:: ds 180
 NEXTU
 wDexRatingNumMonsSeen:: db
 wDexRatingNumMonsOwned:: db
-wDexRatingText:: db
+wDexRatingText::
+wTrainerCardBadgeAttributes:: db
 
 NEXTU
 ; If a random number greater than this value is generated, then the player is
@@ -1119,7 +1120,11 @@ wPalPacket::
 
 ; This union spans 49 bytes.
 UNION
-wPartyMenuBlkPacket:: ds $30
+wPartyMenuBlkPacket:: ; cf2e
+; 30 bytes
+	ds 9
+wPartyHPBarAttributes:: ;cf36
+	ds 20
 
 NEXTU
 	ds 29
@@ -2164,7 +2169,19 @@ wRoute18Gate1FCurScript:: db
 	ds 78
 wGameProgressFlagsEnd::
 
-	ds 56
+;;;;;; shinpokerednote: gbcnote: GBC stuff from pokemon yellow
+
+wGBCBasePalPointers:: ds NUM_ACTIVE_PALS * 2 ; 8 bytes
+wGBCPal:: ds PAL_SIZE ; 8 bytes
+wLastBGP::db
+wLastOBP0::db
+wLastOBP1::db 
+wBGPPalsBuffer:: ds NUM_ACTIVE_PALS * PAL_SIZE ; 32 bytes
+wdef5:: db
+
+;;;;;;
+
+	ds 4 ; unused save file 4 bytes
 
 wObtainedHiddenItemsFlags:: flag_array 112
 
@@ -2396,7 +2413,22 @@ wCurMapScript:: db
 
 wSafariType:: db
 
-	ds 5
+
+; bits 0-1 = Palette setting 
+; 00 = Original
+; 01 = SGB1
+; 10 = SGB2
+; 11 = Yellow
+; bit 2 = unused
+; bit 3 = unused
+; bit 4 = unused
+; bit 5 = unused
+; bit 6 = unused
+; bit 7 = unused
+
+wOptions2:: db
+
+	ds 4
 
 wPlayTimeHours:: db
 wPlayTimeMaxed:: db
