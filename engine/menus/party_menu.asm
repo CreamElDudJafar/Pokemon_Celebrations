@@ -3,7 +3,7 @@ DrawPartyMenu_::
 	ldh [hAutoBGTransferEnabled], a
 	call ClearScreen
 	call UpdateSprites
-	RedrawPartyMenu_ReloadSprites:
+RedrawPartyMenu_ReloadSprites:
 	farcall LoadPartyMonSprites ; load pokemon icon graphics
 
 RedrawPartyMenu_::
@@ -197,10 +197,7 @@ RedrawPartyMenu_::
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	call Delay3
-	ld a, %11100100 ; 3210
-	ldh [rBGP], a
-	ldh [rOBP0], a
-	ret
+	jp GBPalNormal
 .printItemUseMessage
 	and $0F
 	ld hl, PartyMenuItemUseMessagePointers

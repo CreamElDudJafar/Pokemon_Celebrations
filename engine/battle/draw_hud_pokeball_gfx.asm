@@ -27,6 +27,8 @@ SetupOwnPartyPokeballs:
 	ld [hl], a
 	ld a, 8
 	ld [wHUDPokeballGfxOffsetX], a
+	xor a
+	ld [wdef5], a
 	ld hl, wShadowOAM
 	jp WritePokeballOAMData
 
@@ -41,6 +43,8 @@ SetupEnemyPartyPokeballs:
 	ld [hl], $20
 	ld a, -8
 	ld [wHUDPokeballGfxOffsetX], a
+	ld a, $1
+	ld [wdef5], a
 	ld hl, wShadowOAMSprite06
 	jp WritePokeballOAMData
 
@@ -104,7 +108,7 @@ WritePokeballOAMData:
 	ld [hli], a
 	ld a, [de]
 	ld [hli], a
-	xor a
+	ld a, [wdef5]
 	ld [hli], a
 	ld a, [wBaseCoordX]
 	ld b, a
@@ -183,6 +187,8 @@ SetupPlayerAndEnemyPokeballs:
 	ld a, $50
 	ld [hli], a
 	ld [hl], $68
+	ld a, $1
+	ld [wdef5], a
 	ld hl, wShadowOAMSprite06
 	jp WritePokeballOAMData
 
