@@ -1163,20 +1163,7 @@ wExpAmountGained:: dw
 wGainBoostedExp:: db
 ENDU
 
-wUnusedC000:: db
-
-	ds 20
-
-UNION
-	ds 22 ; 22 of the 43 bytes of free space
-
-NEXTU
-wMovedexSeen:: flag_array NUM_ATTACKS
-wMovedexSeenEnd::
-
-ENDU
-
-wStoredMovedexListIndex:: db
+	ds 44
 
 wListPointer:: dw
 
@@ -1968,16 +1955,24 @@ wDestinationWarpID:: db
 
 ;;;;;;
 UNION
-; original size of this empty space was 128
-ds 100
+; original size of this empty space was 28
+ds 128
 
 NEXTU
 
 wChannel5:: channel_struct wChannel5
 wChannel6:: channel_struct wChannel6
+
+wStoredMovedexListIndex:: db
+
+wMovedexSeen:: flag_array NUM_ATTACKS
+wMovedexSeenEnd:: ; 22 bytes
+
+wUnusedC000:: db
+
+;;; 4 bytes left
+
 ENDU
-;;;;;;;;;;
-; 28 bytes removed for increased bag space
 
 ; number of signs in the current map (up to 16)
 wNumSigns:: db
@@ -2057,7 +2052,7 @@ wPlayerCoins:: dw ; BCD
 wMissableObjectFlags:: flag_array $100
 wMissableObjectFlagsEnd::
 
-	ds 4
+	ds 2 ; was 6
 
 ; saved copy of SPRITESTATEDATA1_IMAGEINDEX (used for sprite facing/anim)
 wSavedSpriteImageIndex:: db
@@ -2103,7 +2098,7 @@ wRedsHouse2FCurScript:: db
 wViridianMartCurScript:: db
 wRoute22GateCurScript:: db
 wCeruleanCityCurScript:: db
-	ds 2
+	ds 2 ; was 7
 wSSAnneBowCurScript:: db
 wViridianForestCurScript:: db
 wMuseum1FCurScript:: db
@@ -2189,11 +2184,23 @@ wRoute18Gate1FCurScript:: db
 wGameProgressFlagsEnd::
 
 UNION
-    ds 128
+    ds 104
 NEXTU
 wChannel7:: channel_struct wChannel7
 wChannel8:: channel_struct wChannel8
 
+wDifficulty::
+    ; $00 = normal
+    ; $01 = hard
+    ds 1
+
+wPlayerGender::
+    ; $00 = male
+    ; $01 = female
+    ds 1
+
+;; 2 bytes left
+;;;;;;;;;; 24 bytes removed for bag space
 ENDU
 
 wObtainedHiddenItemsFlags:: flag_array MAX_HIDDEN_ITEMS
@@ -2205,7 +2212,7 @@ wObtainedHiddenCoinsFlags:: flag_array MAX_HIDDEN_COINS
 ; $02 = surfing
 wWalkBikeSurfState:: db
 
-	ds 10
+	ds 7 ; was 10
 
 wTownVisitedFlag:: flag_array NUM_CITY_MAPS
 
@@ -2217,15 +2224,7 @@ wFossilItem:: db
 ; mon that will result from the item
 wFossilMon:: db
 
-wDifficulty::
-    ; $00 = normal
-    ; $01 = hard
-    ds 1
-
-wPlayerGender::
-    ; $00 = male
-    ; $01 = female
-    ds 1
+	ds 2
 
 ; trainer classes start at OPP_ID_OFFSET
 wEnemyMonOrTrainerClass:: db
@@ -2260,7 +2259,7 @@ wWhichDungeonWarp:: db
 
 wUnusedD71F:: db
 
-	ds 8
+	ds 2 ; was 8
 
 ; bit 0: using Strength outside of battle
 ; bit 1: set by IsSurfingAllowed when surfing's allowed, but the caller resets it after checking the result
