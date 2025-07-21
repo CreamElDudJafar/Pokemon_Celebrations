@@ -123,15 +123,17 @@ CloseTextDisplay::
 	dec c
 	jr nz, .restoreSpriteFacingDirectionLoop
 	call LoadCurrentMapView
-	pop af
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
 	call UpdateSprites
 	ld a, $90
 	ldh [hWY], a
-	farcall InitMapSprites
+	ldh [hLoadedROMBank], a
+	ld [MBC1RomBank], a
+	farcall InitMapSprites ; reload sprite tile pattern data (since it was partially overwritten by text tile patterns)
 	ld hl, wFontLoaded
 	res 0, [hl]
+	pop af
+	ldh [hLoadedROMBank], a
+	ld [MBC1RomBank], a
 	ld a, [wd732]
 	bit 3, a ; used fly warp
 	ret nz
