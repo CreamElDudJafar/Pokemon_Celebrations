@@ -5,6 +5,12 @@ DisplayTextIDInit::
 	ld a, [wAutoTextBoxDrawingControl]
 	bit 0, a
 	jr nz, .skipDrawingTextBoxBorder
+	ld a, [wUpdateSpritesEnabled]
+	push af
+	ld a, -1
+	ld [wUpdateSpritesEnabled], a
+	ld b, $9c
+	call CopyScreenTileBufferToVRAM
 	ldh a, [hSpriteIndexOrTextID] ; text ID (or sprite ID)
 	and a
 	jr nz, .notStartMenu
@@ -69,9 +75,10 @@ DisplayTextIDInit::
 	add hl, de
 	dec c
 	jr nz, .spriteStandStillLoop
-	ld b, $9c ; window background address
-	call CopyScreenTileBufferToVRAM ; transfer background in WRAM to VRAM
+	pop af
+	ld [wUpdateSpritesEnabled], a
 	xor a
+	ldh [hAutoBGTransferPortion], a
 	ldh [hWY], a ; put the window on the screen
 	call LoadFontTilePatterns
 	ld a, $01
