@@ -108,10 +108,6 @@ HoldTextDisplayOpen::
 CloseTextDisplay::
 	ld a, [wCurMap]
 	call SwitchToMapRomBank
-	ld a, $90
-	ldh [hWY], a ; move the window off the screen
-	rst _DelayFrame
-	call LoadGBPal
 	xor a
 	ldh [hAutoBGTransferEnabled], a ; disable continuous WRAM to VRAM transfer each V-blank
 ; loop to make sprites face the directions they originally faced before the dialogue
@@ -126,20 +122,20 @@ CloseTextDisplay::
 	add hl, de
 	dec c
 	jr nz, .restoreSpriteFacingDirectionLoop
-	ld a, BANK(InitMapSprites)
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
-	call InitMapSprites ; reload sprite tile pattern data (since it was partially overwritten by text tile patterns)
-	ld hl, wFontLoaded
-	res 0, [hl]
-	ld a, [wd732]
-	bit 3, a ; used fly warp
-	call z, LoadPlayerSpriteGraphics
 	call LoadCurrentMapView
 	pop af
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-	jp UpdateSprites
+	call UpdateSprites
+	ld a, $90
+	ldh [hWY], a
+	farcall InitMapSprites
+	ld hl, wFontLoaded
+	res 0, [hl]
+	ld a, [wd732]
+	bit 3, a ; used fly warp
+	ret nz
+	jp LoadPlayerSpriteGraphics
 
 DisplayPokemartDialogue::
 	push hl
