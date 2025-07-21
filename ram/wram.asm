@@ -741,7 +741,7 @@ wRivalStarterBallSpriteIndex:: db
 NEXTU
 wFlyAnimUsingCoordList:: db
 ; $ff sentinel values at each end
-wFlyLocationsList:: ds NUM_CITY_MAPS + 2
+wFlyLocationsList:: ds NUM_CITY_MAPS + 4
 
 NEXTU
 wWhichTownMapLocation:: db
@@ -2177,7 +2177,7 @@ wWalkBikeSurfState:: db
 
 	ds 10
 
-wTownVisitedFlag:: flag_array NUM_CITY_MAPS
+wTownVisitedFlag:: flag_array NUM_CITY_MAPS + 2
 
 ; starts at 502
 wSafariSteps:: dw
