@@ -126,9 +126,10 @@ CloseTextDisplay::
 	call UpdateSprites
 	ld a, $90
 	ldh [hWY], a
+	ld a, BANK(InitMapSprites)
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-	farcall InitMapSprites ; reload sprite tile pattern data (since it was partially overwritten by text tile patterns)
+	call InitMapSprites ; reload sprite tile pattern data (since it was partially overwritten by text tile patterns)
 	ld hl, wFontLoaded
 	res 0, [hl]
 	pop af
