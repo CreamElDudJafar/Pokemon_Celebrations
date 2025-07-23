@@ -106,19 +106,23 @@ LoadBGMapAttributes::
 	reti
 
 BGMapAttributesPointers:
-	dw BGMapAttributes_PokemonMiddleScreenBox
-	dw BGMapAttributes_Celadon
-	dw BGMapAttributes_GameFreakIntro
-	dw BGMapAttributes_TrainerCard
-	dw BGMapAttributes_PartyMenu
-	dw BGMapAttributes_NidorinoIntro
-	dw BGMapAttributes_TitleScreen
-	dw BGMapAttributes_Slots
-	dw BGMapAttributes_Pokedex
-	dw BGMapAttributes_StatusScreen
-	dw BGMapAttributes_Battle
-	dw BGMapAttributes_WholeScreen
-	dw BGMapAttributes_ShakeEnemyHUD
+	dw SetPal_BattleBlack
+	dw SetPal_Battle
+	dw SetPal_TownMap
+	dw SetPal_StatusScreen
+	dw SetPal_Pokedex
+	dw SetPal_Slots
+	dw SetPal_TitleScreen
+	dw SetPal_NidorinoIntro
+	dw SetPal_Generic
+	dw SetPal_Overworld
+	dw SetPal_PartyMenu
+	dw SetPal_PokemonWholeScreen
+	dw SetPal_GameFreakIntro
+	dw SetPal_TrainerCard
+	;gbctest - adding packets from yellow
+;	dw SendUnknownPalPacket_7205d
+;	dw SendUnknownPalPacket_72064
 
 HandleBadgeFaceAttributes:
 ; zero out the attributes if the player doesn't have the respective badge

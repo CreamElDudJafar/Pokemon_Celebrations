@@ -597,11 +597,9 @@ SendSGBPackets:
 	and a
 	jr z, .notGBC
 	push de
-	call InitGBCPalettesNew
+	call InitGBCPalettes
 	pop hl
-;	call EmptyFunc3
-; gbc note - initialize the second pal packet in de
-	call InitGBCPalettesNew	
+	call InitGBCPalettes
 	ld a, [rLCDC]
 	and rLCDC_ENABLE_MASK
 	ret z
@@ -613,53 +611,7 @@ SendSGBPackets:
 	pop hl
 	jp SendSGBPacket
 
-; PureRGBnote: ADDED: figure out if we have SGB or GBC palettes selected in the options.
-GetPalettes:
-	ld a, [wOptions2]
-	and %11
-	cp PALETTES_YELLOW
-	jr z, .gbcPalettes
-	ld a, [wOptions2]
-	bit 6, a
-	ld de, SuperPalettes
-;	jr z, .gotSuperPalettes
-;	ld de, SuperPalettes2
-.gotSuperPalettes
-	and a
-	ret
-.gbcPalettes
-	ld a, [wOptions2]
-	bit 6, a
-	ld de, GBCBasePalettes
-;	jr z, .gotGBCPalettes
-;	ld de, GBCBasePalettes2
-.gotGBCPalettes
-	scf
-	ret
-
-InitGBCPalettes:
-	ld a, $80 ; index 0 with auto-increment
-	ldh [rBGPI], a
-	inc hl
-	ld c, $20
-.loop
-	ld a, [hli]
-	inc hl
-	add a
-	add a
-	add a
-	ld de, SuperPalettes
-	add e
-	jr nc, .noCarry
-	inc d
-.noCarry
-	ld a, [de]
-	ldh [rBGPD], a
-	dec c
-	jr nz, .loop
-	ret
-
-InitGBCPalettesNew:	;shinpokerednote: gbcnote: updating this to work with the Yellow code
+InitGBCPalettes:	;shinpokerednote: gbcnote: updating this to work with the Yellow code
 	ld a, [hl]
 	and $f8
 	cp $20	;check to see if hl points to a blk pal packet
@@ -713,9 +665,7 @@ GetGBCBasePalAddress:: ;shinpokerednote: gbcnote: new function
 	add hl, hl
 	add hl, hl
 	add hl, hl
-;;;;;;;;;; PureRGBnote: ADDED: optional toggle between original SGB palettes and GBC palettes when playing on SGB
-	call GetPalettes
-;;;;;;;;;;
+	ld de, GBCBasePalettes
 	add hl, de
 	ld a, l
 	ld e, a
@@ -732,37 +682,16 @@ DMGPalToGBCPal::	;shinpokerednote: gbcnote: new function
 ; de = address of GBC base palette
 	and a
 	jr nz, .notBGP
-;;;;;;;;;; PureRGBnote: ADDED: on GBC we will use the original duochromatic colors if the option is selected.
-	ld a, [wOptions2]
-	and %11 
-	jr nz, .notOG1 ; if this value is non-zero we're not using OG palettes on GBC
-	ld de, GBC_OGPalettes_BGOBJ1
-.notOG1
-;;;;;;;;;; 
 	ldh a, [rBGP]
 	ld [wLastBGP], a
 	jr .convert
 .notBGP
 	dec a
 	jr nz, .notOBP0
-;;;;;;;;;; PureRGBnote: ADDED: on GBC we will use the original duochromatic colors if the option is selected.
-	ld a, [wOptions2]
-	and %11 
-	jr nz, .notOG2 ; if this value is non-zero we're not using OG palettes on GBC
-	ld de, GBC_OGPalettes_OBJ0
-.notOG2
-;;;;;;;;;;
 	ldh a, [rOBP0]
 	ld [wLastOBP0], a
 	jr .convert
 .notOBP0
-;;;;;;;;;; PureRGBnote: ADDED: on GBC we will use the original duochromatic colors if the option is selected.
-	ld a, [wOptions2]
-	and %11 
-	jr nz, .notOG3 ; if this value is non-zero we're not using OG palettes on GBC
-	ld de, GBC_OGPalettes_BGOBJ1
-.notOG3
-;;;;;;;;;;
 	ldh a, [rOBP1]
 	ld [wLastOBP1], a
 .convert
@@ -814,7 +743,7 @@ TransferCurBGPData:: ;shinpokerednote: gbcnote: code from pokemon yellow
 	ld de, rBGPD
 	ld hl, wGBCPal
 	ldh a, [rLCDC]
-	and 1 << rLCDC_ENABLE
+	and rLCDC_ENABLE_MASK
 	jr nz, .lcdEnabled
 	rept NUM_COLORS
 	call TransferPalColorLCDDisabled
@@ -855,7 +784,7 @@ BufferBGPPal:: ;shinpokerednote: gbcnote: code from pokemon yellow
 TransferBGPPals:: ;shinpokerednote: gbcnote: code from pokemon yellow
 ; Transfer the buffered BG palettes.
 	ldh a, [rLCDC]
-	and 1 << rLCDC_ENABLE
+	and rLCDC_ENABLE_MASK
 	jr z, .lcdDisabled
 	; have to wait until LCDC is disabled
 	; LCD should only ever be disabled during the V-blank period to prevent hardware damage
@@ -893,7 +822,7 @@ TransferCurOBPData: ;shinpokerednote: gbcnote: code from pokemon yellow
 	ld de, rOBPD
 	ld hl, wGBCPal
 	ldh a, [rLCDC]
-	and 1 << rLCDC_ENABLE
+	and rLCDC_ENABLE_MASK
 	jr nz, .lcdEnabled
 	rept NUM_COLORS
 	call TransferPalColorLCDDisabled
