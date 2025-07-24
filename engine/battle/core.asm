@@ -1196,14 +1196,7 @@ HandlePlayerBlackOut:
 ; back to vanilla
 	ld a, [wCurOpponent]
 	cp OPP_RIVAL1
-	jr z, .lossText
-	cp OPP_RIVAL2
-	jr z, .lossText
-	cp OPP_RIVAL3
-	jr z, .lossText
-	cp OPP_PROF_OAK
-	jr z, .lossText
-	jr .noLossText
+	jr .lossText
 .lossText
 	lb bc, 8, 21
 .surrendered
@@ -1222,11 +1215,17 @@ HandlePlayerBlackOut:
 	ld b, SET_PAL_BATTLE_BLACK
 	call RunPaletteCommand
 
-	; edited, to handle surrender from a trainer
+	ld a, [hGBC]
+	and a
+	jr z, .notGBC
+	ld d, 14
+	farcall LoadBGMapAttributes
+
 	ld a, [wSurrenderedFromTrainerBattle]
 	and a
 	ld hl, PlayerGaveUpText
 	jr nz, .noLinkBattle
+.notGBC
 
 	ld hl, PlayerBlackedOutText2
 	ld a, [wLinkState]

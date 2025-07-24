@@ -653,6 +653,13 @@ DEF index = 0
 		call TransferCurOBPData
 DEF index = index + 1
 	ENDR
+
+	ld a, PAL_EXP
+	call GetGBCBasePalAddress
+	xor a
+	call DMGPalToGBCPal
+	ld a, 4
+	call TransferCurBGPData
 	ret
 
 GetGBCBasePalAddress:: ;shinpokerednote: gbcnote: new function
@@ -771,7 +778,7 @@ BufferBGPPal:: ;shinpokerednote: gbcnote: code from pokemon yellow
 	ld de, wBGPPalsBuffer
 	add hl, de	;hl now points to wBGPPalsBuffer + 8*index
 	ld de, wGBCPal
-	ld c, PAL_SIZE
+	ld c, PALETTE_SIZE
 .loop	;copy the 8 bytes of wGBCPal to its indexed spot in wBGPPalsBuffer
 	ld a, [de]
 	ld [hli], a
@@ -796,6 +803,7 @@ TransferBGPPals:: ;shinpokerednote: gbcnote: code from pokemon yellow
 .lcdDisabled
 	call .DoTransfer
 	reti	;enable interrupts
+
 .DoTransfer:
 	xor a
 	or $80 ; set the auto-increment bit of rBPGI
@@ -942,7 +950,11 @@ TranslatePalPacketToBGMapAttributes::
 .foundMatchingPointer
 	push de
 	ld d, c
-	callfar LoadBGMapAttributes
+	cp 11
+	jr nz, .notBattle
+	ld d, 14
+.notBattle
+	farcall LoadBGMapAttributes
 	pop de
 	ret
 
