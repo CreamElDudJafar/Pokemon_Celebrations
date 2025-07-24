@@ -440,8 +440,8 @@ DisplayChangeBoxMenu:
 	ld [wLastMenuItem], a
 	decoord 0, 0
 	call DrawCurrentBoxPrompt
-	callfar SendPokeballPal
 	jr nz, .printPrompt
+	call SendPokeballPal
 	ld hl, ChooseABoxText
 .printPrompt
 	rst _PrintText
