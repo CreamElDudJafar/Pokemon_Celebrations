@@ -197,6 +197,7 @@ INCLUDE "engine/battle/move_effects/heal.asm"
 INCLUDE "engine/battle/move_effects/transform.asm"
 INCLUDE "engine/battle/move_effects/reflect_light_screen.asm"
 INCLUDE "data/pokemon/copy_base_stats.asm"
+INCLUDE "engine/battle/decrement_pp.asm" ; Moved from Battle Engine 11/Version Graphics
 
 
 SECTION "Battle Core", ROMX
@@ -307,9 +308,8 @@ INCLUDE "engine/events/hidden_objects/blues_room.asm"
 INCLUDE "engine/events/hidden_objects/pokecenter_pc.asm"
 
 
-SECTION "Battle Engine 11", ROMX
+SECTION "Version Graphics", ROMX
 
-INCLUDE "engine/battle/decrement_pp.asm"
 INCLUDE "gfx/version.asm"
 
 
