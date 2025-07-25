@@ -361,11 +361,6 @@ INCLUDE "data/battle_anims/frame_blocks.asm"
 INCLUDE "engine/movie/evolution.asm"
 INCLUDE "engine/overworld/elevator.asm"
 
-SECTION "bank2F", ROMX
-
-INCLUDE "data/sgb/sgb_palettes.asm"
-
-
 SECTION "Engine Spillover", ROMX
 
 INCLUDE "engine/menus/item_descriptions.asm"
