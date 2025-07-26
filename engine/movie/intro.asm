@@ -30,6 +30,17 @@ PlayIntroScene:
 	call UpdateGBCPal_BGP
 	call UpdateGBCPal_OBP0
 	call UpdateGBCPal_OBP1
+
+IF DEF(_BLUE)
+	push de
+	ld d, CONVERT_OBP0
+	ld e, 0
+	ld a, JIGGLYPUFF
+	ld [wcf91], a
+	callfar TransferMonPal ;gbcnote - jigglypuff object needs its pal in blue version
+	pop de
+ENDC
+
 	xor a
 	ldh [hSCX], a
 	ld b, TILEMAP_GENGAR_INTRO_1
