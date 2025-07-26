@@ -15,6 +15,8 @@ DrawFrameBlock:
 	ld a, [wFBTileCounter]
 	inc a
 	ld [wFBTileCounter], a
+	ld a, 2
+	ld [wdef5], a
 	ld a, [wSubAnimTransform]
 	dec a
 	jr z, .flipHorizontalAndVertical   ; SUBANIMTYPE_HVFLIP
@@ -46,6 +48,12 @@ DrawFrameBlock:
 .finishCopying ; finish copying values to OAM (when subanimation not transformed)
 	add [hl] ; X offset
 	ld [de], a ; store X
+	cp 88
+	jr c, .asm_78056
+	ld a, [wdef5]
+	inc a
+	ld [wdef5], a
+.asm_78056
 	inc hl
 	inc de
 	ld a, [hli]
@@ -53,6 +61,9 @@ DrawFrameBlock:
 	ld [de], a ; store tile ID
 	inc de
 	ld a, [hli]
+	ld b, a
+	ld a, [wdef5]
+	or b
 	ld [de], a ; store flags
 	inc de
 	jp .nextTile
@@ -71,6 +82,12 @@ DrawFrameBlock:
 	ld a, 168
 	sub b ; flip X coordinate
 	ld [de], a ; store X
+	cp 88
+	jr c, .asm_78087
+	ld a, [wdef5]
+	inc a
+	ld [wdef5], a
+.asm_78087
 	inc hl
 	inc de
 	ld a, [hli]
@@ -90,7 +107,8 @@ DrawFrameBlock:
 	jr z, .storeFlags1
 	ld b, 0
 .storeFlags1
-	ld a, b
+	ld a, [wdef5]
+	or b
 	ld [de], a
 	inc de
 	jp .nextTile
@@ -107,6 +125,12 @@ DrawFrameBlock:
 	ld a, 168
 	sub b ; flip X coordinate
 	ld [de], a ; store X
+	cp 88
+	jr c, .asm_780c8
+	ld a, [wdef5]
+	inc a
+	ld [wdef5], a
+.asm_780c8
 	inc hl
 	inc de
 	ld a, [hli]
@@ -122,6 +146,9 @@ DrawFrameBlock:
 .disableHorizontalFlip
 	res 5, a
 .storeFlags2
+	ld b, a
+	ld a, [wdef5]
+	or b
 	ld [de], a
 	inc de
 .nextTile
@@ -1009,6 +1036,7 @@ AnimationFlashScreenLong:
 	cp 1
 	jr z, .endOfPalettes
 	ldh [rBGP], a
+	call UpdateGBCPal_BGP
 	call FlashScreenLongDelay
 	jr .innerLoop
 .endOfPalettes
@@ -1108,17 +1136,17 @@ AnimationResetScreenPalette:
 	lb bc, $e4, $e4
 	jr SetAnimationBGPalette
 
-AnimationUnusedPalette3:
-	lb bc, $00, $00
-	jr SetAnimationBGPalette
+;AnimationUnusedPalette3:
+;	lb bc, $00, $00
+;	jr SetAnimationBGPalette
 
 AnimationLightScreenPalette:
 ; Changes the screen to use a palette with light colors.
 	lb bc, $90, $90
 	jr SetAnimationBGPalette
 
-AnimationUnusedPalette4:
-	lb bc, $40, $40
+;AnimationUnusedPalette4:
+;	lb bc, $40, $40
 
 SetAnimationBGPalette:
 	ld a, [wOnSGB]
@@ -1173,14 +1201,30 @@ AnimationWaterDropletsEverywhere:
 _AnimationWaterDroplets:
 	ld hl, wShadowOAM
 .loop
+	ld a, $1
+	ld [wdef5], a
 	ld a, [wBaseCoordY]
 	ld [hli], a ; Y
+	cp 40
+	jr c, .asm_792d7
+	ld a, [wdef5]
+	inc a
+	ld [wdef5], a
+.asm_792d7
 	ld a, [wBaseCoordX]
 	add 27
 	ld [wBaseCoordX], a
 	ld [hli], a ; X
+	cp 88
+	jr c, .asm_792ee
+	ld a, [wdef5]
+	and $2
+	and $3
+	ld [wdef5], a
+.asm_792ee
 	ld a, [wDropletTile]
 	ld [hli], a ; tile
+	ld a, [wdef5]
 	xor a
 	ld [hli], a ; attribute
 	ld a, [wBaseCoordX]
@@ -1559,6 +1603,8 @@ AnimationSpiralBallsInward:
 	ld a, [hl]
 	cp $ff
 	jr z, .done
+	ld a, $2
+	ld [wdef5], a
 	ld a, [wSpiralBallsBaseY]
 	add [hl]
 	ld [de], a ; Y
@@ -1567,9 +1613,20 @@ AnimationSpiralBallsInward:
 	ld a, [wSpiralBallsBaseX]
 	add [hl]
 	ld [de], a ; X
+	cp 88
+	jr c, .asm_79524
+	ld a, $3
+	ld [wdef5], a
+.asm_79524
 	inc hl
 	inc de
 	inc de
+	ld a, [de]
+	and $f0
+	ld b, a
+	ld a, [wdef5]
+	or b
+	ld [de], a
 	inc de
 	dec c
 	jr nz, .innerLoop
@@ -2384,6 +2441,7 @@ AnimationLeavesFalling:
 	call AnimationFallingObjects
 	pop af
 	ldh [rOBP0], a
+	call UpdateGBCPal_OBP0
 	ret
 
 AnimationPetalsFalling:
@@ -2439,6 +2497,8 @@ FallingObjects_UpdateOAMEntry:
 ; movement byte.
 	ld hl, wShadowOAM
 	add hl, de
+	ld a, 1
+	ld [wdef5], a
 	ld a, [hl]
 	inc a
 	inc a
@@ -2447,6 +2507,12 @@ FallingObjects_UpdateOAMEntry:
 	ld a, 160 ; if Y >= 112, put it off-screen
 .next
 	ld [hli], a ; Y
+	cp 40
+	jr c, .asm_79e51
+	ld a, [wdef5]
+	inc a
+	ld [wdef5], a
+.asm_79e51
 	ld a, [wFallingObjectMovementByte]
 	ld b, a
 	ld de, FallingObjects_DeltaXs
@@ -2463,6 +2529,13 @@ FallingObjects_UpdateOAMEntry:
 	ld a, [de]
 	add [hl]
 	ld [hli], a ; X
+	cp 88
+	jr c, .asm_79e75
+	ld a, [wdef5]
+	add $2
+	and $3
+	ld [wdef5], a
+.asm_79e75
 	inc hl
 	xor a ; no horizontal flip
 	jr .next2
@@ -2472,9 +2545,19 @@ FallingObjects_UpdateOAMEntry:
 	ld a, [hl]
 	sub b
 	ld [hli], a ; X
+	cp 88
+	jr c, .asm_79e5c
+	ld a, [wdef5]
+	add $2
+	and $3
+	ld [wdef5], a
+.asm_79e5c
 	inc hl
 	ld a, (1 << OAM_X_FLIP)
 .next2
+	ld b, a
+	ld a, [wdef5]
+	or b
 	ld [hl], a ; attribute
 	ret
 
@@ -2563,7 +2646,7 @@ AnimationShakeEnemyHUD:
 	ldh a, [hGBC]
 	and a
 	jr z, .notGBC
-	ld c, 13
+	ld d, 13
 	farcall LoadBGMapAttributes
 .notGBC
 
@@ -2604,7 +2687,7 @@ AnimationShakeEnemyHUD:
 	ldh a, [hGBC]
 	and a
 	jr z, .notGBC2
-	ld c, 14
+	ld d, 11
 	farcall LoadBGMapAttributes
 .notGBC2
 	xor a

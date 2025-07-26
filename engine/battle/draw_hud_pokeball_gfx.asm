@@ -178,6 +178,8 @@ SetupPlayerAndEnemyPokeballs:
 	ld [hl], $40
 	ld a, 8
 	ld [wHUDPokeballGfxOffsetX], a
+	xor a
+	ld [wdef5], a
 	ld hl, wShadowOAM
 	call WritePokeballOAMData
 	ld hl, wEnemyMons
