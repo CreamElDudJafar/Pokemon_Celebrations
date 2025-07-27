@@ -127,7 +127,26 @@ ENDC
 	call GetMonHeader
 	hlcoord 6, 4
 	call LoadFlippedFrontSpriteByMonIndex
-	call MovePicLeft
+;	call MovePicLeft
+
+;gbcnote - Nidorino needs its pal
+	ld a, %11100100
+	ld [rBGP], a
+	call UpdateGBCPal_BGP
+	
+	push af
+	push bc
+	push hl
+	push de
+	ld d, CONVERT_BGP
+	ld e, 0
+	callfar TransferMonPal 
+	pop de
+	pop hl
+	pop bc
+	pop af	
+	call MovePicLeft_NoPalUpdate
+
 	ld hl, OakSpeechText2
 	rst _PrintText
 	call GBFadeOutToWhite
@@ -298,13 +317,13 @@ IntroFadePalettes:
 	dc 3, 2, 1, 0
 
 MovePicLeft:
-	ld a, 119
-	ldh [rWX], a
-	rst _DelayFrame
-
 	ld a, %11100100
 	ldh [rBGP], a
 	call UpdateGBCPal_BGP
+MovePicLeft_NoPalUpdate:
+	ld a, 119
+	ldh [rWX], a
+	rst _DelayFrame
 .next
 	rst _DelayFrame
 	ldh a, [rWX]
