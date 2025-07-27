@@ -72,9 +72,9 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_BADGE     ; $22
 	const PAL_CAVE      ; $23
 	const PAL_GAMEFREAK ; $24
-	const PAL_25
-	const PAL_26
-	const PAL_27
+	const PAL_PIKACHUS_BEACH ; $25
+	const PAL_PIKACHU_PORTRAIT ;$26
+	const PAL_PIKACHUS_BEACH_TITLE ; $27
 	const PAL_BLACKMON
 	const PAL_WHITEMON
 	const PAL_BLUEGREENMON

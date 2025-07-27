@@ -290,13 +290,13 @@ SetPal_TrainerCard:
 	ret
 
 ;gbcnote - added more pal functions
-SendUnknownPalPacket_7205d::
-	ld hl, UnknownPalPacket_72811
+SetPal_PikachusBeach::
+	ld hl, PalPacket_PikachusBeach
 	ld de, BlkPacket_WholeScreen
 	ret
 
-SendUnknownPalPacket_72064::
-	ld hl, UnknownPalPacket_72821
+SetPal_PikachusBeachTitle::
+	ld hl, PalPacket_PikachusBeachTitle
 	ld de, UnknownPacket_72751
 	ret
 
@@ -319,8 +319,8 @@ SetPalFunctions:
 	dw SetPal_Movedex
 	dw SetPal_MiddleScreenMonBox
 	;gbctest - adding packets from yellow
-	dw SendUnknownPalPacket_7205d
-	dw SendUnknownPalPacket_72064
+	dw SetPal_PikachusBeach
+	dw SetPal_PikachusBeachTitle
 
 ; The length of the blk data of each badge on the Trainer Card.
 ; The Rainbow Badge has 3 entries because of its many colors.
