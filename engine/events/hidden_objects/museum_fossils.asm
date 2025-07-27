@@ -36,6 +36,8 @@ DisplayMonFrontSpriteInBox:
 	call DisplayTextBoxID
 	call UpdateSprites
 	call Delay3 ; allow box to finish rendering before setting palette
+	ld b, SET_PAL_MIDDLE_SCREEN_MON_BOX
+	call RunPaletteCommand
 	ld a, [wcf91]
 	ld [wd0b5], a
 	call GetMonHeader
