@@ -289,6 +289,7 @@ INCLUDE "engine/pokemon/set_types.asm"
 INCLUDE "engine/events/hidden_objects/reds_room.asm"
 INCLUDE "engine/events/hidden_objects/route_15_binoculars.asm"
 INCLUDE "engine/events/hidden_objects/museum_fossils.asm"
+INCLUDE "engine/events/hidden_objects/fanclub_pictures.asm"
 INCLUDE "engine/events/hidden_objects/school_blackboard.asm"
 INCLUDE "engine/events/hidden_objects/vermilion_gym_trash.asm"
 
@@ -359,6 +360,15 @@ INCLUDE "data/battle_anims/frame_blocks.asm"
 INCLUDE "engine/movie/evolution.asm"
 INCLUDE "engine/overworld/elevator.asm"
 
+
+SECTION "bank1F", ROMX
+
+INCLUDE "engine/printer/serial.asm"
+INCLUDE "engine/printer/printer.asm"
+INCLUDE "engine/events/diploma2.asm"
+INCLUDE "engine/printer/printer2.asm"
+
+
 SECTION "Engine Spillover", ROMX
 
 INCLUDE "engine/menus/item_descriptions.asm"
@@ -371,7 +381,9 @@ INCLUDE "engine/menus/text_multi_button_prompt.asm"
 INCLUDE "engine/items/super_rod.asm"
 INCLUDE "engine/gfx/animated_tiles_code.asm"
 INCLUDE "engine/gbc/gbc_cpu_speed.asm"
+INCLUDE "engine/overworld/specific_script_flags.asm"
 INCLUDE "engine/battle/just_slot_machine_stuff.asm" ; free space for bank1E
+
 
 
 SECTION "Evo Moves", ROMX

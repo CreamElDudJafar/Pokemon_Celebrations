@@ -602,6 +602,14 @@ _KabutopsFossilText::
 	cont "rare #MON."
 	done
 
+_FanClubPicture1Text::
+	text "My cute RAPIDASH."
+	done
+
+_FanClubPicture2Text::
+	text "My beloved FEAROW."
+	done
+
 _LinkCableHelpText1::
 	text "TRAINER TIPS"
 
@@ -1836,6 +1844,11 @@ _CantUsePCHere:: ; new, for portablePC
 _ContCharText::
 	text "<_CONT>@"
 	text_end
+
+_NoPokemonText::
+	text "There are no"
+	line "#MON here!"
+	prompt
 
 _DifficultyText::
     text "Select Difficulty"

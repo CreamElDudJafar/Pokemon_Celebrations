@@ -85,6 +85,7 @@ HiddenObjectMaps:
 	db CERULEAN_CITY
 	db ROUTE_4
 	db DAYCARE
+	db POKEMON_FAN_CLUB
 	db -1 ; end
 
 HiddenObjectPointers:
@@ -175,6 +176,7 @@ HiddenObjectPointers:
 	dw CeruleanCityHiddenObjects
 	dw Route4HiddenObjects
 	dw DaycareHiddenObjects
+	dw PokemonFanClubHiddenObjects
 
 MACRO hidden_object
 	db \2 ; y coord
@@ -671,4 +673,9 @@ Route4HiddenObjects:
 
 DaycareHiddenObjects:
 	hidden_object 4, 0, SPRITE_FACING_UP, OpenPokemonCenterPC
+	db -1 ; end
+
+PokemonFanClubHiddenObjects:
+	hidden_object  1,  0, SPRITE_FACING_UP, FanClubPicture1
+	hidden_object  6,  0, SPRITE_FACING_UP, FanClubPicture2
 	db -1 ; end
