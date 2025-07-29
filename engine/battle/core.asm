@@ -1219,14 +1219,7 @@ HandlePlayerBlackOut:
 ; back to vanilla
 	ld a, [wCurOpponent]
 	cp OPP_RIVAL1
-	jr z, .lossText
-	cp OPP_RIVAL2
-	jr z, .lossText
-	cp OPP_RIVAL3
-	jr z, .lossText
-	cp OPP_PROF_OAK
-	jr z, .lossText
-	jr .noLossText
+	jr nz, .noLossText
 .lossText
 	lb bc, 8, 21
 .surrendered
