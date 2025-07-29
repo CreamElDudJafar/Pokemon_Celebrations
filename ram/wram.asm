@@ -2040,7 +2040,10 @@ wTilesetTalkingOverTiles:: ds 3
 
 wGrassTile:: db
 
-	ds 4
+wPrinterSettings:: db
+wPrinterConnectionOpen:: db
+wPrinterOpcode:: db
+	ds 1
 
 wNumBoxItems:: db
 ; item, quantity
@@ -2063,7 +2066,11 @@ wPlayerCoins:: dw ; BCD
 wMissableObjectFlags:: flag_array $100
 wMissableObjectFlagsEnd::
 
-	ds 2 ; was 6
+;	ds 2 ; was 6
+
+wSurfingMinigameHiScore:: dw ; little-endian BCD
+
+	ds 5
 
 ; saved copy of SPRITESTATEDATA1_IMAGEINDEX (used for sprite facing/anim)
 wSavedSpriteImageIndex:: db

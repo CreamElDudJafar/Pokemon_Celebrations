@@ -416,7 +416,7 @@ DisplayWildLocations:
 	ld b, $0
 	call DrawPlayerOrBirdSprite
 .done
-	ld hl wShadowOAM
+	ld hl, wShadowOAM
 	ld de, wShadowOAMBackup
 	ld bc, NUM_SPRITE_OAM_STRUCTS * 4
 	jp CopyData

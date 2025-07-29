@@ -192,6 +192,8 @@ ROMX $33
 ROMX $34
 	"Pics 8"
 	"Trainer Pics2"
+ROMX $33
+	"bank1F"
 WRAM0
 	"Audio RAM"
 	org $c100
