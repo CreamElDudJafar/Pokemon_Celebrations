@@ -108,8 +108,9 @@
 	const_next $150
 	const_skip
 	const EVENT_GOT_BIKE_VOUCHER
+	const EVENT_LEFT_FANCLUB_AFTER_BIKE_VOUCHER
 	const EVENT_BEAT_JENNY
-	const_skip 3
+	const_skip 2
 	const EVENT_SEEL_FAN_BOAST
 	const EVENT_PIKACHU_FAN_BOAST
 	const_skip 8
