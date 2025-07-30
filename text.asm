@@ -243,8 +243,6 @@ INCLUDE "text/MrPsychicsHouse.asm"
 
 INCLUDE "data/text/text_4.asm"
 
-INCLUDE "engine/battle/just_slot_machine_stuff.asm" ; free space for bank1E
-
 
 SECTION "Text 10", ROMX
 
@@ -281,6 +279,8 @@ ENDC
 SECTION "Move Names", ROMX
 
 INCLUDE "data/moves/names.asm"
+INCLUDE "text/tmhm_names.asm"
+tmhmNamesEnd:
 
 
 SECTION "Item Descriptions", ROMX
