@@ -146,10 +146,8 @@ INCLUDE "engine/pokemon/bills_pc.asm"
 SECTION "Battle Engine 3", ROMX
 
 INCLUDE "engine/battle/print_type.asm"
-; INCLUDE "engine/battle/save_trainer_name.asm" ;; Removed from game for space ;
+;INCLUDE "engine/battle/save_trainer_name.asm" ;; Removed from game for space ;
 INCLUDE "engine/battle/move_effects/focus_energy.asm"
-INCLUDE "text/tmhm_names.asm"
-tmhmNamesEnd:
 
 
 SECTION "Battle Engine 4", ROMX
@@ -384,6 +382,7 @@ INCLUDE "engine/items/super_rod.asm"
 INCLUDE "engine/gfx/animated_tiles_code.asm"
 INCLUDE "engine/gbc/gbc_cpu_speed.asm"
 INCLUDE "engine/overworld/specific_script_flags.asm"
+INCLUDE "engine/battle/just_slot_machine_stuff.asm" ; free space for bank1E
 
 
 SECTION "Evo Moves", ROMX
