@@ -38,7 +38,7 @@ _Route22Rival1DefeatedText::
 	prompt
 
 _Route22Rival1VictoryText::
-	text " What?"
+	text "What?"
 	line "Why do I have 2"
 	cont "#MON?"
 
