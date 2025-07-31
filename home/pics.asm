@@ -8,9 +8,7 @@ UncompressMonSprite::
 	ld [wSpriteInputPtr], a    ; fetch sprite input pointer
 	ld a, [hl]
 	ld [wSpriteInputPtr+1], a
-
-	ld a, [wcf91]
-	
+	ld a, [wcf91]	
 	cp FOSSIL_KABUTOPS
 	jr z, .RecallBank
 	cp FOSSIL_AERODACTYL
@@ -31,7 +29,7 @@ LoadMonFrontSprite::
 	call UncompressMonSprite
 	ld hl, wMonHSpriteDim
 	ld a, [hli]
-	LoadUncompressedBackSprite::
+LoadUncompressedBackSprite::
 	ld c, a
 	pop de
 	; fall through
