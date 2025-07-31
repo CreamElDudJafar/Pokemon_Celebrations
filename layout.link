@@ -99,7 +99,7 @@ ROMX $12
 	"Screen Effects"
 	"Maps 8"
 ROMX $13
-	"Pics 6"
+	"Trainer Pics"
 	"Maps 9"
 	"Predefs"
 ROMX $14
@@ -185,6 +185,13 @@ ROMX $31
 	org $4000
 	"Party Mon Sprites Gfx 2"
 	"Party Mon Sprites Routines"
+ROMX $32
+	"Pics 6"
+ROMX $33
+	"Pics 7"
+ROMX $34
+	"Pics 8"
+	"Trainer Pics2"
 WRAM0
 	"Audio RAM"
 	org $c100

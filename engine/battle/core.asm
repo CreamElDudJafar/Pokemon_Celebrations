@@ -7099,7 +7099,7 @@ _LoadTrainerPic:
 	and a
 	ld a, BANK(RedPicFront)
 	jr nz, .loadSprite
-	ld b, BANK ("Pics 12")
+	ld b, BANK ("Trainer Pics2")
 	ld a, [wCurOpponent]
 	cp OPP_JANINE
 	jr z, .loadBank
@@ -7107,7 +7107,7 @@ _LoadTrainerPic:
 	jr z, .loadBank
 	cp OPP_JENNY
 	jr z, .loadBank
-	ld b, BANK("Pics 6") ; this is where all trainers pics are (not counting Red's)
+	ld b, BANK("Trainer Pics") ; this is where all trainers pics are (not counting Red's)
 .loadBank
 	ld a, b
 .loadSprite
