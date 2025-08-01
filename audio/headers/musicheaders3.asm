@@ -114,3 +114,8 @@ Music_MeetMaleTrainer::
 	channel 1, Music_MeetMaleTrainer_Ch1
 	channel 2, Music_MeetMaleTrainer_Ch2
 	channel 3, Music_MeetMaleTrainer_Ch3
+
+Music_GBPrinter::
+	channel_count 1
+	channel 3, Music_GBPrinter_Ch3
+
