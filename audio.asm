@@ -17,9 +17,6 @@ INCLUDE "audio/headers/musicheaders2.asm"
 SECTION "Music Headers 3", ROMX
 INCLUDE "audio/headers/musicheaders3.asm"
 
-SECTION "Music Headers 4", ROMX
-INCLUDE "audio/headers/musicheaders4.asm"
-
 
 SECTION "Sound Effects 1", ROMX
 
@@ -353,10 +350,6 @@ INCLUDE "audio/sfx/cry1f_3.asm"
 INCLUDE "audio/sfx/cry20_3.asm"
 INCLUDE "audio/sfx/cry21_3.asm"
 INCLUDE "audio/sfx/cry22_3.asm"
-
-
-SECTION "Sound Effects 4", ROMX
-
 INCLUDE "audio/music/printer.asm"
 
 
