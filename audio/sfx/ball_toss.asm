@@ -2,6 +2,11 @@ SFX_Ball_Toss_Ch5:
 	duty_cycle 2
 	pitch_sweep 2, -7
 	square_note 15, 15, 2, 1920
+;	BUG: Someone forgot to close this out with pitchsweep 0, 0
+;		so the Sweep Register [ff10] will have the wrong audio settings
+;		until something else plays to modify the pitch sweep.
+;joenote - let's fix that
+	pitch_sweep  0, 0
 	sound_ret
 
 SFX_Ball_Toss_Ch6:
