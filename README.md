@@ -51,6 +51,7 @@ Some FEATURES:
 - KARATE CHOP is now a FIGHTING TYPE instead of NORMAL
  - Gust is now a Flying Type instead of NORMAL
 - Attack after waking up from Sleep 
+- Can click A Button on Snorlax to use Poke Flute
 - Sleep engine fixed (it works now like gen 2 - max 6 turns)
  - Removed 25% chance for enemy stat down moves to miss 
 - Swift will not hit throught Fly or Dig - Ghost now deals SUPER EFFECTIVE on Psychic Pokémon
