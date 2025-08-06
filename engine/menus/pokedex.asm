@@ -12,17 +12,15 @@ ShowPokedexMenu:
 	ld [wd11e], a
 	ldh [hJoy7], a
 .setUpGraphics
-	ld b, SET_PAL_GENERIC
-	call RunPaletteCommand
 	callfar LoadPokedexTilePatterns
-.loop
-	farcall SendPokeballPal
 	;;;;;;;;;;; PureRGBnote: ADDED: load these new button prompt graphics into VRAM
 	ld de, PokedexPromptGraphics
 	ld hl, vChars1 tile $40
 	lb bc, BANK(PokedexPromptGraphics), (PokedexPromptGraphicsEnd - PokedexPromptGraphics) / $10
 	call CopyVideoData
 ;;;;;;;;;;
+.loop
+	farcall SendPokeballPal
 .doPokemonListMenu
 	ld hl, wTopMenuItemY
 	ld a, 3
