@@ -12,17 +12,15 @@ ShowPokedexMenu:
 	ld [wd11e], a
 	ldh [hJoy7], a
 .setUpGraphics
-	ld b, SET_PAL_GENERIC
-	call RunPaletteCommand
 	callfar LoadPokedexTilePatterns
-.loop
-	farcall SendPokeballPal
 	;;;;;;;;;;; PureRGBnote: ADDED: load these new button prompt graphics into VRAM
 	ld de, PokedexPromptGraphics
 	ld hl, vChars1 tile $40
 	lb bc, BANK(PokedexPromptGraphics), (PokedexPromptGraphicsEnd - PokedexPromptGraphics) / $10
 	call CopyVideoData
 ;;;;;;;;;;
+.loop
+	farcall SendPokeballPal
 .doPokemonListMenu
 	ld hl, wTopMenuItemY
 	ld a, 3
@@ -94,8 +92,6 @@ HandlePokedexSideMenu:
 	add b
 	inc a
 	ld [wd11e], a
-	ld a, [wd11e]
-;	ld a, [wPokedexNum]
 	push af
 	ld a, [wDexMaxSeenMon]
 	push af ; this doesn't need to be preserved
@@ -534,7 +530,7 @@ IsPokemonBitSet:
 ; function to display pokedex data from outside the pokedex
 ShowPokedexData:
 	call GBPalWhiteOutWithDelay3
-	call ClearScreen
+;	call ClearScreen
 	call UpdateSprites
 	callfar LoadPokedexTilePatterns ; load pokedex tiles
 
