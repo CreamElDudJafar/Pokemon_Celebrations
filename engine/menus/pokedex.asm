@@ -530,7 +530,7 @@ IsPokemonBitSet:
 ; function to display pokedex data from outside the pokedex
 ShowPokedexData:
 	call GBPalWhiteOutWithDelay3
-;	call ClearScreen
+	call ClearScreen
 	call UpdateSprites
 	callfar LoadPokedexTilePatterns ; load pokedex tiles
 
