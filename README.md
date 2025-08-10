@@ -26,6 +26,7 @@ Some FEATURES:
  - IN-GAME MOVES LEARNSET POKEDEX
 - Base Stats displayed in POKEDEX
 - Can Now Surrender In Battle
+- Sound Test in Options Menu (Press Select)
 - Can Obtain All Starters From NPCs Now (Like Yellow Version)
 - Added Pokémon like Magmar / Electabuzz / Staryu and others to earlier routes (consult documentation) - Infinite TM's (they are reusable like newer gens)
 - Gym Leaders, Rival, Rockets and other trainers had a buff in level, moves and parties (some parties to match Anime/Lets go Pikachu/References)
