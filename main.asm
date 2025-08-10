@@ -376,6 +376,7 @@ INCLUDE "engine/menus/text_multi_button_prompt.asm"
 INCLUDE "engine/items/super_rod.asm"
 INCLUDE "engine/gfx/animated_tiles_code.asm"
 INCLUDE "engine/battle/just_slot_machine_stuff.asm" ; free space for bank1E
+INCLUDE "engine/menus/option_sound_test.asm"
 
 
 SECTION "Evo Moves", ROMX
