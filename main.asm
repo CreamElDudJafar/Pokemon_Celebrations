@@ -383,6 +383,8 @@ INCLUDE "engine/gfx/animated_tiles_code.asm"
 INCLUDE "engine/gbc/gbc_cpu_speed.asm"
 INCLUDE "engine/overworld/specific_script_flags.asm"
 INCLUDE "engine/battle/just_slot_machine_stuff.asm" ; free space for bank1E
+INCLUDE "engine/menus/options.asm"
+INCLUDE "engine/menus/option_sound_test.asm"
 
 
 
