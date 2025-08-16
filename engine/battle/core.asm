@@ -1242,7 +1242,6 @@ HandlePlayerBlackOut:
 	and a
 	ld hl, PlayerGaveUpText
 	jr nz, .noLinkBattle
-.notGBC
 	ld hl, PlayerBlackedOutText2
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING

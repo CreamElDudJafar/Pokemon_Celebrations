@@ -63,7 +63,7 @@ BikeShopClerkText:
 	call PlaceString
 	ld hl, BikeShopClerkDoYouLikeItText
 	rst _PrintText
-  ld hl, wd730
+  	ld hl, wd730
 	res 6, [hl]
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
