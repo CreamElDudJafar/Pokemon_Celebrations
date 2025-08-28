@@ -103,3 +103,13 @@ _SSAnne1FRoomsGentleman3Text::
 	para "I'm on the trail"
 	line "of TEAM ROCKET!"
 	done
+
+_SSAnne1FRoomsNurseAreYouTiredText::
+	text "Are you tired?"
+	line "You can rest"
+	cont "here for a bit!"
+	prompt
+
+_SSAnne1FRoomsNurseEnjoyThePartyText::
+	text "Enjoy the party!"
+	done
