@@ -115,5 +115,6 @@ InternalMapEntries:
 	internal_map CERULEAN_BADGE_HOUSE,          10,  2, CeruleanCityName
 	internal_map ROCK_TUNNEL_B1F,               14,  3, RockTunnelName
 	internal_map SILPH_CO_ELEVATOR,             10,  5, SilphCoName
+	internal_map BLUES_HOUSE_2F,   		     2, 11, PalletTownName
 	internal_map AGATHAS_ROOM,                   0,  2, PokemonLeagueName
 	db -1 ; end

@@ -40,7 +40,7 @@ MapHeaderPointers::
 	dw Route25_h
 	dw RedsHouse1F_h
 	dw RedsHouse2F_h
-	dw BluesHouse_h
+	dw BluesHouse1F_h
 	dw OaksLab_h
 	dw ViridianPokecenter_h
 	dw ViridianMart_h
@@ -245,7 +245,7 @@ MapHeaderPointers::
 	dw SilphCo2F_h ; UNUSED_MAP_F1
 	dw SilphCo2F_h ; UNUSED_MAP_F2
 	dw SilphCo2F_h ; UNUSED_MAP_F3
-	dw SilphCo2F_h ; UNUSED_MAP_F4
+	dw BluesHouse2F_h
 	dw LoreleisRoom_h
 	dw BrunosRoom_h
 	dw AgathasRoom_h
