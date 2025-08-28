@@ -2070,10 +2070,10 @@ wGameProgressFlags::
 wOaksLabCurScript:: db
 wPalletTownCurScript:: db
 	ds 1
-wBluesHouseCurScript:: db
+wBluesHouse1FCurScript:: db
 wViridianCityCurScript:: db
 wRoute1CurScript:: db
-	ds 1
+wBluesHouse2FCurScript:: db
 wPewterCityCurScript:: db
 wRoute3CurScript:: db
 wRoute4CurScript:: db

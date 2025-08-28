@@ -187,6 +187,7 @@ ROMX $31
 	"Party Mon Sprites Routines"
 ROMX $33
 	"bank1F"
+	"Tilesets 4"
 WRAM0
 	"Audio RAM"
 	org $c100

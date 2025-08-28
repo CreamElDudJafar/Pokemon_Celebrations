@@ -577,8 +577,17 @@ _FightingDojoText::
 _RedBedroomSNESText::
 	text "<PLAYER> is"
 	line "playing the N64!"
-	cont "...Okay!"
-	cont "It's time to go!"
+
+	para "...Okay!"
+	line "It's time to go!"
+	done
+
+_BlueBedroomSNESText::
+	text "<PLAYER> is"
+	line "playing the SNES!"
+
+	para "...Okay!"
+	line "It's time to go!"
 	done
 
 _Route15UpstairsBinocularsText::
