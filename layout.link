@@ -187,6 +187,7 @@ ROMX $31
 	"Party Mon Sprites Routines"
 ROMX $33
 	"bank1F"
+	"Tilesets 4"
 ROMX $34
 	"Pics 6"
 ROMX $35

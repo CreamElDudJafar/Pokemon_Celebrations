@@ -1,25 +1,25 @@
-BluesHouse_Script:
+BluesHouse1F_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, BluesHouse_ScriptPointers
-	ld a, [wBluesHouseCurScript]
+	ld hl, BluesHouse1F_ScriptPointers
+	ld a, [wBluesHouse1FCurScript]
 	jp CallFunctionInTable
 
-BluesHouse_ScriptPointers:
+BluesHouse1F_ScriptPointers:
 	def_script_pointers
-	dw_const BluesHouseDefaultScript, SCRIPT_BLUESHOUSE_DEFAULT
-	dw_const DoRet,                   SCRIPT_BLUESHOUSE_NOOP
+	dw_const BluesHouse1FDefaultScript, SCRIPT_BLUESHOUSE1F_DEFAULT
+	dw_const DoRet,                   SCRIPT_BLUESHOUSE1F_NOOP
 
-BluesHouseDefaultScript:
+BluesHouse1FDefaultScript:
 	SetEvent EVENT_ENTERED_BLUES_HOUSE
-	ld a, SCRIPT_BLUESHOUSE_NOOP
-	ld [wBluesHouseCurScript], a
+	ld a, SCRIPT_BLUESHOUSE1F_NOOP
+	ld [wBluesHouse1FCurScript], a
 	ret
 
-BluesHouse_TextPointers:
+BluesHouse1F_TextPointers:
 	def_text_pointers
-	dw_const BluesHouseDaisySittingText, TEXT_BLUESHOUSE_DAISY_SITTING
-	dw_const BluesHouseDaisyWalkingText, TEXT_BLUESHOUSE_DAISY_WALKING
-	dw_const BluesHouseTownMapText,      TEXT_BLUESHOUSE_TOWN_MAP
+	dw_const BluesHouseDaisySittingText, TEXT_BLUESHOUSE1F_DAISY_SITTING
+	dw_const BluesHouseDaisyWalkingText, TEXT_BLUESHOUSE1F_DAISY_WALKING
+	dw_const BluesHouseTownMapText,      TEXT_BLUESHOUSE1F_TOWN_MAP
 
 BluesHouseDaisySittingText:
 	text_asm
