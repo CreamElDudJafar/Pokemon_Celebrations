@@ -194,6 +194,7 @@ ROMX $34
 	"Trainer Pics2"
 ROMX $33
 	"bank1F"
+	"Tilesets 4"
 WRAM0
 	"Audio RAM"
 	org $c100

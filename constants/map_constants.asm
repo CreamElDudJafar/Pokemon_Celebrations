@@ -58,7 +58,7 @@ DEF FIRST_ROUTE_MAP EQU const_value
 DEF FIRST_INDOOR_MAP EQU const_value
 	map_const REDS_HOUSE_1F,                  4,  4 ; $25
 	map_const REDS_HOUSE_2F,                  4,  4 ; $26
-	map_const BLUES_HOUSE,                    4,  4 ; $27
+	map_const BLUES_HOUSE_1F,                 4,  4 ; $27
 	map_const OAKS_LAB,                       5,  6 ; $28
 	map_const VIRIDIAN_POKECENTER,            7,  4 ; $29
 	map_const VIRIDIAN_MART,                  4,  4 ; $2A
@@ -263,7 +263,7 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const UNUSED_MAP_F1,                  0,  0 ; $F1
 	map_const UNUSED_MAP_F2,                  0,  0 ; $F2
 	map_const UNUSED_MAP_F3,                  0,  0 ; $F3
-	map_const UNUSED_MAP_F4,                  0,  0 ; $F4
+	map_const BLUES_HOUSE_2F,                 4,  4 ; $F4
 	map_const LORELEIS_ROOM,                  5,  6 ; $F5
 	map_const BRUNOS_ROOM,                    5,  6 ; $F6
 	map_const AGATHAS_ROOM,                   5,  6 ; $F7
