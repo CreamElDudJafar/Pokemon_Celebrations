@@ -98,8 +98,8 @@ SpriteSheetPointerTable:
 	overworld_sprite VoltorbSprite, 12         ; SPRITE_VOLTORB
         overworld_sprite ElectrodeSprite, 12       ; SPRITE_ELECTRODE
 	overworld_sprite KabutoSprite, 12          ; SPRITE_KABUTO
-	overworld_sprite PikadollSprite, 12             ; SPRITE_PIKADOLL
-	overworld_sprite JiggdollSprite, 12             ; SPRITE_JIGGDOLL
+	overworld_sprite PikadollSprite, 12        ; SPRITE_PIKADOLL
+	overworld_sprite JiggdollSprite, 12        ; SPRITE_JIGGDOLL
 	overworld_sprite BrockSprite, 12
 	overworld_sprite MistySprite, 12
 	overworld_sprite SurgeSprite, 12
@@ -121,4 +121,6 @@ SpriteSheetPointerTable:
 	overworld_sprite GamblerAsleepSprite, 4     ; SPRITE_UNUSED_GAMBLER_ASLEEP_1
 	overworld_sprite GamblerAsleepSprite, 4     ; SPRITE_UNUSED_GAMBLER_ASLEEP_2
 	overworld_sprite GamblerAsleepSprite, 4     ; SPRITE_GAMBLER_ASLEEP
+	overworld_sprite Pokedex1Sprite,      4     ; SPRITE_POKEDEX1
+	overworld_sprite Pokeball2Sprite,     4     ; SPRITE_POKE_BALL2
 	assert_table_length NUM_SPRITES
