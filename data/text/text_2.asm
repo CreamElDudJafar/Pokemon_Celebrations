@@ -1669,9 +1669,9 @@ _WhichPrizeText::
 	line "you want?"
 	done
 
-_HereYouGoText::
-	text "Here you go!@"
-	text_end
+;_HereYouGoText::
+;	text "Here you go!@"
+;	text_end
 
 _SoYouWantPrizeText::
 	text "So, you want"
