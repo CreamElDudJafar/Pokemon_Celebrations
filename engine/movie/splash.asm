@@ -180,7 +180,6 @@ SmallStarsWave1Coords:
 	db $68,$58
 	db $04,$68
 	db $78,$07
-
 SmallStarsWave2Coords:
 	db $68,$38
 	db $05,$68
@@ -188,7 +187,6 @@ SmallStarsWave2Coords:
 	db $68,$60
 	db $04,$68
 	db $70,$07
-
 SmallStarsWave3Coords:
 	db $68,$34
 	db $05,$68
@@ -196,7 +194,6 @@ SmallStarsWave3Coords:
 	db $68,$54
 	db $06,$68
 	db $64,$07
-
 SmallStarsWave4Coords:
 	db $68,$3c
 	db $05,$68
@@ -204,7 +201,6 @@ SmallStarsWave4Coords:
 	db $68,$6c
 	db $07,$68
 	db $74,$07
-
 SmallStarsEmptyWave:
 	db -1
 
@@ -255,10 +251,10 @@ GameFreakLogoOAMDataEnd:
 
 GameFreakShootingStarOAMData:	;shinpokerednote: gbcnote: changing the attribute to use palette 4 via GBC bits
 ;last column is byte 3 of OAM data; the attribute byte
-	db $00,$A0,$A0,$14
-	db $00,$A8,$A0,$34
-	db $08,$A0,$A1,$14
-	db $08,$A8,$A1,$34
+	dbsprite 20,  0,  0,  0, $a0, OAM_OBP1 | OAM_HIGH_PALS
+	dbsprite 21,  0,  0,  0, $a0, OAM_OBP1 | OAM_HIGH_PALS | OAM_HFLIP
+	dbsprite 20,  1,  0,  0, $a1, OAM_OBP1 | OAM_HIGH_PALS
+	dbsprite 21,  1,  0,  0, $a1, OAM_OBP1 | OAM_HIGH_PALS | OAM_HFLIP
 GameFreakShootingStarOAMDataEnd:
 
 FallingStar:
