@@ -675,12 +675,12 @@ InitGBCPalettes:	;shinpokerednote: gbcnote: updating this to work with the Yello
 	and $f8
 	cp $20	;check to see if hl points to a blk pal packet
 	jp z, TranslatePalPacketToBGMapAttributes	;jump if so
+
 	;otherwise hl points to a different pal packet or wPalPacket
 	inc hl
-DEF index = 0
-	REPT NUM_ACTIVE_PALS
+	FOR index, NUM_ACTIVE_PALS
 		IF index > 0
-			pop hl
+		    pop hl
 		ENDC
 
 		ld a, [hli]	;get palette ID into 'A'
@@ -710,7 +710,6 @@ DEF index = 0
 		call DMGPalToGBCPal
 		ld a, index + 4
 		call TransferCurOBPData
-DEF index = index + 1
 	ENDR
 	ld a, PAL_EXP
 	call GetGBCBasePalAddress
@@ -761,8 +760,7 @@ DMGPalToGBCPal::	;shinpokerednote: gbcnote: new function
 	ld [wLastOBP1], a
 .convert
 ;"A" now holds the palette data
-DEF color_index = 0
-	REPT NUM_COLORS
+	FOR color_index, NUM_PAL_COLORS
 		ld b, a	;"B" now holds the palette data
 		and %11	;"A" now has just the value for the shade of palette color 0
 		call .GetColorAddress
@@ -779,13 +777,12 @@ DEF color_index = 0
 		ld [wGBCPal + color_index * 2 + 1], a
 		pop de
 
-		IF color_index < (NUM_COLORS + -1)
+		IF color_index < NUM_PAL_COLORS + -1
 			ld a, b	;restore the palette data back into "A"
 			;rotate the palette data bits twice to the right so the next color in line becomes color 0
 			rrca
 			rrca
 		ENDC
-DEF color_index = color_index + 1
 	ENDR
 	ret
 .GetColorAddress:
@@ -810,14 +807,14 @@ TransferCurBGPData:: ;shinpokerednote: gbcnote: code from pokemon yellow
 	ldh a, [rLCDC]
 	and rLCDC_ENABLE_MASK
 	jr nz, .lcdEnabled
-	rept NUM_COLORS
+	REPT NUM_PAL_COLORS
 	call TransferPalColorLCDDisabled
-	endr
+	ENDR
 	jr .done
 .lcdEnabled
-	rept NUM_COLORS
+	REPT NUM_PAL_COLORS
 	call TransferPalColorLCDEnabled
-	endr
+	ENDR
 .done
 	pop de
 	ret	
@@ -836,7 +833,7 @@ BufferBGPPal:: ;shinpokerednote: gbcnote: code from pokemon yellow
 	ld de, wBGPPalsBuffer
 	add hl, de	;hl now points to wBGPPalsBuffer + 8*index
 	ld de, wGBCPal
-	ld c, PAL_SIZE
+	ld c, PALETTE_SIZE
 .loop	;copy the 8 bytes of wGBCPal to its indexed spot in wBGPPalsBuffer
 	ld a, [de]
 	ld [hli], a
@@ -889,14 +886,14 @@ TransferCurOBPData: ;shinpokerednote: gbcnote: code from pokemon yellow
 	ldh a, [rLCDC]
 	and rLCDC_ENABLE_MASK
 	jr nz, .lcdEnabled
-	rept NUM_COLORS
+	REPT NUM_PAL_COLORS
 	call TransferPalColorLCDDisabled
-	endr
+	ENDR
 	jr .done
 .lcdEnabled
-	rept NUM_COLORS
+	REPT NUM_PAL_COLORS
 	call TransferPalColorLCDEnabled
-	endr
+	ENDR
 .done
 	pop de
 	ret	
@@ -928,8 +925,7 @@ _UpdateGBCPal_BGP:: ;shinpokerednote: gbcnote: code from pokemon yellow
 	;otherwise a partial update (like during a screen whiteout) can be distracting
 	ld hl, hFlagsFFFA
 	set 1, [hl]
-DEF index = 0
-	REPT NUM_ACTIVE_PALS
+   	FOR index, NUM_ACTIVE_PALS
 		ld a, [wGBCBasePalPointers + index * 2]
 		ld e, a
 		ld a, [wGBCBasePalPointers + index * 2 + 1]
@@ -938,8 +934,8 @@ DEF index = 0
 		call DMGPalToGBCPal
 		ld a, index
 		call BufferBGPPal	; Copy wGBCPal to palette indexed in wBGPPalsBuffer.
-DEF index = index + 1
 	ENDR
+
 	ld a, PAL_EXP
 	call GetGBCBasePalAddress
 	xor a
@@ -956,8 +952,7 @@ _UpdateGBCPal_OBP:: ;shinpokerednote: gbcnote: code from pokemon yellow
 ; d then c = CONVERT_OBP0 or CONVERT_OBP1
 	ld a, d
 	ld c, a
-DEF index = 0
-	REPT NUM_ACTIVE_PALS
+	FOR index, NUM_ACTIVE_PALS
 		ld a, [wGBCBasePalPointers + index * 2]
 		ld e, a
 		ld a, [wGBCBasePalPointers + index * 2 + 1]
@@ -979,7 +974,6 @@ DEF index = 0
 		;OBP0: a = 0, 1, 2, or 3
 		;OBP1: a = 4, 5, 6, or 7
 		call TransferCurOBPData
-DEF index = index + 1
 	ENDR
 	ret
 	
