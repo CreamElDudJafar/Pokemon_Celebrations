@@ -196,9 +196,9 @@ HandlePartyHPBarAttributes:
 	push hl
 	ld a, [de]
 	and $3 ; 4 possible palettes
-	rept 7 ; hp bar length in tiles
+	REPT 7 ; hp bar length in tiles
 	ld [hli], a
-	endr
+	ENDR
 	pop hl
 	ld bc, $40 ; get 2nd party location
 	add hl, bc
