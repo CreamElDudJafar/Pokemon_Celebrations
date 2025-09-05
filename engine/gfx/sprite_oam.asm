@@ -129,7 +129,6 @@ PrepareOAMData::
 	ldh a, [hSpritePriority]
 	or [hl]
 .skipPriority
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;shinpokerednote: gbcnote: handling GBC bits for object table attributes
 
 	;Let's do this bit check now instead of later.
@@ -140,15 +139,13 @@ PrepareOAMData::
 	res 3, a ;0=vram0 & 1=vram1
 	and %11111100	;if on GBC, default to OBJ pal 0 or 4
 	res 2, a; default of OBP0 uses palette 0
-	bit 4, a ; 0=OBP0 or 1=OBP1
+	bit OAM_OBP_NUM, a ; 0=OBP0 or 1=OBP1
 	jr z, .spriteusesOBP0
 	set 2, a ; palette 4 is OBP1
 .spriteusesOBP0
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	inc hl
 	ld [de], a
 	inc e
-;	bit 0, a ; OAMFLAG_ENDOFDATA
 	pop af
 	jr z, .tileLoop
 
