@@ -116,7 +116,7 @@ HoFShowMonOrPlayer:
 	call LoadFrontSpriteByMonIndex
 	predef LoadMonBackPic
 .next1
-	lb bc, SET_PAL_POKEMON_WHOLE_SCREEN. 0
+	lb bc, SET_PAL_POKEMON_WHOLE_SCREEN, 0
 	call RunPaletteCommand
 	ld a, %11100100
 	ldh [rBGP], a
