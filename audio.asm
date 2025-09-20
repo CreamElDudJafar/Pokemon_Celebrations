@@ -350,7 +350,6 @@ INCLUDE "audio/sfx/cry1f_3.asm"
 INCLUDE "audio/sfx/cry20_3.asm"
 INCLUDE "audio/sfx/cry21_3.asm"
 INCLUDE "audio/sfx/cry22_3.asm"
-INCLUDE "audio/music/printer.asm"
 
 
 SECTION "Audio Engine 1", ROMX
@@ -389,7 +388,7 @@ INCLUDE "audio/music/routes3.asm"
 INCLUDE "audio/music/routes4.asm"
 INCLUDE "audio/music/indigoplateau.asm"
 INCLUDE "audio/music/pallettown.asm"
-INCLUDE "audio/music/unusedsong.asm"
+;INCLUDE "audio/music/unusedsong.asm"
 INCLUDE "audio/music/cities1.asm"
 INCLUDE "audio/sfx/get_item1_1.asm"
 INCLUDE "audio/music/museumguy.asm"
