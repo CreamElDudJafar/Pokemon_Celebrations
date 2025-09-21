@@ -154,7 +154,7 @@ DEF CRY_SFX_END EQUS "SFX_CRY_25 + 3"
 	music_const SFX_CUT,                SFX_Cut_1
 	music_const SFX_GO_INSIDE,          SFX_Go_Inside_1
 	music_const SFX_SWAP,               SFX_Swap_1
-	music_const SFX_59,                 SFX_59_1 ; unused, sounds similar to SFX_SLOTS_STOP_WHEEL
+	music_const SFX_59,                 SFX_59_1
 	music_const SFX_PURCHASE,           SFX_Purchase_1
 	music_const SFX_COLLISION,          SFX_Collision_1
 	music_const SFX_GO_OUTSIDE,         SFX_Go_Outside_1
@@ -191,7 +191,7 @@ DEF BATTLE_SFX_START EQUS "SFX_PECK"
 	music_const SFX_BATTLE_13,          SFX_Battle_13
 	music_const SFX_BATTLE_14,          SFX_Battle_14
 	music_const SFX_VINE_WHIP,          SFX_Vine_Whip
-	music_const SFX_BATTLE_16,          SFX_Battle_16 ; unused?
+;	music_const SFX_BATTLE_16,          SFX_Battle_16 ; unused?
 	music_const SFX_BATTLE_17,          SFX_Battle_17
 	music_const SFX_BATTLE_18,          SFX_Battle_18
 	music_const SFX_BATTLE_19,          SFX_Battle_19
