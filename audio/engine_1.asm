@@ -852,7 +852,7 @@ Audio1_note_pitch:
 
 Audio1_EnableChannelOutput:
 	ld b, 0
-	call Audio1_9972
+	call Audio1_ApplyMonoStereo
 	add hl, bc
 	ldh a, [rNR51]
 	or [hl] ; set this channel's bits
@@ -872,7 +872,7 @@ Audio1_EnableChannelOutput:
 ; If this is the SFX noise channel or a music channel whose corresponding
 ; SFX channel is off, apply stereo panning.
 	ld a, [wStereoPanning]
-	call Audio1_9972
+	call Audio1_ApplyMonoStereo
 	add hl, bc
 	and [hl]
 	ld d, a
@@ -971,7 +971,7 @@ Audio1_ApplyWavePatternAndFrequency:
 Audio1_SetSfxTempo:
 	call Audio1_IsCry
 	jr c, .isCry
-	call Audio1_96c3
+	call Audio1_IsBattleSFX
 	jr nc, .notCry
 .isCry
 	ld d, 0
@@ -995,7 +995,7 @@ Audio1_SetSfxTempo:
 Audio1_ApplyFrequencyModifier:
 	call Audio1_IsCry
 	jr c, .isCry
-	call Audio1_96c3
+	call Audio1_IsBattleSFX
 	jr nc, .done
 .isCry
 ; if playing a cry, add the cry's frequency modifier
@@ -1053,8 +1053,8 @@ Audio1_IsCry:
 	scf
 	ret
 
-Audio1_96c3:
-; Returns whether the currently playing audio is battle sfx in carry.
+Audio1_IsBattleSFX:
+; Returns whether the currently playing audio is a battle sfx in carry.
 	ld a, [wAudioROMBank]
 	cp BANK("Audio Engine 2")
 	jr nz, .no
@@ -1559,7 +1559,7 @@ Audio1_HWChannelDisableMasks:
 	db HW_CH1_DISABLE_MASK, HW_CH2_DISABLE_MASK, HW_CH3_DISABLE_MASK, HW_CH4_DISABLE_MASK ; channels 0-3
 	db HW_CH1_DISABLE_MASK, HW_CH2_DISABLE_MASK, HW_CH3_DISABLE_MASK, HW_CH4_DISABLE_MASK ; channels 4-7
 
-Audio1_9972:
+Audio1_ApplyMonoStereo:
 	push af
 	push bc
 	ld a, [wOptions]
