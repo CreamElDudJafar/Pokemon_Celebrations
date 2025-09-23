@@ -160,6 +160,8 @@ DebugItemsList:
 	db TOWN_MAP, 1
 	db SECRET_KEY, 1
 	db CARD_KEY, 1
+	db POKE_FLUTE, 1
+	db SILPH_SCOPE, 1
 	db S_S_TICKET, 1
 	db LIFT_KEY, 1
 	db CHEAT_CANDY, 1

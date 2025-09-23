@@ -411,7 +411,7 @@ INCLUDE "audio/music/pokecenter.asm"
 SECTION "Music 2", ROMX
 
 INCLUDE "audio/sfx/pokeflute_ch5_ch6.asm"
-;INCLUDE "audio/sfx/unused_fanfare.asm"
+;INCLUDE "audio/sfx/unused_fanfare.asm" ; Unused
 INCLUDE "audio/sfx/swap_2.asm"
 INCLUDE "audio/music/gymleaderbattle.asm"
 INCLUDE "audio/music/trainerbattle.asm"
@@ -423,6 +423,7 @@ INCLUDE "audio/sfx/caught_mon.asm"
 INCLUDE "audio/music/defeatedtrainer.asm"
 INCLUDE "audio/music/defeatedwildmon.asm"
 INCLUDE "audio/music/defeatedgymleader.asm"
+INCLUDE "audio/music/printer.asm"
 
 
 SECTION "Music 3", ROMX
