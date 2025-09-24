@@ -40,6 +40,4 @@ Music_DefeatedGymLeader::
 	channel 2, Music_DefeatedGymLeader_Ch2
 	channel 3, Music_DefeatedGymLeader_Ch3
 
-Music_GBPrinter::
-	channel_count 1
-	channel 3, Music_GBPrinter_Ch3
+Music_Audio2End::

@@ -997,7 +997,7 @@ TrainerBattleVictory:
 	cp PROF_OAK
 	jr z, .special1998
 	cp LANCE
-	jr nz, .special1998
+	jr nz, .notrival
 .special1998	
 	ld b, MUSIC_DEFEATED_GYM_LEADER
 	cp RIVAL3 ; final battle against rival
@@ -1036,9 +1036,7 @@ TrainerDefeatedText:
 
 PlayBattleVictoryMusic:
 	push af
-	ld a, SFX_STOP_ALL_MUSIC
-	ld [wNewSoundID], a
-	call PlaySoundWaitForCurrent
+	call StopAllMusic
 	ld c, BANK(Music_DefeatedTrainer)
 	pop af
 	call PlayMusic
