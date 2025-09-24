@@ -22,7 +22,7 @@ HallOfFamePC:
 	ldh [rBGP], a
 	call UpdateGBCPal_BGP
 	call EnableLCD
-	ld a, SFX_STOP_ALL_MUSIC
+	call StopAllMusic
 	call PlaySoundWaitForCurrent
 	ld c, BANK(Music_Credits)
 	ld a, MUSIC_CREDITS
