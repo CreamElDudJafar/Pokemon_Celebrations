@@ -23,7 +23,6 @@ HallOfFamePC:
 	call UpdateGBCPal_BGP
 	call EnableLCD
 	call StopAllMusic
-	call PlaySoundWaitForCurrent
 	ld c, BANK(Music_Credits)
 	ld a, MUSIC_CREDITS
 	call PlayMusic
