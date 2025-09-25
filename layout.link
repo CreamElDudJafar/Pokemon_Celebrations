@@ -177,26 +177,30 @@ ROMX $28
 ROMX $29
 	"Text 9"
 ROMX $2A
-	"Pokédex Text"
+	"Text 10"
 ROMX $2B
-	"Move Names"
+	"Text 11"
 ROMX $2C
+	"Pokédex Text"
+ROMX $2D
+	"Move Names"
+ROMX $2E
+	"bank1F"
+	"Tilesets 4"
+ROMX $2F
+	"GBC Mode Code"
+ROMX $31
 	org $4000
 	"Party Mon Sprites Gfx 1"
-ROMX $2D
+ROMX $32
 	org $4000
 	"Party Mon Sprites Gfx 2"
 	"Party Mon Sprites Routines"
-ROMX $2E
-	"GBC Mode Code"
-ROMX $2F
-	"bank1F"
-	"Tilesets 4"
-ROMX $34
+ROMX $33
 	"Pics 6"
-ROMX $35
+ROMX $34
 	"Pics 7"
-ROMX $36
+ROMX $35
 	"Pics 8"
 	"Trainer Pics2"
 WRAM0
