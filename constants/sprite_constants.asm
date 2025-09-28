@@ -104,6 +104,8 @@
 	const SPRITE_BILL
 	const SPRITE_OFFICER_JENNY
 	const SPRITE_JANINE
+	const SPRITE_JESSIE
+	const SPRITE_JAMES
 DEF FIRST_STILL_SPRITE EQU const_value
 	const SPRITE_POKE_BALL               ; $3d
 	const SPRITE_FOSSIL                  ; $3e

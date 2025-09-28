@@ -91,24 +91,26 @@ SpriteSheetPointerTable:
 	overworld_sprite ChopSprite, 12             ; SPRITE_CHOP
 	overworld_sprite NidofSprite, 12             ; SPRITE_NIDOF
 	overworld_sprite NidomSprite, 12             ; SPRITE_NIDOM
-	overworld_sprite GeySprite, 12             ; SPRITE_GEY
+	overworld_sprite GeySprite, 12              ; SPRITE_GEY
 	overworld_sprite PikaSprite, 12             ; SPRITE_PIKA
-	overworld_sprite ZapSprite, 12             ; SPRITE_ZAP
-	overworld_sprite BulbasaurSprite, 12       ; SPRITE_BULBASAUR
-	overworld_sprite VoltorbSprite, 12         ; SPRITE_VOLTORB
-        overworld_sprite ElectrodeSprite, 12       ; SPRITE_ELECTRODE
-	overworld_sprite KabutoSprite, 12          ; SPRITE_KABUTO
-	overworld_sprite PikadollSprite, 12        ; SPRITE_PIKADOLL
-	overworld_sprite JiggdollSprite, 12        ; SPRITE_JIGGDOLL
-	overworld_sprite BrockSprite, 12
-	overworld_sprite MistySprite, 12
-	overworld_sprite SurgeSprite, 12
-	overworld_sprite ErikaSprite, 12
-	overworld_sprite SabrinaSprite, 12
-	overworld_sprite BlaineSprite, 12
-	overworld_sprite BillSprite, 12	
+	overworld_sprite ZapSprite, 12              ; SPRITE_ZAP
+	overworld_sprite BulbasaurSprite, 12        ; SPRITE_BULBASAUR
+	overworld_sprite VoltorbSprite, 12          ; SPRITE_VOLTORB
+        overworld_sprite ElectrodeSprite, 12        ; SPRITE_ELECTRODE
+	overworld_sprite KabutoSprite, 12           ; SPRITE_KABUTO
+	overworld_sprite PikadollSprite, 12         ; SPRITE_PIKADOLL
+	overworld_sprite JiggdollSprite, 12         ; SPRITE_JIGGDOLL
+	overworld_sprite BrockSprite, 12	    ; SPRITE_BROCK
+	overworld_sprite MistySprite, 12	    ; SPRITE_MISTY
+	overworld_sprite SurgeSprite, 12	    ; SPRITE_SURGE
+	overworld_sprite ErikaSprite, 12            ; SPRITE_ERIKA
+	overworld_sprite SabrinaSprite, 12          ; SPRITE_JIGGDOLL
+	overworld_sprite BlaineSprite, 12	    ; SPRITE_BLAINE
+	overworld_sprite BillSprite, 12		    ; SPRITE_BILL
 	overworld_sprite OfficerJennySprite, 12     ; SPRITE_OFFICER_JENNY
 	overworld_sprite JanineSprite, 12           ; SPRITE_JANINE
+	overworld_sprite JessieSprite, 12           ; SPRITE_JESSIE
+	overworld_sprite JamesSprite, 12            ; SPRITE_JAMES
 	overworld_sprite PokeBallSprite, 4          ; SPRITE_POKE_BALL
 	overworld_sprite FossilSprite, 4            ; SPRITE_FOSSIL
 	overworld_sprite BoulderSprite, 4           ; SPRITE_BOULDER
