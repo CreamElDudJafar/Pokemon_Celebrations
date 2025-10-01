@@ -1,3 +1,3 @@
-_MtMoonB1FUnusedText::
-	text_start
-	done
+;_MtMoonB1FUnusedText::
+;	text_start
+;	done
