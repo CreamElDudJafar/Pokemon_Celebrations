@@ -17,31 +17,32 @@ Some FEATURES:
 - Backported Features from Yellow: GBC Color, Audio Options, Printer Options
 - Color Attacks / Color Pokeballs
 - Now you can Play Gen1 as a girl!
- - All 151 Pokémons can be caught or evolved without trading
- - Mew Under the Truck event restored
- - NPC Tradeback Guy in CELADON MART 1F (evolve trade evolutions/ or evolve them level up)
- - Now you can take both fossils in MT. MOON!
- - Teams have mixed Pokémon (no more 5 pidgey teams)
- - Aerodactyl / Omanyte / Kabuto level when revived now is 44, GIFT Lapras in Saffron now is level 34 / Eevee from Celadon Roof is 30.
- - Gust is now a Flying Type instead of NORMAL
- - IN-GAME MOVES LEARNSET POKEDEX
+- All 151 Pokémons can be caught or evolved without trading
+- Mew Under the Truck event restored
+- NPC Tradeback Guy in CELADON MART 1F (evolve trade evolutions/ or evolve them level up)
+- Now you can take both fossils in MT. MOON!
+- Teams have mixed Pokémon (no more 5 pidgey teams)
+- Aerodactyl / Omanyte / Kabuto level when revived now is 44, GIFT Lapras in Saffron now is level 34 / Eevee from Celadon Roof is 30.
+- Gust is now a Flying Type instead of NORMAL
+- IN-GAME MOVES LEARNSET POKEDEX
 - Base Stats displayed in POKEDEX
+- Can change between LAND, WATER (SURF), and RODs to see wild Pokemon locations
 - Can Now Surrender In Battle
 - Sound Test in Options Menu (Press Select)
 - Can Obtain All Starters From NPCs Now (Like Yellow Version)
 - Added Pokémon like Magmar / Electabuzz / Staryu and others to earlier routes (consult documentation) - Infinite TM's (they are reusable like newer gens)
 - Gym Leaders, Rival, Rockets and other trainers had a buff in level, moves and parties (some parties to match Anime/Lets go Pikachu/References)
- - Move Relearner added in Fuchsia - Move Deleter added in Vermilion (undeletable HMs)
- - All overworld Pokémon icons have been updated (no more generic ones)
- - Party Mini sprites have been updated - Caught Pokémon icon added in HUD Battle 
+- Move Relearner added in Fuchsia - Move Deleter added in Vermilion (undeletable HMs)
+- All overworld Pokémon icons have been updated (no more generic ones)
+- Party Mini sprites have been updated - Caught Pokémon icon added in HUD Battle 
 - Learnsets updated to match Pokemon Yellow updated one (eg. nidoran learns double kick at lower level) 
 - Several POKÉMON had learnsets buffs (eg: Charizard Fly)
--  - Pikachu and Raichu can learn SURF through HM, just like in Yellow version
- -  PROF. OAK gives you 5 POKÉBALLS when you receive the POKÉDEX.
- -  - TM names in BAG and MART (TM24 it says TM24 THNDRBLT)
- - 20 item bag space still (Port PC)
- - Auto HM use (eg: surf, just touch the water and say YES)
- - Deletable HM's 
+- Pikachu and Raichu can learn SURF through HM, just like in Yellow version
+- PROF. OAK gives you 5 POKÉBALLS when you receive the POKÉDEX.
+- TM names in BAG and MART (TM24 it says TM24 THNDRBLT)
+- 20 item bag space still (Port PC)
+- Auto HM use (eg: surf, just touch the water and say YES)
+- Deletable HM's 
 - Sort Items in BAG 
 - OAK Battle post game 
 - GYM LEADER AND ELITE 4 REMATCHES POST GAME
@@ -80,6 +81,7 @@ CREDITS: IF ANYONE IS MISSED PLEASE LET ME KNOW. IT’S HARD TO KEEP TRACK OF AL
 -CRZ-Shadows- and Yellow Legacy Team: A lot of QOL changes came from ideas or code used in there game. See their Github for all there amazing changes.
 - JustRegularLuna/Mateo: A lot of sprites for Pokemon and Pokeball sprites used from her amazing game RED++. Move Description code and others
 - Rangi42: Redstar/BlueStar For N64 Graphic, as well as overworld HM Functions
+- PokeFanMarcel- For the Nurse Joy SS Anne room, LAND,WATER, ROD Pokedex Area function, Running sprites and the code to make the EXP ALL a key item that can turn on or off
 - Porygondolier- Pokedex Remember Position
 - DarthBR
 - Dreams897
