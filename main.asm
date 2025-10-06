@@ -314,8 +314,6 @@ INCLUDE "gfx/version.asm"
 
 SECTION "bank1C", ROMX
 
-
-INCLUDE "engine/overworld/healing_machine.asm"
 INCLUDE "engine/overworld/player_animations.asm"
 INCLUDE "engine/battle/ghost_marowak_anim.asm"
 INCLUDE "engine/battle/battle_transitions.asm"
@@ -326,7 +324,6 @@ INCLUDE "engine/gfx/palettes.asm"
 INCLUDE "engine/menus/save.asm"
 INCLUDE "engine/items/tm_prices.asm"
 INCLUDE "engine/overworld/field_moves.asm"
-INCLUDE "engine/gfx/scroll_gfx_horizontally.asm"
 
 
 SECTION "Itemfinder 1", ROMX
@@ -378,7 +375,6 @@ INCLUDE "engine/overworld/select_button_functionality.asm"
 INCLUDE "engine/menus/multi_choice_menu.asm"
 INCLUDE "engine/menus/change_box_menu.asm"
 INCLUDE "engine/menus/text_multi_button_prompt.asm"
-INCLUDE "engine/items/super_rod.asm"
 INCLUDE "engine/gfx/animated_tiles_code.asm"
 INCLUDE "engine/gbc/gbc_cpu_speed.asm"
 INCLUDE "engine/overworld/specific_script_flags.asm"
@@ -388,7 +384,7 @@ INCLUDE "engine/menus/option_sound_test.asm"
 INCLUDE "engine/custom_function/coin_function.asm"
 INCLUDE "engine/custom_function/monlist.asm"
 INCLUDE "engine/gfx/set_attack_animation_palette.asm"
-
+INCLUDE "engine/overworld/healing_machine.asm"
 
 SECTION "Evo Moves", ROMX
 
@@ -412,3 +408,4 @@ SECTION "GBC Mode Code", ROMX
 ; shinpokerednote: gbcnote: include the bgmap files from pokemon yellow
 INCLUDE "data/sgb/bg_map_attributes.asm"
 INCLUDE "engine/gfx/bg_map_attributes.asm"
+INCLUDE "engine/gfx/scroll_gfx_horizontally.asm"
