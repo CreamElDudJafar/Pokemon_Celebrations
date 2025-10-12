@@ -219,11 +219,6 @@ BlkPacket_GameFreakIntro:
 	db $03, 12,11, 14,13, $03
 	db $00
 
-UnknownPacket_72751:
-	ATTR_BLK 1
-	ATTR_BLK_DATA %111, 1,1,0, 04,00, 15,05
-	ds 8
-
 
 PalPacket_Empty:          PAL_SET 0, 0, 0, 0
 PalPacket_PartyMenu:      PAL_SET PAL_MEWMON, PAL_GREENBAR, PAL_YELLOWBAR, PAL_REDBAR
@@ -236,8 +231,6 @@ PalPacket_TrainerCard:    PAL_SET PAL_MEWMON, PAL_BADGE, PAL_REDMON, PAL_YELLOWM
 PalPacket_Generic:        PAL_SET PAL_MEWMON, 0, 0, 0
 PalPacket_NidorinoIntro:  PAL_SET PAL_PURPLEMON, PAL_BLACK, 0, 0
 PalPacket_GameFreakIntro: PAL_SET PAL_GAMEFREAK, PAL_REDMON, PAL_VIRIDIAN, PAL_BLUEMON
-PalPacket_PikachusBeach:      PAL_SET PAL_PIKACHUS_BEACH, PAL_PIKACHUS_BEACH, PAL_PIKACHUS_BEACH, PAL_PIKACHUS_BEACH
-PalPacket_PikachusBeachTitle: PAL_SET PAL_PIKACHUS_BEACH, PAL_PIKACHUS_BEACH_TITLE, PAL_PIKACHUS_BEACH, PAL_PIKACHUS_BEACH
 
 PalTrnPacket:  PAL_TRN
 MltReq1Packet: MLT_REQ 1
@@ -334,3 +327,13 @@ DataSndPacket8:
 	db  $EA                 ; nop
 
 PalPacket_Movedex:              PAL_SET PAL_BLUEGREENMON, 0, 0, 0
+
+PalPacket_Celadon:        PAL_SET PAL_REDMON, PAL_ROUTE, PAL_BLUEMON, PAL_YELLOWMON
+
+BlkPacket_Celadon:
+	ATTR_BLK 4
+	ATTR_BLK_DATA %001, 0,0,0, 00,00, 04,17 ; left: pal 1
+	ATTR_BLK_DATA %001, 1,0,0, 05,00, 09,17 ; center left: pal 2
+	ATTR_BLK_DATA %001, 2,0,0, 10,00, 14,17 ; center right: pal 3
+	ATTR_BLK_DATA %001, 3,0,0, 15,00, 19,17 ; right: pal 4
+	ds 2, 0
