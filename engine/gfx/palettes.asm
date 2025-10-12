@@ -172,6 +172,22 @@ SetPal_GameFreakIntro:
 
 ; uses PalPacket_Empty to build a packet based on the current map
 SetPal_Overworld:
+	CheckEvent EVENT_CELADON_RAINBOW_COLORS_ACTIVE
+	jr z, .notCeladon
+	ld a, [wCurMap]
+	cp CELADON_CITY
+	jr z, .rainbow
+	cp FIRST_INDOOR_MAP
+	jr c, .notCeladon
+	ld a, [wLastMap]
+	cp CELADON_CITY
+	jr nz, .notCeladon
+	ld a, [wCurMap]
+	ld hl, NoRainbowCeladonMaps
+	ld de, 1
+	call IsInArray
+	jr nc, .rainbow
+.notCeladon
 	ld hl, PalPacket_Empty
 	ld de, wPalPacket
 	ld bc, $10
@@ -183,6 +199,27 @@ SetPal_Overworld:
 	ld a, SET_PAL_OVERWORLD
 	ld [wDefaultPaletteCommand], a
 	ret
+.rainbow
+	ld hl, PalPacket_Celadon
+	ld de, wPalPacket
+	ld bc, $10
+	rst _CopyData
+	ld hl, PalPacket_Celadon
+	ld de, BlkPacket_Celadon
+	ld a, SET_PAL_OVERWORLD
+	ld [wDefaultPaletteCommand], a
+	ret
+
+; some maps look weird with the celadon rainbow so don't use it in them even if turned on.
+NoRainbowCeladonMaps:
+	db CELADON_GYM
+	db GAME_CORNER
+	db ROCKET_HIDEOUT_B1F
+	db ROCKET_HIDEOUT_B2F
+	db ROCKET_HIDEOUT_B3F
+	db ROCKET_HIDEOUT_B4F
+	db ROCKET_HIDEOUT_ELEVATOR
+	db -1
 
 GetOverworldPalette:
 	ld a, [wCurMapTileset]
@@ -303,16 +340,6 @@ SetPal_TrainerCard:
 	ld de, wTrainerCardBlkPacket
 	ret
 
-;gbcnote - added more pal functions
-SetPal_PikachusBeach::
-	ld hl, PalPacket_PikachusBeach
-	ld de, BlkPacket_WholeScreen
-	ret
-
-SetPal_PikachusBeachTitle::
-	ld hl, PalPacket_PikachusBeachTitle
-	ld de, UnknownPacket_72751
-	ret
 
 SetPalFunctions:
 ; entries correspond to SET_PAL_* constants
@@ -332,9 +359,6 @@ SetPalFunctions:
 	dw SetPal_TrainerCard
 	dw SetPal_Movedex
 	dw SetPal_MiddleScreenMonBox
-	;gbctest - adding packets from yellow
-	dw SetPal_PikachusBeach
-	dw SetPal_PikachusBeachTitle
 
 ; The length of the blk data of each badge on the Trainer Card.
 ; The Rainbow Badge has 3 entries because of its many colors.
@@ -1026,7 +1050,7 @@ palPacketPointersStart::
 	dw wPartyMenuBlkPacket
 	dw wTrainerCardBlkPacket
 	dw BlkPacket_GameFreakIntro
-	dw UnknownPacket_72751
+	dw BlkPacket_Celadon
 	dw BlkPacket_PokemonMiddleScreenBox
 palPacketPointersEnd::
 
