@@ -48,16 +48,17 @@ Some FEATURES:
 - OAK Battle post game 
 - GYM LEADER AND ELITE 4 REMATCHES POST GAME
 - Message when PC is full
- - Check IV/DV - hold start/select and press STATS - EXP BAR - Caught Icon in battle 
+- SS Anne Icon In Town Map
+- Check IV/DV - hold start/select and press STATS - EXP BAR - Caught Icon in battle 
 - Moon Stone can be bought in Celadon Mart- Moon Stone can be bought in Celadon Mart
- - Rockets Received a buff in levels and parties
- - Reusable Repel B/W 
+- Rockets Received a buff in levels and parties
+- Reusable Repel B/W 
 - KARATE CHOP is now a FIGHTING TYPE instead of NORMAL
- - Gust is now a Flying Type instead of NORMAL
+- Gust is now a Flying Type instead of NORMAL
 - Attack after waking up from Sleep 
 - Can click A Button on Snorlax to use Poke Flute
 - Sleep engine fixed (it works now like gen 2 - max 6 turns)
- - Removed 25% chance for enemy stat down moves to miss 
+- Removed 25% chance for enemy stat down moves to miss 
 - Swift will not hit throught Fly or Dig - Ghost now deals SUPER EFFECTIVE on Psychic Pokémon
 - Can Push Up and Down on Stat Screen to switch Pokemon
 - Can teleport inside buildings and caves
@@ -82,7 +83,7 @@ CREDITS: IF ANYONE IS MISSED PLEASE LET ME KNOW. IT’S HARD TO KEEP TRACK OF AL
 -CRZ-Shadows- and Yellow Legacy Team: A lot of QOL changes came from ideas or code used in there game. See their Github for all there amazing changes.
 - JustRegularLuna/Mateo: A lot of sprites for Pokemon and Pokeball sprites used from her amazing game RED++. Move Description code and others
 - Rangi42: Redstar/BlueStar For N64 Graphic, as well as overworld HM Functions
-- PokeFanMarcel- For the Nurse Joy SS Anne room, LAND,WATER, ROD Pokedex Area function, Running sprites and the code to make the EXP ALL a key item that can turn on or off
+- PokeFanMarcel- For the Nurse Joy SS Anne room, LAND,WATER, ROD Pokedex Area function, SS Anne Icon In Town Map, Running sprites and the code to make the EXP ALL a key item that can turn on or off
 - Porygondolier- Pokedex Remember Position
 - DarthBR
 - Dreams897
