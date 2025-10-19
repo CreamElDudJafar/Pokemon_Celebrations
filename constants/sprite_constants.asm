@@ -62,39 +62,37 @@
 	const SPRITE_BRUNO                   ; $3a
 	const SPRITE_LORELEI                 ; $3b
 	const SPRITE_SEEL                    ; $3c
-	const SPRITE_POLI
-	const SPRITE_ART
-	const SPRITE_CHAN
-	const SPRITE_CLE
-	const SPRITE_CU
-	const SPRITE_KAN
-	const SPRITE_LAP
-	const SPRITE_MEO
+	const SPRITE_POLYWRATH
+	const SPRITE_ARTICUNO
+	const SPRITE_CHANSEY				 
+	const SPRITE_CLEFAIRY				
+	const SPRITE_CUBONE			
+	const SPRITE_KANGASKHAN	
+	const SPRITE_LAPRAS
+	const SPRITE_MEOWTH
 	const SPRITE_MEWTWO
-	const SPRITE_MOL
-	const SPRITE_RINOM
-	const SPRITE_PID
-	const SPRITE_PSY
-	const SPRITE_BRO
-	const SPRITE_SLOW
-	const SPRITE_SPE
-	const SPRITE_WIGG
-	const SPRITE_DUO
-	const SPRITE_FEAR
-	const SPRITE_JIGG
-	const SPRITE_MACHO
-	const SPRITE_CHOP
-	const SPRITE_NIDOF
-	const SPRITE_NIDOM
-	const SPRITE_GEY
-	const SPRITE_PIKA
-	const SPRITE_ZAP
+	const SPRITE_MOLTRES
+	const SPRITE_NIDORINO
+	const SPRITE_PIDGEOT
+	const SPRITE_PSYDUCK
+	const SPRITE_SLOWBRO
+	const SPRITE_SLOWPOKE
+	const SPRITE_SPEAROW
+	const SPRITE_WIGGLYTUFF
+	const SPRITE_DODUO				
+	const SPRITE_FEAROW					 
+	const SPRITE_JIGGLYPUFF	
+	const SPRITE_MACHOKE				 
+	const SPRITE_MACHOP					
+	const SPRITE_NIDORANF				 
+	const SPRITE_NIDORANM				 
+	const SPRITE_PIDGEY
+	const SPRITE_PIKACHU
+	const SPRITE_ZAPDOS
 	const SPRITE_BULBASAUR 
 	const SPRITE_VOLTORB
 	const SPRITE_ELECTRODE
 	const SPRITE_KABUTO
-	const SPRITE_PIKADOLL
-	const SPRITE_JIGGDOLL
 	const SPRITE_BROCK
 	const SPRITE_MISTY
 	const SPRITE_SURGE
