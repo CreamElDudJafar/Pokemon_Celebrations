@@ -67,46 +67,44 @@ SpriteSheetPointerTable:
 	overworld_sprite BrunoSprite, 12            ; SPRITE_BRUNO
 	overworld_sprite LoreleiSprite, 12          ; SPRITE_LORELEI
 	overworld_sprite SeelSprite, 12             ; SPRITE_SEEL
-	overworld_sprite PoliSprite, 12             ; SPRITE_POLI
-	overworld_sprite ArtSprite, 12              ; SPRITE_ART
-	overworld_sprite ChanSprite, 12             ; SPRITE_CHAN
-	overworld_sprite CleSprite, 12             ; SPRITE_CLE
-	overworld_sprite CuSprite, 12             ; SPRITE_CU
-	overworld_sprite KanSprite, 12             ; SPRITE_KAN
-	overworld_sprite LapSprite, 12             ; SPRITE_LAP
-	overworld_sprite MeoSprite, 12             ; SPRITE_MEO
-	overworld_sprite MewtwoSprite, 12             ; SPRITE_MEWTWO
-	overworld_sprite MolSprite, 12             ; SPRITE_MOL
-	overworld_sprite RinomSprite, 12             ; SPRITE_RINOM
-	overworld_sprite PidSprite, 12             ; SPRITE_PID
-	overworld_sprite PsySprite, 12             ; SPRITE_PSY
-	overworld_sprite BroSprite, 12             ; SPRITE_BRO
-	overworld_sprite SlowSprite, 12             ; SPRITE_SLOW
-	overworld_sprite SpeSprite, 12             ; SPRITE_SPE
-	overworld_sprite WiggSprite, 12             ; SPRITE_WIGG
-	overworld_sprite DuoSprite, 12             ; SPRITE_DUO
-	overworld_sprite FearSprite, 12             ; SPRITE_FEAR
-	overworld_sprite JiggSprite, 12             ; SPRITE_JIGG
-	overworld_sprite MachoSprite, 12             ; SPRITE_MACHO
-	overworld_sprite ChopSprite, 12             ; SPRITE_CHOP
-	overworld_sprite NidofSprite, 12             ; SPRITE_NIDOF
-	overworld_sprite NidomSprite, 12             ; SPRITE_NIDOM
-	overworld_sprite GeySprite, 12             ; SPRITE_GEY
-	overworld_sprite PikaSprite, 12             ; SPRITE_PIKA
-	overworld_sprite ZapSprite, 12             ; SPRITE_ZAP
-	overworld_sprite BulbasaurSprite, 12       ; SPRITE_BULBASAUR
-	overworld_sprite VoltorbSprite, 12         ; SPRITE_VOLTORB
-        overworld_sprite ElectrodeSprite, 12       ; SPRITE_ELECTRODE
-	overworld_sprite KabutoSprite, 12          ; SPRITE_KABUTO
-	overworld_sprite PikadollSprite, 12        ; SPRITE_PIKADOLL
-	overworld_sprite JiggdollSprite, 12        ; SPRITE_JIGGDOLL
-	overworld_sprite BrockSprite, 12
-	overworld_sprite MistySprite, 12
-	overworld_sprite SurgeSprite, 12
-	overworld_sprite ErikaSprite, 12
-	overworld_sprite SabrinaSprite, 12
-	overworld_sprite BlaineSprite, 12
-	overworld_sprite BillSprite, 12	
+	overworld_sprite PolywrathSprite, 12        ; SPRITE_POLYWRATH
+	overworld_sprite ArticunoSprite, 12         ; SPRITE_ARTICUNO
+	overworld_sprite ChanseySprite, 12          ; SPRITE_CHANSEY
+	overworld_sprite ClefairySprite, 12         ; SPRITE_CLEFAIRY
+	overworld_sprite CuboneSprite, 12           ; SPRITE_CUBONE
+	overworld_sprite KangaskhanSprite, 12       ; SPRITE_KANGASKHAN
+	overworld_sprite LaprasSprite, 12           ; SPRITE_LAPRAS
+	overworld_sprite MeowthSprite, 12           ; SPRITE_MEOWTH
+	overworld_sprite MewtwoSprite, 12           ; SPRITE_MEWTWO
+	overworld_sprite MoltresSprite, 12          ; SPRITE_MOLTRESTRES
+	overworld_sprite NidorinoSprite, 12         ; SPRITE_NIDORINO
+	overworld_sprite PidgeotSprite, 12          ; SPRITE_PIDGEOT
+	overworld_sprite PsyduckSprite, 12          ; SPRITE_PSYDUCK
+	overworld_sprite SlowbroSprite, 12	    ; SPRITE_SLOWBRO
+	overworld_sprite SlowpokeSprite, 12         ; SPRITE_SLOWPOKE
+	overworld_sprite SpearowSprite, 12          ; SPRITE_SPEAROW
+	overworld_sprite WigglytuffSprite, 12       ; SPRITE_WIGGLYTUFF
+	overworld_sprite DoduoSprite, 12            ; SPRITE_DODUO
+	overworld_sprite FearowSprite, 12           ; SPRITE_FEAROW
+	overworld_sprite JigglypuffSprite, 12       ; SPRITE_JIGGLYPUFF
+	overworld_sprite MachokeSprite, 12          ; SPRITE_MACHOKE
+	overworld_sprite MachopSprite, 12           ; SPRITE_MACHOP
+	overworld_sprite NidoranFSprite, 12         ; SPRITE_NIDORANF
+	overworld_sprite NidoranMSprite, 12         ; SPRITE_NIDORANM
+	overworld_sprite PidgeySprite, 12           ; SPRITE_PIDGEY
+	overworld_sprite PikachuSprite, 12          ; SPRITE_PIKACHU
+	overworld_sprite ZapdosSprite, 12           ; SPRITE_ZAPDOS
+	overworld_sprite BulbasaurSprite, 12        ; SPRITE_BULBASAUR
+	overworld_sprite VoltorbSprite, 12          ; SPRITE_VOLTORB
+        overworld_sprite ElectrodeSprite, 12        ; SPRITE_ELECTRODE
+	overworld_sprite KabutoSprite, 12           ; SPRITE_KABUTO
+	overworld_sprite BrockSprite, 12	    ; SPRITE_BROCK
+	overworld_sprite MistySprite, 12	    ; SPRITE_MISTY
+	overworld_sprite SurgeSprite, 12	    ; SPRITE_SURGE
+	overworld_sprite ErikaSprite, 12            ; SPRITE_ERIKA
+	overworld_sprite SabrinaSprite, 12          ; SPRITE_JIGGDOLL
+	overworld_sprite BlaineSprite, 12	    ; SPRITE_BLAINE
+	overworld_sprite BillSprite, 12		    ; SPRITE_BILL
 	overworld_sprite OfficerJennySprite, 12     ; SPRITE_OFFICER_JENNY
 	overworld_sprite JanineSprite, 12           ; SPRITE_JANINE
 	overworld_sprite PokeBallSprite, 4          ; SPRITE_POKE_BALL
