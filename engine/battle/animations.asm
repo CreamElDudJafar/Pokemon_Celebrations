@@ -989,11 +989,11 @@ DoGrowlSpecialEffects:
 	ret
 
 ; this is associated with Tail Whip, but Tail Whip doesn't use any subanimations
-TailWhipAnimationUnused:
-	ld a, 1
-	ld [wSubAnimCounter], a
-	ld c, 20
-	jp DelayFrames
+;TailWhipAnimationUnused:
+;	ld a, 1
+;	ld [wSubAnimCounter], a
+;	ld c, 20
+;	jp DelayFrames
 
 INCLUDE "data/battle_anims/special_effect_pointers.asm"
 
