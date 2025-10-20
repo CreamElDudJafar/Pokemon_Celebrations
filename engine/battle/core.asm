@@ -501,6 +501,8 @@ HandleMovePriority:
         ret
 
 INCLUDE "data/battle/priority_moves.asm"
+
+
 HandlePoisonBurnLeechSeed:
 	ld hl, wBattleMonHP
 	ld de, wBattleMonStatus
@@ -4735,8 +4737,6 @@ JumpToOHKOMoveEffect:
 	ld a, [wMoveMissed]
 	dec a
 	ret
-
-INCLUDE "data/battle/unused_critical_hit_moves.asm"
 
 ; determines if attack is a critical hit
 ; Azure Heights claims "the fastest pokémon (who are, not coincidentally,
