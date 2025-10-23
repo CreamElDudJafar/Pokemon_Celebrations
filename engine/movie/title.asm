@@ -262,7 +262,7 @@ ENDC
 ;This is accomplished by copying the tile map to vram at an offset.
 ;The goal is to get the tile map for the bottom half of the title screen
 ;resides in the BGMap1 address space (address $9c00).
-	ld a, (vBGMap0 + $300) / $100
+	ld a, HIGH(vBGMap0 + $300)
 	call TitleScreenCopyTileMapToVRAM
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
