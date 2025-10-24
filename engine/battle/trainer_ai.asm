@@ -966,6 +966,9 @@ AIPrintItemUseAndUpdateHPBar:
 	xor a
 	ld [wHPBarType], a
 	predef UpdateHPBar2
+	push af
+	farcall DrawEnemyHUDAndHPBar
+	pop af
 	jp DecrementAICount
 
 AISwitchIfEnoughMons:
@@ -1058,14 +1061,17 @@ AICureStatus:	;shinpokerednote: CHANGED: modified to be more robust and also und
 	ld [wEnemyMonStatus], a ; clear status in active enemy data
 	ld hl, wEnemyBattleStatus3
 	res BADLY_POISONED, [hl]	;clear toxic bit
+	push af
+	farcall DrawEnemyHUDAndHPBar
+	pop af
 	ret
 
-AIUseXAccuracy: ; unused
-	call AIPlayRestoringSFX
-	ld hl, wEnemyBattleStatus2
-	set 0, [hl]
-	ld a, X_ACCURACY
-	jp AIPrintItemUse
+;AIUseXAccuracy: ; unused
+;	call AIPlayRestoringSFX
+;	ld hl, wEnemyBattleStatus2
+;	set 0, [hl]
+;	ld a, X_ACCURACY
+;	jp AIPrintItemUse
 
 AIUseGuardSpec:
 	call AIPlayRestoringSFX
@@ -1074,18 +1080,19 @@ AIUseGuardSpec:
 	ld a, GUARD_SPEC
 	jp AIPrintItemUse
 
-AIUseDireHit: ; unused
-	call AIPlayRestoringSFX
-	ld hl, wEnemyBattleStatus2
-	set 2, [hl]
-	ld a, DIRE_HIT
-	jp AIPrintItemUse
+;AIUseDireHit: ; unused
+;	call AIPlayRestoringSFX
+;	ld hl, wEnemyBattleStatus2
+;	set 2, [hl]
+;	ld a, DIRE_HIT
+;	jp AIPrintItemUse
 
 ; PureRGBnote: ADDED: if enemy HP is below a 1/[wUnusedC000], store 1 in wUnusedC000.
 AICheckIfHPBelowFractionStore::
 	ld a, [wUnusedC000]
 	call AICheckIfHPBelowFraction
 	jr c, .below
+
 	xor a
 	jr .done
 .below
