@@ -701,7 +701,7 @@ TradeCenter_Trade:
 	ld hl, wcd6d
 	ld de, wNameOfPlayerMonToBeTraded
 	ld bc, NAME_LENGTH
-	rst _CopyData
+	call CopyData
 	ld a, [wTradingWhichEnemyMon]
 	ld hl, wEnemyPartySpecies
 	ld c, a
