@@ -1,6 +1,6 @@
-ExclamationText:: ; unused
-	 text_far _ExclamationText
-	 text_end
+;ExclamationText:: ; unused
+;	 text_far _ExclamationText
+;	 text_end
 
 ;GroundRoseText:: ; unused
 ;	text_far _GroundRoseText
