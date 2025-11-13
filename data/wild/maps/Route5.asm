@@ -3,7 +3,7 @@ Route5WildMons:
 IF (DEF(_RED) || DEF(_GREEN)) 
 	db 13, ODDISH
 	db 13, PIDGEY
-	db 15, PIDGEY
+	db 15, FARFETCHD
 	db 10, MEOWTH
 	db 12, MANKEY
 	db 15, ODDISH
@@ -15,7 +15,7 @@ ENDC
 IF DEF(_BLUE)
 	db 13, BELLSPROUT
 	db 13, PIDGEY
-	db 15, PIDGEY
+	db 15, FARFETCHD
 	db 10, MEOWTH
 	db 12, MANKEY
 	db 15, BELLSPROUT
