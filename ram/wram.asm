@@ -1204,6 +1204,7 @@ wLoadedMon:: party_struct wLoadedMon
 ;        for the player and NPCs is in use for font tile patterns.
 ;        This means that NPC movement must be disabled.
 ; The other bits are unused.
+wAIWhichPokemonSentOutAlready::
 wFontLoaded:: db
 
 ; walk animation counter
