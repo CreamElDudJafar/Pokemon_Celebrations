@@ -10,13 +10,13 @@
 	INCBIN "gfx/pokemon/front/weezing.pic", 0, 1 ; sprite dimensions
 	dw WeezingPicFront, WeezingPicBack
 
-	db TACKLE, SMOG, SLUDGE, NO_MOVE ; level 1 learnset
+	db TACKLE, SMOG, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        HYPER_BEAM,   RAGE,         THUNDERBOLT,  THUNDER,      \
-	     MIMIC,        DOUBLE_TEAM,  BIDE,         SELFDESTRUCT, FIRE_BLAST,   \
-	     REST,         EXPLOSION,    SUBSTITUTE
+	tmhm TOXIC,        HYPER_BEAM,   RAGE,    THUNDERBOLT,  THUNDER,      \
+	     MIMIC,        DOUBLE_TEAM,  BIDE,    SELFDESTRUCT,  FIRE_BLAST,   \
+	     REST,         EXPLOSION,    SUBSTITUTE, FLAMETHROWER
 	; end
 
 	db BANK(WeezingPicFront)

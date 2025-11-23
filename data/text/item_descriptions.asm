@@ -607,6 +607,11 @@ _TM50Description::
 	next "1/4 user's max HP."
 	prompt
 
+_TM51Description::
+	text "An attack that mat"
+	next "inflict a burn."
+	prompt
+
 _UnusedItemDescription::
 	text "?"
 	prompt
