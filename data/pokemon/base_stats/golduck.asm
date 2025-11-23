@@ -10,7 +10,7 @@
 	INCBIN "gfx/pokemon/front/golduck.pic", 0, 1 ; sprite dimensions
 	dw GolduckPicFront, GolduckPicBack
 
-	db SCRATCH, TAIL_WHIP, DISABLE, NO_MOVE ; level 1 learnset
+	db SCRATCH, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
@@ -19,7 +19,7 @@
 	     HYPER_BEAM,   PAY_DAY,      SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
 	     RAGE,         DIG,          MIMIC,        DOUBLE_TEAM,  BIDE,         \
 	     SWIFT,        SKULL_BASH,   REST,         SUBSTITUTE,   SURF,         \
-	     STRENGTH
+	     STRENGTH, PSYCHIC_M, PSYWAVE
 	; end
 
 	db BANK(GolduckPicFront)
