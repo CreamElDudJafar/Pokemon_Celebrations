@@ -608,7 +608,7 @@ _TM50Description::
 	prompt
 
 _TM51Description::
-	text "An attack that mat"
+	text "An attack that may"
 	next "inflict a burn."
 	prompt
 
