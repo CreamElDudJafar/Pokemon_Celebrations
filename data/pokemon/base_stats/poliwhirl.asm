@@ -10,7 +10,7 @@
 	INCBIN "gfx/pokemon/front/poliwhirl.pic", 0, 1 ; sprite dimensions
 	dw PoliwhirlPicFront, PoliwhirlPicBack
 
-	db BUBBLE, HYPNOSIS, WATER_GUN, NO_MOVE ; level 1 learnset
+	db BUBBLE, HYPNOSIS, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset
@@ -19,7 +19,7 @@
 	     SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         EARTHQUAKE,   \
 	     FISSURE,      PSYCHIC_M,    MIMIC,        DOUBLE_TEAM,  BIDE,         \
 	     METRONOME,    SKULL_BASH,   REST,         PSYWAVE,      SUBSTITUTE,   \
-	     SURF,         STRENGTH
+	     SURF,         STRENGTH,   DREAM_EATER
 	; end
 
 	db BANK(PoliwhirlPicFront)
