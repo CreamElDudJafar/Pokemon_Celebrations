@@ -2219,7 +2219,9 @@ wObtainedHiddenCoinsFlags:: flag_array 16
 ; $02 = surfing
 wWalkBikeSurfState:: db
 
-	ds 10
+wSafariType:: db
+
+	ds 9
 
 wTownVisitedFlag:: flag_array NUM_FLY_LOCATIONS
 
@@ -2439,9 +2441,7 @@ wUnusedDA38:: db
 ; mostly copied from map-specific map script pointer and written back later
 wCurMapScript:: db
 
-wSafariType:: db
-
-	ds 5
+wStartBattleLevels:: ds PARTY_LENGTH ; (6) PureRGB
 
 wPlayTimeHours:: db
 wPlayTimeMaxed:: db
