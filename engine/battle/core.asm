@@ -7063,6 +7063,10 @@ DetermineWildOpponent:
 	callfar TryDoWildEncounter
 	ret nz
 InitBattleCommon:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; shinpokerednote: ADDED: store PKMN Levels at the beginning of the Battle.
+	farcall StorePKMNLevels
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [wMapPalOffset]
 	push af
 	ld hl, wLetterPrintingDelayFlags
