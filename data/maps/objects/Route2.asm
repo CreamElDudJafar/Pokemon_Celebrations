@@ -22,10 +22,3 @@ Route2_Object:
 	object_event 13, 45, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE2_HP_UP, HP_UP
 
 	def_warps_to ROUTE_2
-
-	; unused
-	warp_to 2, 7, 4
-	db $12, $c7, $9, $7
-	warp_to 2, 7, 4
-	warp_to 2, 7, 4
-	warp_to 2, 7, 4
