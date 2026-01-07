@@ -385,6 +385,7 @@ INCLUDE "engine/menus/option_sound_test.asm"
 INCLUDE "engine/custom_function/coin_function.asm"
 INCLUDE "engine/custom_function/monlist.asm"
 INCLUDE "engine/gfx/set_attack_animation_palette.asm"
+INCLUDE "engine/menus/item_display_count.asm"
 
 
 
