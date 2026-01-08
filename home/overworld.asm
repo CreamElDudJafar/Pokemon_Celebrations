@@ -110,6 +110,7 @@ OverworldLoopLessDelay::
 
 	; Check for field moves that interact with the bg.
 	predef TryFieldMove
+	callfar TryFlash ; jp OverworldLoop if succeeds
 	jp OverworldLoop
 
 .displayDialogue
