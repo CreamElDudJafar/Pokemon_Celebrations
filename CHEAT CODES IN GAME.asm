@@ -21,7 +21,7 @@ Master Balls in Mart:
 
 0101E3D0
 
-9900 Coins:
+9999 Coins:
 
 0199A5D5
-0199A5D5
+0199A6D5
