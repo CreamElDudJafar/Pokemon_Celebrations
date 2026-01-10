@@ -97,7 +97,7 @@ IsCutTile:
 	and a
 	ret
 
-TryFlash::
+TryFlash:
 	ldh a, [hJoyHeld]
 	bit BIT_A_BUTTON, a
 	ret z
@@ -186,9 +186,9 @@ CloseFieldMoveTextBox:
 	push af
 	jp CloseTextDisplay
 
-ExplainSurfText:
-	text "This water can"
-	line "be SURF!@@"
+;ExplainSurfText:
+;	text "This water can"
+;	line "be SURF!@@"
 	
 PromptToSurfText:
 	text "The water is calm."
