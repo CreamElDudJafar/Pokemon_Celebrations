@@ -22,8 +22,8 @@ jobs:
       - name: Install rgbds
         working-directory: rgbds
         run: |
-           sudo apt-get update
-          sudo apt-get install -yq bison libpng-dev pkg-config
+          sudo apt-get install -yq libpng-dev
+          sudo make install
       
 
       - name: Remove rgbds
