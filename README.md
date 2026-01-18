@@ -40,7 +40,7 @@ Some FEATURES:
 - Pikachu and Raichu can learn SURF through HM, just like in Yellow version
 - PROF. OAK gives you 5 POKÉBALLS when you receive the POKÉDEX.
 - TM names in BAG and MART (TM24 it says TM24 THNDRBLT)
-- 50 item bag space
+- 60 item bag space
 - Can Toggle Beta Rainbow Palette in Celadon City
 - Auto HM use (eg: surf, just touch the water and say YES)
 - Deletable HM's 
