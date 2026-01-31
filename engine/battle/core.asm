@@ -164,6 +164,7 @@ StartBattle:
 	ld [wPartyGainExpFlags], a
 	ld [wPartyFoughtCurrentEnemyFlags], a
 	ld [wActionResultOrTookBattleTurn], a
+	ld [wLowHealthTonePairs], a ; shinpokerednote: FIXED: low health alarm sanity: clear low health tone tracker
 	inc a
 	ld [wFirstMonsNotOutYet], a
 	ld hl, wEnemyMon1HP
