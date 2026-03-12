@@ -1,14 +1,8 @@
-# Pokémon Red and Blue and Green [![Build Status][ci-badge]][ci]
+# Pokémon Red and Blue and Green Celebrations [![Build Status][ci-badge]][ci]
 This is a disassembly of Pokémon Red and Blue and Green.
 
-It builds the following ROMs:
+<img width="1080" height="1080" alt="RBG" src="https://github.com/user-attachments/assets/ac70c30c-0123-4293-9105-772937a930de" />
 
-- Pokemon Red (UE) [S][!]
-- Pokemon Blue (UE) [S][!]
-- Pokemon Green (UE) [S][!]
-- BLUEMONS.GB (debug build) 
-- dmgapae0.e69.patch
-- dmgapee0.e68.patch
 
 Some FEATURES:
 - Master branch: Gen 1 Audio. CrysAudio: Gen 2 Audio, Master-Celebrations: Unique Gen 1 Sprites, Master-Celebrations-CrysAudio: Unique Gen 1 Sprites with Crysaudio
