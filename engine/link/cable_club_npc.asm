@@ -10,6 +10,7 @@ CableClubNPC::
 	rst _PrintText
 	jp .didNotConnect
 .receivedPokedex
+	callfar GBCSetCPU1xSpeed
 	ld a, $1
 	ld [wMenuJoypadPollCount], a
 	ld a, 90
