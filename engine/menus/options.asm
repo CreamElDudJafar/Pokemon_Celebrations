@@ -370,7 +370,7 @@ OptionsMenu_GoHome:
 	ret
 .popAndJump
 	pop hl ; pop the 'call GetOptionPointer' return address
-	jp DisplayOptionMenu
+	jp DisplayOptionMenu_
 
 GoHomeConfirmText:
 	text_far _GoHomeConfirmText
