@@ -82,3 +82,29 @@ ENDC
 	RGB 31,31,31, 31,17,11, 11,05,14, 03,03,03 ; PAL_MEWMON2
 	RGB 31,31,31, 22,13,30, 00,09,31, 03,03,03 ; PAL_MEWMON3
 	assert_table_length NUM_SGB_PALS
+
+; PureRGBnote: ADDED: the colors that display on gbc without any modifications to pokemon red/blue code.
+; The "duochromatic" colors that original displayed on GBC games playing red/blue/green.
+; only 2 palettes, one for background and OBJ1, another for OBJ0
+
+GBC_OGPalettes_BGOBJ1:
+IF DEF(_RED)
+	RGB 31,31,31, 31,16,16, 18,07,07, 00,00,00 ; BG, OBJ1
+ENDC
+IF DEF(_BLUE)
+	RGB 31,31,31, 12,20,31, 00,00,31, 00,00,00 ; BG, OBJ1
+ENDC
+IF DEF(_GREEN)
+	RGB 31,31,31, 15,31,06, 00,16,00, 00,00,00 ; BG, OBJ1
+ENDC
+
+GBC_OGPalettes_OBJ0:
+IF DEF(_RED)
+	RGB 31,31,31, 15,31,06, 00,16,00, 00,00,00 ; OBJ0
+ENDC
+IF DEF(_BLUE)
+	RGB 31,31,31, 31,16,16, 18,07,07, 00,00,00 ; OBJ0
+ENDC
+IF DEF(_GREEN)
+	RGB 31,31,31, 12,20,31, 00,00,31, 00,00,00 ; OBJ0
+ENDC

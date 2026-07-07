@@ -95,6 +95,7 @@ DEF rLCDC_DEFAULT EQU %11100011
 
 	ei
 
+	callfar CopyOptionsFromSRAM
 	predef LoadSGB
 
 	ld a, BANK(SFX_Shooting_Star)
