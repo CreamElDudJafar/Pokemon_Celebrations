@@ -468,6 +468,15 @@ CheckForPlayerNameInSRAM:
 	ld a, $1
 	ld [MBC1SRamBankingMode], a
 	ld [MBC1SRamBank], a
+	call CheckSaveFileExists
+	push af
+	xor a
+	ld [MBC1SRamEnable], a
+	ld [MBC1SRamBankingMode], a
+	pop af
+	ret
+
+CheckSaveFileExists::
 	ld b, NAME_LENGTH
 	ld hl, sPlayerName
 .loop
@@ -476,15 +485,8 @@ CheckForPlayerNameInSRAM:
 	jr z, .found
 	dec b
 	jr nz, .loop
-; not found
-	xor a
-	ld [MBC1SRamEnable], a
-	ld [MBC1SRamBankingMode], a
-	and a
+	and a ; clear carry
 	ret
 .found
-	xor a
-	ld [MBC1SRamEnable], a
-	ld [MBC1SRamBankingMode], a
 	scf
 	ret

@@ -963,7 +963,9 @@ wFlags_0xcd60:: db
 wLowHealthTonePairs:: db ;in battle, used as a counter for low hp alarm tone pairs. Bit 7 is a flag that indicates tones are currently being played.
 ;;;;;;;;;;
 
-	ds 8
+wNewInGameFlags:: db
+
+	ds 7
 
 ; This has overlapping related uses.
 ; When the player tries to use an item or use certain field moves, 0 is stored
@@ -1979,7 +1981,13 @@ wPlayerGender::
 
 wStoredMovedexListIndex:: db
 
-; 4 bytes left to use
+; bits 0-1 = Palette setting 
+; 00 = Original
+; 01 = SGB
+; 11 = Yellow
+wOptions2:: db
+
+; 3 bytes left to use
 
 ENDU
 ;;;;;;;;;;
