@@ -28,8 +28,20 @@ IF DEF(_DEBUG)
 ;	ld de, DebugMenuOptions
 ;	call PlaceString
 
-	ld a, TEXT_DELAY_MEDIUM
+;	ld a, TEXT_DELAY_MEDIUM
+;	ld [wOptions], a
+
+; Debug default option menu selections
+	ld a, [wOptions]
+	and ~TEXT_DELAY_MASK
+	or TEXT_DELAY_FAST
 	ld [wOptions], a
+
+	ld hl, wLetterPrintingDelayFlags
+	set 0, [hl]
+
+	ld a, $40
+	ld [wPrinterSettings], a
 
 	ld a, A_BUTTON | B_BUTTON | START
 	ld [wMenuWatchedKeys], a
