@@ -1,5 +1,5 @@
-; wUnusedD726 = wDVCalcVar
-; wUnusedD722 = wDVCalcVar2
+; wDVCalcVar1 = status-screen page state (first byte used)
+; wDVCalcVar2 = parsed Attack/Defense/Speed/Special/HP DVs
 ; hFlags_0xFFF6 = hUILayoutFlags
 ; hTilesetType = hTilesetAnimations
 
@@ -91,7 +91,7 @@ StatusScreen:
 	call UpdateSprites
 	call LoadHpBarAndStatusTilePatterns
 	ld de, BattleHudTiles1  ; source
-	ld hl, vChars2 tile $6d; dest
+	ld hl, vChars2 tile $6d ; dest
 	lb bc, BANK(BattleHudTiles1), 3
 	call CopyVideoDataDouble ; ·│ :L and halfarrow line end
 	ld de, BattleHudTiles2
@@ -123,43 +123,48 @@ StatusScreen:
 	hlcoord 11, 3
 	predef DrawHP
 	
-	;joenote - print stat exp if select is held
-	;parse dv stats here so they can be grabbed later
+	; Parse the current Pokémon's DVs for the DV page.
 	push de
 	ld bc, SCREEN_WIDTH + 1
 	add hl, bc
 	call DVParse
-	call Joypad
-	
-	ld a, [hJoyHeld]
-	and SELECT | START
-	jr z, .noblank
+
+	; wDVCalcVar1 is the status-page index:
+	; 0 = regular calculated stats
+	; 1 = DVs
+	; 2 = full Stat Exp
+	ld a, [wDVCalcVar1]
+	and a
+	jr z, .regularHP
+
+	; Remove the normal current/max HP fraction before printing
+	; the HP DV or the full HP Stat Exp value.
 	push hl
 	ld a, " "
+	ld b, 7
+.clearHPValue
 	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
+	dec b
+	jr nz, .clearHPValue
 	pop hl
-.noblank
-	
-	ld a, [hJoyHeld]
-	bit BIT_SELECT, a
-	jr z, .checkstart
+
+	ld a, [wDVCalcVar1]
+	cp 1
+	jr z, .printHPDV
+
+	; Page 2: full HP Stat Exp, 0-65535.
 	ld de, wLoadedMonHPExp
 	lb bc, 2, 5
-	jr .printnum
-.checkstart	;print DVs if start is held
-	bit BIT_START, a
-	jr z, .doregular
+	call PrintNumber
+	jr .regularHP
+
+.printHPDV
+	; Page 1: HP DV, 0-15.
 	ld de, wDVCalcVar2 + 4
 	lb bc, 1, 2
-.printnum
 	call PrintNumber
-.doregular
+
+.regularHP
 	pop de
 	ld hl, wStatusScreenHPBarColor
 	call GetHealthBarColor
@@ -176,42 +181,42 @@ StatusScreen:
 	ld [wLoadedMonLevel], a
 	pop af
 	ld [wBattleMonLevel], a
-	hlcoord 16, 6
+	coord hl, 16, 6
 	ld de, wLoadedMonStatus
 	call PrintStatusCondition
 	jr nz, .StatusWritten
-	hlcoord 16, 6
+	coord hl, 16, 6
 	ld de, OKText
 	call PlaceString ; "OK"
 .StatusWritten
-	hlcoord 9, 6
+	coord hl, 9, 6
 	ld de, StatusText
 	call PlaceString ; "STATUS/"
-	hlcoord 14, 2
+	coord hl, 14, 2
 	call PrintLevel ; Pokémon level
 	ld a, [wMonHIndex]
 	ld [wd11e], a
 	ld [wd0b5], a
 	predef IndexToPokedex
-	hlcoord 3, 7
+	coord hl, 3, 7
 	ld de, wd11e
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber ; Pokémon no.
-	hlcoord 11, 10
+	coord hl, 11, 10
 	predef PrintMonType
 	ld hl, NamePointers2
 	call .GetStringPointer
 	ld d, h
 	ld e, l
-	hlcoord 9, 1
+	coord hl, 9, 1
 	call PlaceString ; Pokémon name
 	ld hl, OTPointers
 	call .GetStringPointer
 	ld d, h
 	ld e, l
-	hlcoord 12, 16
+	coord hl, 12, 16
 	call PlaceString ; OT
-	hlcoord 12, 14
+	coord hl, 12, 14
 	ld de, wLoadedMonOTID
 	lb bc, LEADING_ZEROES | 2, 5
 	call PrintNumber ; ID Number
@@ -219,7 +224,7 @@ StatusScreen:
 	call PrintStatsBox
 	call Delay3
 	call GBPalNormal
-	hlcoord 1, 0
+	coord hl, 1, 0
 	call LoadFlippedFrontSpriteByMonIndex ; draw Pokémon picture
 	ld a, [wcf91]
 	call PlayCry ; play Pokémon cry
@@ -306,8 +311,7 @@ PrintStatsBox:
 	jr .PrintStats
 .DifferentBox
 	hlcoord 9, 2
-	ld b, 8
-	ld c, 9
+	lb bc, 8, 9
 	call TextBoxBorder
 	hlcoord 11, 3
 	ld bc, $18
@@ -320,12 +324,18 @@ PrintStatsBox:
 	pop bc
 	add hl, bc
 ; New Stat Exp / DVs display functionality, from shin pokered.
-;joenote - print stat exp if select is held
-	call Joypad
-	ld a, [hJoyHeld]
-	bit 2, a
-	jr z, .checkstart
-	dec l	;shift alignment 2 tiles to the left
+	; wDVCalcVar1 is the status-page index:
+	; 0 = regular calculated stats
+	; 1 = DVs
+	; 2 = full Stat Exp
+	ld a, [wDVCalcVar1]
+	and a
+	jr z, .doregular
+	cp 1
+	jr z, .doDVs
+
+	; Page 2: full Stat Exp values, 0-65535.
+	dec l ; shift five-digit values two tiles to the left
 	dec l
 	ld de, wLoadedMonAttackExp
 	lb bc, 2, 5
@@ -336,9 +346,9 @@ PrintStatsBox:
 	call PrintStat
 	ld de, wLoadedMonSpecialExp
 	jp PrintNumber
-.checkstart	;joenote - print DVs if start is held
-	bit 3, a
-	jr z, .doregular
+
+.doDVs
+	; Page 1: Attack, Defense, Speed, and Special DVs, 0-15.
 	ld de, wDVCalcVar2
 	lb bc, 1, 2
 	call PrintStat
@@ -348,6 +358,7 @@ PrintStatsBox:
 	call PrintStat
 	ld de, wDVCalcVar2 + 3
 	jp PrintNumber
+
 .doregular
 	ld de, wLoadedMonAttack
 	lb bc, 2, 3
@@ -394,8 +405,7 @@ StatusScreen2:
 	ld c, 10
 	call DrawLineBox
 	hlcoord 0, 8
-	ld b, 8
-	ld c, 18
+	lb bc, 8, 18
 	call TextBoxBorder ; Draw move container
 	hlcoord 2, 9
 	ld de, wMovesString
@@ -637,15 +647,28 @@ ExitStatusScreen:
 StatusScreenLoop:
 	ldh a, [hTileAnimations]
 	push af
+
+	; Every newly opened status screen begins on regular stats.
+	; Keep this above .displayNextMon so changing Pokémon does not
+	; reset DVs or Stat Exp back to the regular page.
+	xor a
+	ld [wDVCalcVar1], a
+
 .displayNextMon
 	call StatusScreen
-	call PokemonStatusWaitForButtonPress
+
+.waitStatsInput
+	call PokemonStatsWaitForButtonPress
 	bit BIT_D_UP, a
 	jr nz, .prevMon
 	bit BIT_D_DOWN, a
 	jr nz, .nextMon
+	bit BIT_SELECT, a
+	jr nz, .nextStatsPage
 	bit BIT_B_BUTTON, a
 	jr nz, .exitStatus
+
+	; A opens the moves/EXP page.
 	call StatusScreen2
 	call PokemonStatusWaitForButtonPress
 	bit BIT_D_UP, a
@@ -654,18 +677,126 @@ StatusScreenLoop:
 	jr nz, .nextMon
 .exitStatus
 	jp ExitStatusScreen
+
+.nextStatsPage
+	ld hl, wDVCalcVar1
+	inc [hl]
+	ld a, [hl]
+	cp 3
+	jr c, .redrawStatsPage
+	xor a
+	ld [hl], a
+
+.redrawStatsPage
+	call RedrawStatusStatsPage
+	jr .waitStatsInput
+
 .nextMon
 	ld hl, wWhichPokemon
 	inc [hl]
 	ld hl, wPartyAndBillsPCSavedMenuItem
 	inc [hl]
 	jr .displayNextMon
+
 .prevMon
 	ld hl, wWhichPokemon
 	dec [hl]
 	ld hl, wPartyAndBillsPCSavedMenuItem
 	dec [hl]
 	jr .displayNextMon
+
+
+RedrawStatusStatsPage:
+; Redraw only the values that change between the regular stats, DV,
+; and Stat Exp pages. This avoids rerunning StatusScreen, so SELECT
+; does not clear/fade the screen, reload graphics, redraw the Pokémon,
+; or replay its cry.
+
+	; Clear the HP number area used by all three pages.
+	hlcoord 12, 4
+	ld bc, 7
+	ld a, " "
+	call FillMemory
+
+	ld a, [wDVCalcVar1]
+	and a
+	jr z, .regularHP
+	cp 1
+	jr z, .dvHP
+
+	; Page 2: full HP Stat Exp, 0-65535.
+	hlcoord 12, 4
+	ld de, wLoadedMonHPExp
+	lb bc, 2, 5
+	call PrintNumber
+	jr .redrawStats
+
+.dvHP
+	; Page 1: HP DV, 0-15.
+	hlcoord 12, 4
+	ld de, wDVCalcVar2 + 4
+	lb bc, 1, 2
+	call PrintNumber
+	jr .redrawStats
+
+.regularHP
+	; Page 0: normal current/max HP fraction.
+	hlcoord 12, 4
+	ld de, wLoadedMonHP
+	lb bc, 2, 3
+	call PrintNumber
+	ld a, "/"
+	ld [hli], a
+	ld de, wLoadedMonMaxHP
+	lb bc, 2, 3
+	call PrintNumber
+
+.redrawStats
+	; Clear the widest number area on all four stat rows.
+	; Stat Exp starts at x=4 and can occupy five tiles.
+	ld a, " "
+	hlcoord 4, 10
+	ld bc, 5
+	call FillMemory
+	ld a, " "
+	hlcoord 4, 12
+	ld bc, 5
+	call FillMemory
+	ld a, " "
+	hlcoord 4, 14
+	ld bc, 5
+	call FillMemory
+	ld a, " "
+	hlcoord 4, 16
+	ld bc, 5
+	call FillMemory
+
+	; PrintStatsBox redraws only this small box and its values.
+	ld d, 0
+	call PrintStatsBox
+	call Delay3
+	ret
+
+PokemonStatsWaitForButtonPress:
+	ld a, A_BUTTON | B_BUTTON | SELECT
+	ld b, a
+	ld a, [wWhichPokemon]
+	and a
+	jr z, .checkDown
+	ld a, b
+	or D_UP
+	ld b, a
+.checkDown
+	ld a, [wPartyCount]
+	dec a
+	ld c, a
+	ld a, [wWhichPokemon]
+	cp c
+	jr z, PokedexStatusWaitForButtonPressLoop
+	ld a, b
+	or D_DOWN
+	ld b, a
+	jr PokedexStatusWaitForButtonPressLoop
 
 PokemonStatusWaitForButtonPress:
 .decideButtons
