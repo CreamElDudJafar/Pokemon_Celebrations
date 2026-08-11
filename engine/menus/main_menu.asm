@@ -2,7 +2,6 @@ MainMenu:
 ; Check save file
 	call InitOptions
 	xor a
-	ld [wOptionsInitialized], a
 	inc a
 	ld [wSaveFileStatus], a
 	call CheckForPlayerNameInSRAM
@@ -90,8 +89,15 @@ MainMenu:
 	jp z, StartNewGame
 	call ClearScreen ; remove version text when in options
 	call DisplayOptionMenu
-	ld a, 1
-	ld [wOptionsInitialized], a
+	call CheckForPlayerNameInSRAM
+	jr nc, .partialOptionsSave
+	; A normal save exists, so save all game data to keep its checksum valid.
+	callfar SaveSAVtoSRAM
+	jr .doneSavingOptions
+.partialOptionsSave
+	; No normal save exists yet, so save only the option bytes.
+	callfar CopyOptionsToSRAM
+.doneSavingOptions
 	jp .mainMenuLoop
 .choseContinue
 	call DisplayContinueGameInfo
@@ -130,11 +136,15 @@ MainMenu:
 	jp SpecialEnterMap
 
 InitOptions:
+	; Make PrintLetterDelay use the speed selected in wOptions.
 	ld a, TEXT_DELAY_FAST
 	ld [wLetterPrintingDelayFlags], a
+	ld a, [wOptionsInitialized]
+	cp OPTIONS_INITIALIZED_VALUE
+	ret z
 	ld a, TEXT_DELAY_FAST
 	ld [wOptions], a
-	ld a, 64 ; audio?
+	ld a, $40 ; normal GB Printer brightness
 	ld [wPrinterSettings], a
 	ret
 
