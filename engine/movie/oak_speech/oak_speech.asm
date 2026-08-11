@@ -2,8 +2,6 @@ PrepareOakSpeech:
 	ld a, [wLetterPrintingDelayFlags]
 	push af
 	call BackupOptionsSettings
-	ld a, [wPrinterSettings]
-	push af
 	ld hl, wPlayerName
 	ld bc, wBoxDataEnd - wPlayerName
 	xor a
@@ -12,8 +10,6 @@ PrepareOakSpeech:
 	ld bc, wSpriteDataEnd - wSpriteDataStart
 	xor a
 	call FillMemory
-	pop af
-	ld [wPrinterSettings], a
 	call RestoreOptionsSettings
 	pop af
 	ld [wLetterPrintingDelayFlags], a
@@ -395,39 +391,65 @@ DoOptionsRestore:
 	ret
 
 BackupList:
-	db 3
+	db 5
 	dw wOptions2
 	dw wOptions
+	dw wPrinterSettings
 	dw wd732
+	dw wOptionsInitialized
+
+CopyOptionsToSRAM::
+	ld a, SRAM_ENABLE
+	ld [MBC1SRamEnable], a
+	ld a, $1
+	ld [MBC1SRamBankingMode], a
+	ld [MBC1SRamBank], a
+
+	ld a, [wOptions2]
+	ld [sOptions2], a
+	ld a, [wOptions]
+	ld [sOptions], a
+	ld a, [wPrinterSettings]
+	ld [sPrinterSettings], a
+	ld a, [wOptionsInitialized]
+	ld [sOptionsInitialized], a
+
+	xor a
+	ld [MBC1SRamBankingMode], a
+	ld [MBC1SRamEnable], a
+	ret
 
 CopyOptionsFromSRAM::
 	ld a, [wOptionsInitialized]
-	and a
-	ret nz
+	cp OPTIONS_INITIALIZED_VALUE
+	ret z
 
 	ld a, SRAM_ENABLE
 	ld [MBC1SRamEnable], a
-
 	ld a, $1
 	ld [MBC1SRamBankingMode], a
 	ld [MBC1SRamBank], a
 
 	call CheckSaveFileExists
-	jr nc, .doneLoad
+	jr c, .loadOptions
+	ld a, [sOptionsInitialized]
+	cp OPTIONS_INITIALIZED_VALUE
+	jr nz, .doneLoad
 
+.loadOptions
 	ld a, [sOptions2]
 	ld [wOptions2], a
-
 	ld a, [sOptions]
 	ld [wOptions], a
+	ld a, [sPrinterSettings]
+	ld [wPrinterSettings], a
+	ld a, OPTIONS_INITIALIZED_VALUE
+	ld [wOptionsInitialized], a
 
 .doneLoad
 	xor a
 	ld [MBC1SRamBankingMode], a
 	ld [MBC1SRamEnable], a
-
-	ld a, TRUE
-	ld [wOptionsInitialized], a
 	ret
 
 
