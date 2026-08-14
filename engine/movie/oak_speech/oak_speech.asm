@@ -14,8 +14,8 @@ PrepareOakSpeech:
 	pop af
 	ld [wLetterPrintingDelayFlags], a
 	ld a, [wOptionsInitialized]
-	and a
-	call z, InitOptions
+	cp OPTIONS_INITIALIZED_VALUE
+	call nz, InitOptions
 	; These debug names are used for StartNewGameDebug.
 	; TestBattle uses the debug names from DebugMenu.
 	; A variant of this process is performed in PrepareTitleScreen.
