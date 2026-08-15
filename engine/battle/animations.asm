@@ -1348,6 +1348,14 @@ _AnimationSlideMonUp:
 ShakeEnemyHUD_WritePlayerMonPicOAM:
 ; Writes the OAM entries for a copy of the player mon's pic in OAM.
 ; The top 5 rows are reproduced in OAM, although only 2 are actually needed.
+	ldh a, [hGBC]
+	and a
+	jr z, .notCGB
+	ld a, [wBattleMonSpecies]
+	ld [wcf91], a
+	lb de, CONVERT_OBP0, 1
+	callfar TransferMonPal
+.notCGB
 	ld a, $10
 	ld [wBaseCoordX], a
 	ld a, $30

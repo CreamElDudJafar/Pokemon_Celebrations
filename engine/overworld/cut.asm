@@ -109,7 +109,9 @@ InitCutAnimOAM:
 	call WriteCutOrBoulderDustAnimationOAMBlock
 	ld hl, wShadowOAMSprite36Attributes
 	ld de, 4
-	ld a, $30
+	ld a, [hl]
+	and $0f
+	or $30
 	ld c, e
 .loop
 	ld [hl], a
