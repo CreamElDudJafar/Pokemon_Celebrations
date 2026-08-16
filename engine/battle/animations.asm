@@ -286,6 +286,7 @@ PlayAnimation:
 	pop af
 	vc_hook_red Stop_reducing_move_anim_flashing_Blizzard
 	ldh [rOBP0], a
+	rst _DelayFrame
 	call UpdateGBCPal_OBP0
 .nextAnimationCommand
 	vc_hook_red Stop_reducing_move_anim_flashing_Hyper_Beam
