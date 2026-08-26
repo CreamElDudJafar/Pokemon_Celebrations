@@ -35,6 +35,46 @@ FarCopyData3::
 	ld [MBC1RomBank], a
 	ret
 
+FarCopyData4::
+	ldh [hROMBankTemp], a
+	ldh a, [hLoadedROMBank]
+	push af
+	ldh a, [hROMBankTemp]
+	ldh [hLoadedROMBank], a
+	ld [MBC1RomBank], a
+	call CheckSpecialCopyData
+	pop af
+	ldh [hLoadedROMBank], a
+	ld [MBC1RomBank], a
+	ret
+
+CheckSpecialCopyData:
+	push af
+	ldh a, [hFlagsFFFA]
+	bit 3, a
+	jr nz, .specialCopy
+	pop af
+	rst _CopyData
+	ret
+.specialCopy
+	pop af
+
+SpecialCopyData:
+	di
+.waitVRAM
+	ldh a, [rSTAT]
+	and %10
+	jr nz, .waitVRAM
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec bc
+	ei
+	ld a, c
+	or b
+	jr nz, SpecialCopyData
+	ret
+
 FarCopyDataDouble::
 ; Expand bc bytes of 1bpp image data
 ; from a:hl to 2bpp data at de.
