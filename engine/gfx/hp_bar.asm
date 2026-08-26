@@ -143,7 +143,11 @@ UpdateHPBar_AnimateHPBar:
 	push af
 	push de
 	ld d, $6
+	xor a
+	ldh [hAutoBGTransferEnabled], a
 	call DrawHPBar
+	ld a, 1
+	ldh [hAutoBGTransferEnabled], a
 	ld c, 1
 	rst _DelayFrames
 	pop de
