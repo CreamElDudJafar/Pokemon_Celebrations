@@ -837,6 +837,14 @@ DMGPalToGBCPal::	;shinpokerednote: gbcnote: new function
 	ldh a, [rOBP1]
 	ld [wLastOBP1], a
 .convert
+	push af
+	ld a, [wOptions2]
+	and %11
+	cp PALETTES_DMG
+	jr nz, .notDMGPalette
+	ld de, CGB_DMGPalette
+.notDMGPalette
+	pop af
 ;"A" now holds the palette data
 	FOR color_index, NUM_PAL_COLORS
 		ld b, a	;"B" now holds the palette data
