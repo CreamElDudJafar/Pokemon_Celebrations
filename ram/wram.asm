@@ -768,8 +768,14 @@ wAreaUnknownCountdown:: db
 
 NEXTU
 wWhichTownMapLocation:: db
+wCurTownMapMaxWildDataFloorIndex::
 wFlyAnimCounter:: db
+wCurTownMapWildDataFloorIndex::
 wFlyAnimBirdSpriteImageIndex:: db
+wCurTownMapWildDataMap:: db
+; 0 = grass / ground, 1 = water, 2 = super rod, 3 = good rod, 4 = old rod
+wCurTownMapWildDataType:: db
+wCurTownMapInternalWildDataMap:: db
 
 NEXTU
 	ds 1
@@ -1153,7 +1159,10 @@ wPartyHPBarAttributes::
 	ds 20
 
 NEXTU
-	ds 29
+	ds 19
+wTownMapWildDataPrintValue:: db
+wTownMapRodCount:: db
+wTownMapRodMons:: ds 8
 ; storage buffer for various strings
 wStringBuffer:: ds 20
 
