@@ -168,4 +168,4 @@ VermilionGymTrashFailText::
 	ld a, SFX_DENIED
 	rst _PlaySound
 	call WaitForSoundToFinish
-	jp TextScriptEnd
+	rst TextScriptEnd
